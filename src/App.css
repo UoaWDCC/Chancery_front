@@ -1,38 +1,49 @@
-.App {
-  text-align: center;
+@keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+@-moz-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+@-webkit-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+@-o-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
 }
 
-.App-link {
-  color: #61dafb;
+.welcome-page {
+    -webkit-animation: fadeIn ease 2s;
+    -moz-animation: fadeIn ease 2s;
+    -o-animation: fadeIn ease 2s;
+    animation: fadeIn ease 4s;
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.welcome-logo {
+    background-color: #21CE99;
+    width: 150px;
+    height: 150px;
+    margin: auto;
+    border-radius: 7px;
+}
+
+.logo {
+    background-color: #21CE99;
+    width: 200px;
+    height: 50px;
+    border-radius: 7px;
+    margin-top: 10px;
+    margin-left: 10px;
 }

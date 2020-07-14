@@ -67,9 +67,7 @@ function App() {
                     <Fragment>
                         <Grid container>
                             <Grid item xs>
-                                <div>
-                                    <h1>chancery</h1>
-                                </div>
+                                <div className={"logo"}> Chancery </div>
                             </Grid>
                             <Grid item xs>
                                 <div className={classes.nav}>
