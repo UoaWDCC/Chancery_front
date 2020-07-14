@@ -17,6 +17,7 @@ const useStyles = makeStyles({
         fontSize: '30px',
         paddingTop: '25px',
         paddingBottom: '40px',
+        display: 'inline-block'
     },
     initials: {
         fontWeight: 'bold',
@@ -27,11 +28,19 @@ const useStyles = makeStyles({
         fontWeight: 'bold',
         fontSize: '25px',
         display: 'inline-block',
+        width: '70%',
     },
-    subheading: {
-        fontSize: '35px',
-        fontWeight: 'bold',
-        paddingBottom: '60px',
+    answerContainer: {
+        marginTop: '20px',
+        padding: '30px',
+        backgroundColor: 'white',
+        width: '70%',
+        borderRadius: '30px',
+        opacity: "0.4",
+        textAlign: 'left',
+    },
+    answer: {
+
     },
     button: {
         borderRadius: '7px',
@@ -58,15 +67,31 @@ function Revise() {
     return (
         <div>
             <Container className={classes.background} >
-                <Typography className={classes.page} variant={"h1"} >
-                1/420
+                
+                <Typography id="question-page-number" className={classes.page} variant={"h1"} >
+                1
                 </Typography>
+                <Typography className={classes.page} variant={"h1"} >
+                /
+                </Typography>
+                <Typography id="total-questions" className={classes.page} variant={"h1"} >
+                420
+                </Typography>
+
+                <br></br>
+
                 <Typography className={classes.initials} variant={"h1"}>
                 Q:&emsp;
                 </Typography>
                 <Typography id="question-content" className={classes.question} variant={"h1"} >
                 What does success look like in this position, and how do you measure it?
                 </Typography>
+
+                <Container className={classes.answerContainer}>
+                    <Typography className={classes.initials} variant={"h1"}>
+                    A:&emsp;
+                    </Typography>
+                </Container>
                 
             </Container>
         </div>
