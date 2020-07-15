@@ -4,6 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
 import {Link} from "react-router-dom";
 import { grey } from "@material-ui/core/colors";
+import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles({
     background: {
@@ -44,26 +45,34 @@ const useStyles = makeStyles({
         backgroundColor: 'white',
         width: '70%',
         borderRadius: '30px',
-        opacity: "0.4",
         textAlign: 'left',
+        position: 'relative',
+        height: '200px',
     },
     answerContent: {
 
     },
-    button: {
-        borderRadius: '7px',
-        borderColor: '#21CE99',
+    answerButton: {
+        color: 'white',
+        backgroundColor: '#21CE99',
+        borderColor: '#ffffff',
         borderWidth: '3px',
-        fontWeight: 'bold',
-        fontSize: '25px',
-        paddingTop: '15px',
-        paddingBottom: '15px',
-        paddingRight: '35px',
-        paddingLeft: '35px',
+        borderRadius: '10px',
+        fontSize: '20px',
+        padding: '10px 20px 10px 20px',
+        
+        position: 'absolute',
+        left: '50%',
+        top: '50%',
+        webkitTransform: 'translate(-50%, -50%)',
+        transform: 'translate(-50%, -50%)',
+
+
         '&:hover': {
             borderWidth: '3px',
-            backgroundColor: '#21CE99',
-            color: '#ffffff',
+            borderColor: '#21CE99',
+            backgroundColor: '#ffffff',
+            color: '#21CE99',
         },
     }
 })
@@ -101,6 +110,7 @@ function Revise() {
                     <Typography className={classes.initials} variant={"h1"}>
                     A:&emsp;
                     </Typography>
+                    <Button className={classes.answerButton} variant={"outlined"}>SHOW ANSWER</Button>
                 </Container>
                 
             </Container>
