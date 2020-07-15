@@ -2,21 +2,22 @@ import React from "react";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
-import {Link} from "react-router-dom";
-import { grey } from "@material-ui/core/colors";
 import { Button } from "@material-ui/core";
+import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles({
     background: {
-        backgroundColor: '#D3D3D3',
+        backgroundColor: '#F5F5F5',
         width: '60%',
         borderRadius: '30px',
         textAlign:'center',
         padding: '20px',
         marginTop: '50px',
+        position: 'relative',
     },
     page: {
-        color: 'grey',
+        fontWeight: 'bold',
+        color: '#818181',
         fontSize: '30px',
         display: 'inline-block'
     },
@@ -31,6 +32,7 @@ const useStyles = makeStyles({
         width: '70%',
         textAlign: 'left',
         display: 'flex',
+        marginTop: '30px',
     },
     questionContent: {
         fontWeight: 'bold',
@@ -39,12 +41,12 @@ const useStyles = makeStyles({
         marginTop: '2.5px',
     },
     answerContainer: {
-        marginTop: '20px',
-        marginBottom: '20px',
+        marginTop: '30px',
+        marginBottom: '60px',
         padding: '15px',
         backgroundColor: 'white',
         width: '70%',
-        borderRadius: '30px',
+        borderRadius: '15px',
         textAlign: 'left',
         position: 'relative',
         height: '200px',
@@ -74,7 +76,18 @@ const useStyles = makeStyles({
             backgroundColor: '#ffffff',
             color: '#21CE99',
         },
+    },
+
+    leftButton: {
+        position: 'absolute',
+        left: '10px',
+        top: '50%',
     }
+
+    
+
+
+
 })
 
 function Revise() {
@@ -112,6 +125,9 @@ function Revise() {
                     </Typography>
                     <Button className={classes.answerButton} variant={"outlined"}>SHOW ANSWER</Button>
                 </Container>
+
+                <IconButton className={classes.leftButton} color="primary">
+                </IconButton>
                 
             </Container>
         </div>
