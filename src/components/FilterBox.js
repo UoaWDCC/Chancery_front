@@ -36,11 +36,14 @@ const useStyles = makeStyles({
         '&:hover': {
             backgroundColor: 'transparent',
         },
+        marginRight: '12px',
+        marginLeft: '5px',
     },
     icon: {
         borderRadius: 3,
-        width: 20,
-        height: 20,
+        outline: '2px auto #707070',
+        width: 18,
+        height: 18,
         boxShadow: 'inset 0 0 0 1px rgba(16,22,26,.2), inset 0 -1px 0 rgba(16,22,26,.1)',
         backgroundColor: '#f5f8fa',
         'input:hover ~ &': {
@@ -56,6 +59,7 @@ const useStyles = makeStyles({
         'input:hover ~ &': {
             backgroundColor: '#21CE99',
         },
+        outline: '2px auto #1DA279',
     }
 });
 
@@ -82,6 +86,7 @@ function FilterBox() {
 
     const topicCheckBoxes = topics.map((topic) => (
         <FormControlLabel
+            style={{padding: '2px'}}
             value={topic}
             control={<StyledCheckbox />}
             label={<Typography className={classes.label}>{topic}</Typography>}
@@ -92,7 +97,7 @@ function FilterBox() {
 
     const difficultyCheckBoxes = difficulties.map((difficulty) => (
         <FormControlLabel
-            className={classes.label}
+            style={{padding: '2px'}}
             value={difficulty}
             control={<StyledCheckbox />}
             label={<Typography className={classes.label}>{difficulty}</Typography>}
