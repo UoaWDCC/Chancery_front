@@ -8,44 +8,42 @@ import IconButton from '@material-ui/core/IconButton';
 const useStyles = makeStyles({
     background: {
         backgroundColor: '#F5F5F5',
-        width: '60%',
-        borderRadius: '30px',
+        borderRadius: '10px',
         textAlign:'center',
         padding: '20px',
-        marginTop: '50px',
         position: 'relative',
     },
     page: {
         fontWeight: 'bold',
         color: '#818181',
-        fontSize: '30px',
+        fontSize: '20px',
         display: 'inline-block'
     },
     initials: {
         fontWeight: 'bold',
-        fontSize: '30px',
+        fontSize: '25px',
         display: 'inline-block'
     },
     questionContainer: {
         padding: '15px',
         borderRadius: '30px',
-        width: '70%',
+        width: '80%',
         textAlign: 'left',
         display: 'flex',
-        marginTop: '30px',
+        marginTop: '10px',
     },
     questionContent: {
         fontWeight: 'bold',
-        fontSize: '25px',
+        fontSize: '20px',
         display: 'inline-block',
         marginTop: '2.5px',
     },
     answerContainer: {
         marginTop: '30px',
-        marginBottom: '60px',
+        marginBottom: '40px',
         padding: '15px',
         backgroundColor: 'white',
-        width: '70%',
+        width: '80%',
         borderRadius: '15px',
         textAlign: 'left',
         position: 'relative',
@@ -60,8 +58,9 @@ const useStyles = makeStyles({
         borderColor: '#ffffff',
         borderWidth: '3px',
         borderRadius: '10px',
-        fontSize: '20px',
+        fontSize: '14px',
         padding: '10px 20px 10px 20px',
+        textTransform: 'uppercase',
         
         position: 'absolute',
         left: '50%',
@@ -80,13 +79,24 @@ const useStyles = makeStyles({
 
     leftButton: {
         position: 'absolute',
-        left: '10px',
-        top: '50%',
+        left: 'calc(5% - 15px)',
+        top: 'calc(50% - 30px)',
+
+        color: '#F5F5F5',
+        backgroundColor: '#818181',
+
+        '&:hover': {
+        },
+
+    },
+    rightButton: {
+        position: 'absolute',
+        right: 'calc(5% - 15px)',
+        top: 'calc(50% - 30px)',
+
+        color: '#F5F5F5',
+        backgroundColor: '#818181',
     }
-
-    
-
-
 
 })
 
@@ -126,7 +136,12 @@ function Revise() {
                     <Button className={classes.answerButton} variant={"outlined"}>SHOW ANSWER</Button>
                 </Container>
 
-                <IconButton className={classes.leftButton} color="primary">
+                <IconButton className={classes.leftButton} >
+                &lt;
+                </IconButton>
+
+                <IconButton className={classes.rightButton} >
+                &gt;
                 </IconButton>
                 
             </Container>

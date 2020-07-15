@@ -1,6 +1,7 @@
 import React from "react";
 import Grid from '@material-ui/core/Grid';
 import FilterBox from '../components/FilterBox';
+import Flashcard from '../components/Flashcard';
 
 function Revise() {
 
@@ -13,7 +14,7 @@ function Revise() {
                     </Grid>
                     <Grid container item md={8} lg={7}>
                         <Grid item xs={12}>
-                            FLASHCARD
+                            <Flashcard/>
                         </Grid>
                         <Grid item xs={12}>
                             HOTKEYS
