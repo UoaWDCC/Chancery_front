@@ -5,9 +5,9 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Grid from "@material-ui/core/Grid";
 import { Switch, Route, Link, BrowserRouter} from "react-router-dom";
-import Home from './components/home';
-import Revise from "./components/revise";
-import Saved from "./components/saved";
+import Home from './pages/home';
+import Revise from "./pages/revise";
+import Saved from "./pages/saved";
 
 const StyledTabs = withStyles({
     indicator: {
