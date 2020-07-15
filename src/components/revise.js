@@ -8,38 +8,46 @@ import { grey } from "@material-ui/core/colors";
 const useStyles = makeStyles({
     background: {
         backgroundColor: '#D3D3D3',
-        width: '90%',
+        width: '60%',
         borderRadius: '30px',
         textAlign:'center',
+        padding: '20px',
+        marginTop: '50px',
     },
     page: {
         color: 'grey',
         fontSize: '30px',
-        paddingTop: '25px',
-        paddingBottom: '40px',
         display: 'inline-block'
     },
     initials: {
         fontWeight: 'bold',
-        fontSize: '25px',
+        fontSize: '30px',
         display: 'inline-block'
     },
-    question: {
+    questionContainer: {
+        padding: '15px',
+        borderRadius: '30px',
+        width: '70%',
+        textAlign: 'left',
+        display: 'flex',
+    },
+    questionContent: {
         fontWeight: 'bold',
         fontSize: '25px',
         display: 'inline-block',
-        width: '70%',
+        marginTop: '2.5px',
     },
     answerContainer: {
         marginTop: '20px',
-        padding: '30px',
+        marginBottom: '20px',
+        padding: '15px',
         backgroundColor: 'white',
         width: '70%',
         borderRadius: '30px',
         opacity: "0.4",
         textAlign: 'left',
     },
-    answer: {
+    answerContent: {
 
     },
     button: {
@@ -68,24 +76,26 @@ function Revise() {
         <div>
             <Container className={classes.background} >
                 
-                <Typography id="question-page-number" className={classes.page} variant={"h1"} >
+                <Typography id="flashcard-id" className={classes.page} variant={"h1"} >
                 1
                 </Typography>
                 <Typography className={classes.page} variant={"h1"} >
-                /
+                &nbsp;/&nbsp;
                 </Typography>
-                <Typography id="total-questions" className={classes.page} variant={"h1"} >
+                <Typography id="total-flashcards" className={classes.page} variant={"h1"} >
                 420
                 </Typography>
 
                 <br></br>
 
+                <Container className={classes.questionContainer}>
                 <Typography className={classes.initials} variant={"h1"}>
                 Q:&emsp;
                 </Typography>
-                <Typography id="question-content" className={classes.question} variant={"h1"} >
+                <Typography id="question-content" className={classes.questionContent} variant={"h1"} >
                 What does success look like in this position, and how do you measure it?
                 </Typography>
+                </Container>
 
                 <Container className={classes.answerContainer}>
                     <Typography className={classes.initials} variant={"h1"}>
