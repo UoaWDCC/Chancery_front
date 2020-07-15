@@ -3,3 +3,14 @@
   border-radius: 10px;
   padding: 25px;
 }
+
+.hotkey-box {
+  background-color: #F5F5F5;
+  border-radius: 10px;
+  padding: 25px;
+}
+
+.hotkey-icon {
+  vertical-align: bottom;
+  padding-right: 7px;
+}
