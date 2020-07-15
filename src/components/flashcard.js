@@ -13,11 +13,34 @@ const useStyles = makeStyles({
         padding: '20px',
         position: 'relative',
     },
+    tags: {
+        color: 'white',
+        backgroundColor: '#21CE99',
+        borderRadius: '5px',
+        fontSize: '14px',
+        float: 'left',
+        textTransform: 'uppercase',
+        padding: '5px 10px 5px 10px',
+        marginRight: '10px',
+        
+    },
     page: {
         fontWeight: 'bold',
         color: '#818181',
         fontSize: '20px',
-        display: 'inline-block'
+        display: 'inline-block',
+        margin: 'auto',
+    },
+    save: {
+        float: 'right',
+        fontSize: '14px',
+        padding: '5px 10px 5px 10px',
+        '&:hover': {
+            borderWidth: '3px',
+            borderColor: '#21CE99',
+            backgroundColor: '#ffffff',
+            color: '#21CE99',
+        },
     },
     initials: {
         fontWeight: 'bold',
@@ -98,6 +121,8 @@ const useStyles = makeStyles({
         backgroundColor: '#818181',
     }
 
+    
+
 })
 
 function Revise() {
@@ -107,23 +132,43 @@ function Revise() {
     return (
         <div>
             <Container className={classes.background} >
-                
+
+                <Container>
+
+                <Typography id="difficulty" className={classes.tags} variant={"h1"} >
+                EASY
+                </Typography>
+
+                <Typography id="topic" className={classes.tags} variant={"h1"} >
+                ACCOUNTING
+                </Typography>
+
                 <Typography id="flashcard-id" className={classes.page} variant={"h1"} >
                 1
                 </Typography>
+
                 <Typography className={classes.page} variant={"h1"} >
                 &nbsp;/&nbsp;
                 </Typography>
+
                 <Typography id="total-flashcards" className={classes.page} variant={"h1"} >
                 420
                 </Typography>
 
-                <br></br>
+                <Button className={classes.save} >
+                Save x
+                </Button>
 
+
+                </Container>
+
+                <br></br>
                 <Container className={classes.questionContainer}>
+
                 <Typography className={classes.initials} variant={"h1"}>
                 Q:&emsp;
                 </Typography>
+
                 <Typography id="question-content" className={classes.questionContent} variant={"h1"} >
                 What does success look like in this position, and how do you measure it?
                 </Typography>
