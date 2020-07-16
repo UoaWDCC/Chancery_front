@@ -41,6 +41,7 @@ function Home() {
 
     return (
         <Grid
+            className={"welcome-page"}
             container
             spacing={0}
             direction="column"
