@@ -65,7 +65,7 @@ function App() {
                 path="/"
                 render={({ location }) => (
                     <Fragment>
-                        <Grid container>
+                        <Grid container style={{ minHeight: '10vh' }}>
                             <Grid item xs>
                                 <div className={"logo"}> Chancery </div>
                             </Grid>
