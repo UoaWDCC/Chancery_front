@@ -162,7 +162,7 @@ function Flashcard() {
 
                 </Container>
 
-                <br></br>
+                <br/>
                 <Container className={classes.questionContainer}>
 
                 <Typography className={classes.initials} variant={"h1"}>
