@@ -125,7 +125,7 @@ const useStyles = makeStyles({
 
 })
 
-function Revise() {
+function Flashcard() {
 
     const classes = useStyles();
 
@@ -194,4 +194,4 @@ function Revise() {
     )
 }
 
-export default Revise;
+export default Flashcard;
