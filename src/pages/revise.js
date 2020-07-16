@@ -2,6 +2,7 @@ import React from "react";
 import Grid from '@material-ui/core/Grid';
 import FilterBox from '../components/FilterBox';
 import Flashcard from '../components/Flashcard';
+import HotkeyBox from "../components/HotkeyBox";
 
 function Revise() {
 
@@ -23,7 +24,7 @@ function Revise() {
                                 <Flashcard/>
                             </Grid>
                             <Grid item xs={12}>
-                                HOTKEYS
+                                <HotkeyBox/>
                             </Grid>
                         </Grid>
                     </Grid>

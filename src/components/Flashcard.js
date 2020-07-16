@@ -8,7 +8,8 @@ import Grid from '@material-ui/core/Grid';
 
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
-
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 const useStyles = makeStyles({
     background: {
         backgroundColor: '#F5F5F5',
@@ -111,7 +112,7 @@ const useStyles = makeStyles({
         top: 'calc(50% - 30px)',
 
         color: '#F5F5F5',
-        backgroundColor: '#818181',
+        backgroundColor: '#B1B1B1',
         
         height: '40px',
         width: '40px',
@@ -124,7 +125,7 @@ const useStyles = makeStyles({
         top: 'calc(50% - 30px)',
 
         color: '#F5F5F5',
-        backgroundColor: '#818181',
+        backgroundColor: '#B1B1B1',
 
         height: '40px',
         width: '40px',
@@ -206,11 +207,11 @@ function Flashcard() {
                 </Container>
 
                 <IconButton className={classes.leftButton} >
-                &lt;
+                    <ArrowBackIcon/>
                 </IconButton>
 
                 <IconButton className={classes.rightButton} >
-                &gt;
+                    <ArrowForwardIcon/>
                 </IconButton>
                 
             </Container>
