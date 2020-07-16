@@ -6,6 +6,9 @@ import { Button } from "@material-ui/core";
 import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
 
+import LocalOfferIcon from '@material-ui/icons/LocalOffer';
+import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
+
 const useStyles = makeStyles({
     background: {
         backgroundColor: '#F5F5F5',
@@ -18,7 +21,7 @@ const useStyles = makeStyles({
         color: 'white',
         backgroundColor: '#21CE99',
         borderRadius: '5px',
-        fontSize: '14px',
+        fontSize: '15px',
         float: 'left',
         textTransform: 'uppercase',
         padding: '5px 10px 5px 10px',
@@ -34,18 +37,19 @@ const useStyles = makeStyles({
     save: {
         float: 'right',
         fontSize: '14px',
-        padding: '5px 10px 5px 10px',
+        margin: '0 -25px 0 -15px',
         '&:hover': {
             borderWidth: '3px',
             borderColor: '#21CE99',
-            backgroundColor: '#ffffff',
             color: '#21CE99',
+            background: 'none',
         },
     },
-    initials: {
+    subheading: {
         fontWeight: 'bold',
         fontSize: '25px',
-        display: 'inline-block'
+        display: 'inline-block',
+        textTransform: 'uppercase',
     },
     questionContainer: {
         padding: '15px',
@@ -65,7 +69,8 @@ const useStyles = makeStyles({
         marginTop: '30px',
         marginBottom: '40px',
         padding: '15px',
-        backgroundColor: 'white',
+        // backgroundColor: 'white',
+        background: 'rgba(255, 255, 255, 0.3)',
         width: '80%',
         borderRadius: '15px',
         textAlign: 'left',
@@ -77,9 +82,9 @@ const useStyles = makeStyles({
     },
     answerButton: {
         color: 'white',
-        backgroundColor: '#21CE99',
+        // backgroundColor: '#21CE99',
+        background: 'rgba(33, 206, 153, 1)',
         borderColor: '#ffffff',
-        borderWidth: '3px',
         borderRadius: '5px',
         fontSize: '14px',
         padding: '10px 20px 10px 20px',
@@ -94,7 +99,6 @@ const useStyles = makeStyles({
 
         '&:hover': {
             borderWidth: '3px',
-            borderColor: '#21CE99',
             backgroundColor: '#ffffff',
             color: '#21CE99',
             boxShadow: 'none',
@@ -108,9 +112,10 @@ const useStyles = makeStyles({
 
         color: '#F5F5F5',
         backgroundColor: '#818181',
+        
+        height: '40px',
+        width: '40px',
 
-        '&:hover': {
-        },
 
     },
     rightButton: {
@@ -120,9 +125,16 @@ const useStyles = makeStyles({
 
         color: '#F5F5F5',
         backgroundColor: '#818181',
-    }
 
-    
+        height: '40px',
+        width: '40px',
+    },
+
+
+      mirror: {
+        transform: [{ scaleX: '-1' }]
+        }
+
 
 })
 
@@ -136,17 +148,20 @@ function Flashcard() {
 
                 <Grid container justify="center" alignItems="center">
 
-                    <Grid item container xs={4} justify="left">
+                    <Grid item container xs={5} justify="left">
                         <Typography id="difficulty" className={classes.tags} variant={"h1"} >
-                        Easy
+                            <LocalOfferIcon style={{ fontSize: 10}}/>
+                                
+                        &nbsp;Easy
                         </Typography>
 
                         <Typography id="topic" className={classes.tags} variant={"h1"} >
-                        Accounting
+                        <LocalOfferIcon style={{ fontSize: 10}}/>
+                        &nbsp;Accounting
                         </Typography>
                     </Grid>
 
-                    <Grid item container xs={4} justify="center">
+                    <Grid item container xs={2} justify="center">
                         <Typography id="flashcard-id" className={classes.page} variant={"h1"} >
                         1
                         </Typography>
@@ -160,9 +175,12 @@ function Flashcard() {
                         </Typography>
                     </Grid>
 
-                    <Grid item container xs={4} justify="flex-end">
-                        <Button className={classes.save} >
-                        Save x
+                    <Grid item container xs={5} justify="flex-end">
+                        <Typography className={classes.subheading} style={{fontSize: 16, marginTop: 5}}>
+                            Save
+                        </Typography>
+                        <Button className={classes.save} disableRipple>
+                            <BookmarkBorderIcon/>
                         </Button>
                     </Grid>
 
@@ -171,7 +189,7 @@ function Flashcard() {
                 <br/>
                 <Container className={classes.questionContainer}>
 
-                <Typography className={classes.initials} variant={"h1"}>
+                <Typography className={classes.subheading} variant={"h1"}>
                 Q:&emsp;
                 </Typography>
 
@@ -181,10 +199,10 @@ function Flashcard() {
                 </Container>
 
                 <Container className={classes.answerContainer}>
-                    <Typography className={classes.initials} variant={"h1"}>
+                    <Typography id="answer-initial" className={classes.subheading} variant={"h1"} style={{color: '#818181'}}>
                     A:&emsp;
                     </Typography>
-                    <Button className={classes.answerButton} variant={"outlined"}>SHOW ANSWER</Button>
+                    <Button className={classes.answerButton} variant={"outlined"} style={{opacity: '1'}}>SHOW ANSWER</Button>
                 </Container>
 
                 <IconButton className={classes.leftButton} >
