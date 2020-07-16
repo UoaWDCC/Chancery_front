@@ -4,6 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
 import IconButton from '@material-ui/core/IconButton';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles({
     background: {
@@ -29,7 +30,6 @@ const useStyles = makeStyles({
         color: '#818181',
         fontSize: '20px',
         display: 'inline-block',
-        margin: 'auto',
     },
     save: {
         float: 'right',
@@ -77,7 +77,8 @@ const useStyles = makeStyles({
     },
     answerButton: {
         color: 'white',
-        borderColor: '#21CE99',
+        backgroundColor: '#21CE99',
+        borderColor: '#ffffff',
         borderWidth: '3px',
         borderRadius: '5px',
         fontSize: '14px',
@@ -133,34 +134,39 @@ function Flashcard() {
         <div>
             <Container className={classes.background} >
 
-                <Container>
+                <Grid container justify="center" alignItems="center">
 
-                <Typography id="difficulty" className={classes.tags} variant={"h1"} >
-                EASY
-                </Typography>
+                    <Grid item container xs={4} justify="left">
+                        <Typography id="difficulty" className={classes.tags} variant={"h1"} >
+                        Easy
+                        </Typography>
 
-                <Typography id="topic" className={classes.tags} variant={"h1"} >
-                ACCOUNTING
-                </Typography>
+                        <Typography id="topic" className={classes.tags} variant={"h1"} >
+                        Accounting
+                        </Typography>
+                    </Grid>
 
-                <Typography id="flashcard-id" className={classes.page} variant={"h1"} >
-                1
-                </Typography>
+                    <Grid item container xs={4} justify="center">
+                        <Typography id="flashcard-id" className={classes.page} variant={"h1"} >
+                        1
+                        </Typography>
 
-                <Typography className={classes.page} variant={"h1"} >
-                &nbsp;/&nbsp;
-                </Typography>
+                        <Typography className={classes.page} variant={"h1"} >
+                        &nbsp;/&nbsp;
+                        </Typography>
 
-                <Typography id="total-flashcards" className={classes.page} variant={"h1"} >
-                420
-                </Typography>
+                        <Typography id="total-flashcards" className={classes.page} variant={"h1"} >
+                        420
+                        </Typography>
+                    </Grid>
 
-                <Button className={classes.save} >
-                Save x
-                </Button>
+                    <Grid item container xs={4} justify="flex-end">
+                        <Button className={classes.save} >
+                        Save x
+                        </Button>
+                    </Grid>
 
-
-                </Container>
+                </Grid>
 
                 <br/>
                 <Container className={classes.questionContainer}>
@@ -178,7 +184,7 @@ function Flashcard() {
                     <Typography className={classes.initials} variant={"h1"}>
                     A:&emsp;
                     </Typography>
-                    <Button className={classes.answerButton} variant={"contained"} color="primary">SHOW ANSWER</Button>
+                    <Button className={classes.answerButton} variant={"outlined"}>SHOW ANSWER</Button>
                 </Container>
 
                 <IconButton className={classes.leftButton} >
