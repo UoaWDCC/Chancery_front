@@ -77,14 +77,13 @@ const useStyles = makeStyles({
     },
     answerButton: {
         color: 'white',
-        backgroundColor: '#21CE99',
-        borderColor: '#ffffff',
+        borderColor: '#21CE99',
         borderWidth: '3px',
-        borderRadius: '10px',
+        borderRadius: '5px',
         fontSize: '14px',
         padding: '10px 20px 10px 20px',
         textTransform: 'uppercase',
-        
+        boxShadow: 'none',
         position: 'absolute',
         left: '50%',
         top: '50%',
@@ -97,6 +96,7 @@ const useStyles = makeStyles({
             borderColor: '#21CE99',
             backgroundColor: '#ffffff',
             color: '#21CE99',
+            boxShadow: 'none',
         },
     },
 
@@ -178,7 +178,7 @@ function Revise() {
                     <Typography className={classes.initials} variant={"h1"}>
                     A:&emsp;
                     </Typography>
-                    <Button className={classes.answerButton} variant={"outlined"}>SHOW ANSWER</Button>
+                    <Button className={classes.answerButton} variant={"contained"} color="primary">SHOW ANSWER</Button>
                 </Container>
 
                 <IconButton className={classes.leftButton} >
