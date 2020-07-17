@@ -11,14 +11,14 @@ const useStyles = makeStyles({
   title: {
     textTransform: "uppercase",
     fontWeight: "bold",
-    paddingBottom: "14px",
+    paddingBottom: "12px",
     textAlign: "center",
+    fontSize: "16px",
   },
 
   information: {
     textAlign: "left",
-    fontSize: "12px",
-    paddingBottom: "3px",
+    fontSize: "14px",
     color: "#818181",
   },
 });
