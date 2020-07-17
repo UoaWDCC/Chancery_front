@@ -50,14 +50,20 @@ const useStyles = makeStyles({
     },
     questionContent: {
         fontWeight: 'bold',
-        fontSize: '20px',
+        fontSize: '22px',
         display: 'inline-block',
-        marginTop: '2.5px',
+        marginTop: '6px',
     },
     answerContent: {
-
+        fontSize: '20px',
+        marginTop: '2.5px',
+        visibility: 'hidden',
+        opacity: '0',
+        transition: 'visibility 0s, opacity 0.5s linear',
+        display: 'inline-block',
+        lineHeight: '150%',
     },
-    answerButton: {
+    showButton: {
         color: 'white',
         borderRadius: '5px',
         fontSize: '14px',
@@ -70,11 +76,34 @@ const useStyles = makeStyles({
         webkitTransform: 'translate(-50%, -50%)',
         transform: 'translate(-50%, -50%)',
 
-
         '&:hover': {
             borderWidth: '3px',
             backgroundColor: '#ffffff',
             color: '#21CE99',
+            boxShadow: 'none',
+        },
+    },
+
+    hideButton: {
+        color: '#818181',
+        backgroundColor: 'white',
+        borderRadius: '5px',
+        fontSize: '14px',
+        padding: '10px 20px 10px 20px',
+        textTransform: 'uppercase',
+        boxShadow: 'none',
+        position: 'absolute',
+        
+        left: '50%',
+        top: '50%',
+
+        webkitTransform: 'translate(-50%, -50%)',
+        transform: 'translate(-50%, 100%) translateY(74px)',
+
+        '&:hover': {
+            borderWidth: '3px',
+            backgroundColor: '#B1B1B1',
+            color: 'white',
             boxShadow: 'none',
         },
     },
@@ -119,7 +148,6 @@ function Flashcard() {
 
     const [saved, setSaved] = React.useState(0);
     const saveFlashcard = (event) => {
-
         if (saved) {
             setSaved(false);
             event.currentTarget.style.filter = 'none'; 
@@ -128,10 +156,30 @@ function Flashcard() {
             setSaved(true);
             event.currentTarget.style.filter = 'invert(62%) sepia(94%) saturate(364%) hue-rotate(108deg) brightness(89%) contrast(91%)';
         }
-            
-       
-        
     };
+
+    const [show, setShowAnswer] = React.useState(0);
+    const showAnswer = (event) => {
+        if (show) {
+            setShowAnswer(false);
+            document.getElementById("answer-initial").style.color = '#818181';
+
+            document.getElementById("show-button").innerHTML = 'Show Answer';
+
+            document.getElementById("answer-content").style.opacity = '0';
+            document.getElementById("answer-content").style.visibility = 'hidden';
+
+        }
+        else {
+            setShowAnswer(true);
+            document.getElementById("answer-initial").style.color = '#21CE99';
+
+            document.getElementById("show-button").innerHTML = "Hide Answer";
+
+            document.getElementById("answer-content").style.opacity = '1';
+            document.getElementById("answer-content").style.visibility = 'visible';
+        }
+    }
 
 
     return (
@@ -191,11 +239,17 @@ function Flashcard() {
                 </Typography>
                 </Container>
 
-                <Container className={"answer-container"} style={{width: '80%'}}>
+                <Container id="answer-box" className={"answer-container"} style={{width: '80%', display: 'flex'}}>
                     <Typography id="answer-initial" className={classes.subheading} variant={"h4"} style={{color: '#818181'}}>
                     A:&emsp;
                     </Typography>
-                    <Button className={classes.answerButton} color="primary" variant={"contained"}>SHOW ANSWER</Button>
+                    <Typography id="answer-content" className={classes.answerContent} variant={"h4"} >
+                    I try to set goals that meet or beat expectations, and work as hard as I can to
+complete those goals. If I make mistakes along the way, then I know I can
+improve and still have work to do, but if I reach those goals and achieve my
+desired outcome, I consider that a success.
+                </Typography>
+                    <Button id="show-button" className={show ? classes.hideButton : classes.showButton} color="primary" variant={"contained"} onClick={showAnswer}>SHOW ANSWER</Button>
                 </Container>
 
                 <IconButton className={classes.leftButton} >
