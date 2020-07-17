@@ -16,10 +16,10 @@ function Revise() {
             >
                 <Grid container item justify="center">
                     <Grid container item md={12} spacing={5} justify="center">
-                        <Grid item md={3} >
+                        <Grid item md={6} lg={3}>
                             <FilterBox/>
                         </Grid>
-                        <Grid container item md={9} >
+                        <Grid container item md={12} lg={9} >
                             <Grid item xs={12}>
                                 <Flashcard/>
                             </Grid>
