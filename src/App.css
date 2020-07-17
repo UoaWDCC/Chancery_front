@@ -14,7 +14,10 @@
 }
 
 .hotkey-icon {
+  position: relative;
   vertical-align: bottom;
   padding-right: 7px;
-  color: black;
+  height: 25px;
+  width: 25px;
+  top: 3px;
 }
