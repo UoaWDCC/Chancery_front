@@ -27,7 +27,7 @@ const useStyles = makeStyles({
         textTransform: 'uppercase',
         padding: '5px 10px 5px 10px',
         marginRight: '10px',
-        
+
     },
     page: {
         fontWeight: 'bold',
@@ -70,7 +70,6 @@ const useStyles = makeStyles({
         marginTop: '30px',
         marginBottom: '40px',
         padding: '15px',
-        // backgroundColor: 'white',
         background: 'rgba(255, 255, 255, 0.3)',
         width: '80%',
         borderRadius: '15px',
@@ -83,9 +82,6 @@ const useStyles = makeStyles({
     },
     answerButton: {
         color: 'white',
-        // backgroundColor: '#21CE99',
-        background: 'rgba(33, 206, 153, 1)',
-        borderColor: '#ffffff',
         borderRadius: '5px',
         fontSize: '14px',
         padding: '10px 20px 10px 20px',
@@ -203,7 +199,7 @@ function Flashcard() {
                     <Typography id="answer-initial" className={classes.subheading} variant={"h1"} style={{color: '#818181'}}>
                     A:&emsp;
                     </Typography>
-                    <Button className={classes.answerButton} variant={"outlined"} style={{opacity: '1'}}>SHOW ANSWER</Button>
+                    <Button className={classes.answerButton} color="primary" variant={"contained"}>SHOW ANSWER</Button>
                 </Container>
 
                 <IconButton className={classes.leftButton} >
