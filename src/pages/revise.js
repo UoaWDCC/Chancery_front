@@ -9,7 +9,6 @@ function Revise() {
     return (
         <div>
             <Grid
-                className={"welcome-page"}
                 container
                 spacing={0}
                 style={{ minHeight: '90vh', padding: '5em'}}
