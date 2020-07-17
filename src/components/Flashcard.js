@@ -7,6 +7,8 @@ import { Button } from "@material-ui/core";
 import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
 
+import Revise from "../pages/revise.js";
+
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import BookmarkTwoToneIcon from '@material-ui/icons/BookmarkTwoTone';
@@ -33,8 +35,7 @@ const useStyles = makeStyles({
     },
     save: {
         float: 'right',
-        fontSize: '14px',
-        margin: '0 -25px 0 -15px',
+        margin: '-5px -25px 0 -15px',
         '&:hover': {
             borderWidth: '3px',
             borderColor: '#21CE99',
@@ -61,7 +62,7 @@ const useStyles = makeStyles({
         opacity: '0',
         transition: 'visibility 0s, opacity 0.5s linear',
         display: 'inline-block',
-        lineHeight: '150%',
+        lineHeight: '170%',
     },
     showButton: {
         color: 'white',
@@ -75,6 +76,8 @@ const useStyles = makeStyles({
         top: '50%',
         webkitTransform: 'translate(-50%, -50%)',
         transform: 'translate(-50%, -50%)',
+
+        width: '170px',
 
         '&:hover': {
             borderWidth: '3px',
@@ -99,6 +102,8 @@ const useStyles = makeStyles({
 
         webkitTransform: 'translate(-50%, -50%)',
         transform: 'translate(-50%, 100%) translateY(74px)',
+
+        width: '170px',
 
         '&:hover': {
             borderWidth: '3px',
@@ -133,7 +138,6 @@ const useStyles = makeStyles({
         width: '40px',
     },
 
-
       mirror: {
         transform: [{ scaleX: '-1' }]
         }
@@ -141,6 +145,9 @@ const useStyles = makeStyles({
 
 })
 
+function isOverflown(element) {
+            return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
+          }
 
 function Flashcard() {
 
@@ -158,8 +165,15 @@ function Flashcard() {
         }
     };
 
+
     const [show, setShowAnswer] = React.useState(0);
     const showAnswer = (event) => {
+
+        if (isOverflown(document.getElementById("answer-content"))) {
+            // alert('hello');
+            // document.getElementById("two").xs = "0";
+        }
+
         if (show) {
             setShowAnswer(false);
             document.getElementById("answer-initial").style.color = '#818181';
@@ -216,12 +230,12 @@ function Flashcard() {
                     </Grid>
 
                     <Grid item container xs={5} justify="flex-end">
-                        <Typography className={classes.subheading} style={{fontSize: 16, marginTop: 8}} variant={"h3"}>
-                            Save
+                        <Typography className={classes.subheading} style={{fontSize: 20, marginTop: 10}} variant={"h3"}>
+                            Save&nbsp;
                         </Typography>
                         <Button className={classes.save} disableRipple onClick={saveFlashcard} >
          
-                            {saved ? <BookmarkTwoToneIcon /> : <BookmarkBorderIcon /> }
+                            {saved ? <BookmarkTwoToneIcon style={{fontSize: 40}}/> : <BookmarkBorderIcon style={{fontSize: 40}}/> }
                         </Button>
                     </Grid>
 
@@ -245,6 +259,9 @@ function Flashcard() {
                     </Typography>
                     <Typography id="answer-content" className={classes.answerContent} variant={"h4"} >
                     I try to set goals that meet or beat expectations, and work as hard as I can to
+complete those goals. If I make mistakes along the way, then I know I can
+improve and still have work to do, but if I reach those goals and achieve my
+desired outcome, I consider that a success. I try to set goals that meet or beat expectations, and work as hard as I can to
 complete those goals. If I make mistakes along the way, then I know I can
 improve and still have work to do, but if I reach those goals and achieve my
 desired outcome, I consider that a success.
