@@ -8,7 +8,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
 
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
-import BookmarkBorderTwoToneIcon from '@material-ui/icons/BookmarkBorder';
+import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
+import BookmarkTwoToneIcon from '@material-ui/icons/BookmarkTwoTone';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
@@ -116,8 +117,20 @@ function Flashcard() {
 
     const classes = useStyles();
 
+    const [saved, setSaved] = React.useState(0);
     const saveFlashcard = (event) => {
-        event.currentTarget.style.color = 'black';
+
+        if (saved) {
+            setSaved(false);
+            event.currentTarget.style.filter = 'none'; 
+        }
+        else {
+            setSaved(true);
+            event.currentTarget.style.filter = 'invert(62%) sepia(94%) saturate(364%) hue-rotate(108deg) brightness(89%) contrast(91%)';
+        }
+            
+       
+        
     };
 
 
@@ -155,11 +168,12 @@ function Flashcard() {
                     </Grid>
 
                     <Grid item container xs={5} justify="flex-end">
-                        <Typography className={classes.subheading} style={{fontSize: 16, marginTop: 5}} variant={"h3"}>
+                        <Typography className={classes.subheading} style={{fontSize: 16, marginTop: 8}} variant={"h3"}>
                             Save
                         </Typography>
                         <Button className={classes.save} disableRipple onClick={saveFlashcard} >
-                            <BookmarkBorderTwoToneIcon />
+         
+                            {saved ? <BookmarkTwoToneIcon /> : <BookmarkBorderIcon /> }
                         </Button>
                     </Grid>
 
