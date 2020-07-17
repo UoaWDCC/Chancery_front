@@ -1,4 +1,5 @@
 import React from "react";
+
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
@@ -7,17 +8,11 @@ import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
 
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
-import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
+import BookmarkBorderTwoToneIcon from '@material-ui/icons/BookmarkBorder';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+
 const useStyles = makeStyles({
-    background: {
-        backgroundColor: '#F5F5F5',
-        borderRadius: '10px',
-        textAlign:'center',
-        padding: '20px',
-        position: 'relative',
-    },
     tags: {
         color: 'white',
         backgroundColor: '#21CE99',
@@ -48,34 +43,15 @@ const useStyles = makeStyles({
     },
     subheading: {
         fontWeight: 'bold',
-        fontSize: '25px',
+        fontSize: '30px',
         display: 'inline-block',
         textTransform: 'uppercase',
-    },
-    questionContainer: {
-        padding: '15px',
-        borderRadius: '30px',
-        width: '80%',
-        textAlign: 'left',
-        display: 'flex',
-        marginTop: '10px',
     },
     questionContent: {
         fontWeight: 'bold',
         fontSize: '20px',
         display: 'inline-block',
         marginTop: '2.5px',
-    },
-    answerContainer: {
-        marginTop: '30px',
-        marginBottom: '40px',
-        padding: '15px',
-        background: 'rgba(255, 255, 255, 0.3)',
-        width: '80%',
-        borderRadius: '15px',
-        textAlign: 'left',
-        position: 'relative',
-        height: '200px',
     },
     answerContent: {
 
@@ -135,68 +111,74 @@ const useStyles = makeStyles({
 
 })
 
+
 function Flashcard() {
 
     const classes = useStyles();
 
+    const saveFlashcard = (event) => {
+        event.currentTarget.style.color = 'black';
+    };
+
+
     return (
         <div>
-            <Container className={classes.background} >
+            <Container className={"flashcard-background"} >
 
                 <Grid container justify="center" alignItems="center">
 
-                    <Grid item container xs={5} justify="left">
-                        <Typography id="difficulty" className={classes.tags} variant={"h1"} >
+                    <Grid item container xs={5}>
+                        <Typography id="difficulty" className={classes.tags} variant={"h3"} >
                             <LocalOfferIcon style={{ fontSize: 10}}/>
                                 
                         &nbsp;Easy
                         </Typography>
 
-                        <Typography id="topic" className={classes.tags} variant={"h1"} >
+                        <Typography id="topic" className={classes.tags} variant={"h3"} >
                         <LocalOfferIcon style={{ fontSize: 10}}/>
                         &nbsp;Accounting
                         </Typography>
                     </Grid>
 
                     <Grid item container xs={2} justify="center">
-                        <Typography id="flashcard-id" className={classes.page} variant={"h1"} >
+                        <Typography id="flashcard-id" className={classes.page} variant={"h5"} >
                         1
                         </Typography>
 
-                        <Typography className={classes.page} variant={"h1"} >
+                        <Typography className={classes.page} variant={"h5"} >
                         &nbsp;/&nbsp;
                         </Typography>
 
-                        <Typography id="total-flashcards" className={classes.page} variant={"h1"} >
+                        <Typography id="total-flashcards" className={classes.page} variant={"h5"} >
                         420
                         </Typography>
                     </Grid>
 
                     <Grid item container xs={5} justify="flex-end">
-                        <Typography className={classes.subheading} style={{fontSize: 16, marginTop: 5}}>
+                        <Typography className={classes.subheading} style={{fontSize: 16, marginTop: 5}} variant={"h3"}>
                             Save
                         </Typography>
-                        <Button className={classes.save} disableRipple>
-                            <BookmarkBorderIcon/>
+                        <Button className={classes.save} disableRipple onClick={saveFlashcard} >
+                            <BookmarkBorderTwoToneIcon />
                         </Button>
                     </Grid>
 
                 </Grid>
 
                 <br/>
-                <Container className={classes.questionContainer}>
+                <Container className={"question-container"} style={{width: '80%', display: 'flex'}}>
 
-                <Typography className={classes.subheading} variant={"h1"}>
+                <Typography className={classes.subheading} variant={"h4"}>
                 Q:&emsp;
                 </Typography>
 
-                <Typography id="question-content" className={classes.questionContent} variant={"h1"} >
+                <Typography id="question-content" className={classes.questionContent} variant={"h4"} >
                 What does success look like in this position, and how do you measure it?
                 </Typography>
                 </Container>
 
-                <Container className={classes.answerContainer}>
-                    <Typography id="answer-initial" className={classes.subheading} variant={"h1"} style={{color: '#818181'}}>
+                <Container className={"answer-container"} style={{width: '80%'}}>
+                    <Typography id="answer-initial" className={classes.subheading} variant={"h4"} style={{color: '#818181'}}>
                     A:&emsp;
                     </Typography>
                     <Button className={classes.answerButton} color="primary" variant={"contained"}>SHOW ANSWER</Button>
@@ -216,3 +198,4 @@ function Flashcard() {
 }
 
 export default Flashcard;
+
