@@ -4,7 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import KeyboardArrowLeftIcon from "../icons/light/left.png";
 import KeyboardArrowRightIcon from "../icons/light/right.png";
-import BookmarkIcon from "../icons/light/save.png";
+import SaveIcon from "../icons/light/save.png";
 import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles({
@@ -48,7 +48,7 @@ function HotkeyBox() {
           </Typography>
 
           <Typography className={classes.information}>
-            <img src={BookmarkIcon} className={"hotkey-icon"}/>
+            <img src={SaveIcon} className={"hotkey-icon"}/>
             <b>Save </b>- S key to save your questions for later
           </Typography>
         </Grid>
