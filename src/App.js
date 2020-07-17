@@ -8,6 +8,7 @@ import { Switch, Route, Link, BrowserRouter} from "react-router-dom";
 import Home from './pages/home';
 import Revise from "./pages/revise";
 import Saved from "./pages/saved";
+import AccountMenu from "./components/AccountMenu";
 
 const StyledTabs = withStyles({
     indicator: {
@@ -41,7 +42,7 @@ const StyledTab = withStyles((theme) => ({
     },
 }))((props) => <Tab disableRipple {...props} />);
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     root: {
         flexGrow: 1,
     },
@@ -57,6 +58,15 @@ const useStyles = makeStyles((theme) => ({
 function App() {
     const classes = useStyles();
     const allTabs = ['/', '/revise', '/saved'];
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
     return (
         <BrowserRouter>
@@ -75,7 +85,8 @@ function App() {
                                         <StyledTab label="Home" value="/" component={Link} to={allTabs[0]} />
                                         <StyledTab label="Revise" value="/revise" component={Link} to={allTabs[1]} />
                                         <StyledTab label="Saved" value="/saved" component={Link} to={allTabs[2]} />
-                                        <StyledTab label="My Account" />
+                                        <StyledTab label="My Account" onClick={handleClick} />
+                                        <AccountMenu anchorEl={anchorEl} onClose={handleClose}/>
                                     </StyledTabs>
                                 </div>
                             </Grid>
