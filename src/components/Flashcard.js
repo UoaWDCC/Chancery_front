@@ -7,8 +7,6 @@ import { Button } from "@material-ui/core";
 import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
 
-import Revise from "../pages/revise.js";
-
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import BookmarkTwoToneIcon from '@material-ui/icons/BookmarkTwoTone';
@@ -96,12 +94,9 @@ const useStyles = makeStyles({
         textTransform: 'uppercase',
         boxShadow: 'none',
         position: 'absolute',
-        
-        left: '50%',
-        top: '50%',
 
-        webkitTransform: 'translate(-50%, -50%)',
-        transform: 'translate(-50%, 100%) translateY(74px)',
+        bottom: '20px',
+        left: 'calc(50% - 85px)',
 
         width: '170px',
 
@@ -149,7 +144,8 @@ function isOverflown(element) {
             return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
           }
 
-function Flashcard() {
+
+function Flashcard(props) {
 
     const classes = useStyles();
 
@@ -164,43 +160,50 @@ function Flashcard() {
             event.currentTarget.style.filter = 'invert(62%) sepia(94%) saturate(364%) hue-rotate(108deg) brightness(89%) contrast(91%)';
         }
     };
-
-
+    
     const [show, setShowAnswer] = React.useState(0);
     const showAnswer = (event) => {
 
-        if (isOverflown(document.getElementById("answer-content"))) {
-            // alert('hello');
-            // document.getElementById("two").xs = "0";
-        }
-
-        if (show) {
+        if (show) { 
+            props.onClick();
             setShowAnswer(false);
             document.getElementById("answer-initial").style.color = '#818181';
-
-            document.getElementById("show-button").innerHTML = 'Show Answer';
 
             document.getElementById("answer-content").style.opacity = '0';
             document.getElementById("answer-content").style.visibility = 'hidden';
 
+            document.getElementById("answer-container").style.height = '200px';
+            document.getElementById("answer-container").style.flex = 'none';
+
+            document.getElementById("one").style.height = '100%';
+
         }
-        else {
+        else { 
+            if (isOverflown(document.getElementById("answer-content"))) {
+            props.onClose();
+            
+            document.getElementById("one").style.height = '670px';
+            document.getElementById("answer-container").style.flex = '1';
+        }
             setShowAnswer(true);
             document.getElementById("answer-initial").style.color = '#21CE99';
 
-            document.getElementById("show-button").innerHTML = "Hide Answer";
-
             document.getElementById("answer-content").style.opacity = '1';
             document.getElementById("answer-content").style.visibility = 'visible';
+
+
+
+
+
         }
     }
 
 
     return (
         <div>
-            <Container className={"flashcard-background"} >
+            <Container id="one" className={"flashcard-background"} style={{display: 'flex', flexFlow: 'column'}}>
 
-                <Grid container justify="center" alignItems="center">
+                <Grid container justify="center" alignItems="center" style={{height: 30}}>
 
                     <Grid item container xs={5}>
                         <Typography id="difficulty" className={classes.tags} variant={"h3"} >
@@ -253,7 +256,7 @@ function Flashcard() {
                 </Typography>
                 </Container>
 
-                <Container id="answer-box" className={"answer-container"} style={{width: '80%', display: 'flex'}}>
+                <Container id="answer-container" className={"answer-container"} style={{width: '80%', display: 'flex'}}>
                     <Typography id="answer-initial" className={classes.subheading} variant={"h4"} style={{color: '#818181'}}>
                     A:&emsp;
                     </Typography>
@@ -264,10 +267,15 @@ improve and still have work to do, but if I reach those goals and achieve my
 desired outcome, I consider that a success. I try to set goals that meet or beat expectations, and work as hard as I can to
 complete those goals. If I make mistakes along the way, then I know I can
 improve and still have work to do, but if I reach those goals and achieve my
+desired outcome, I consider that a success. I try to set goals that meet or beat expectations, and work as hard as I can to
+complete those goals. If I make mistakes along the way, then I know I can
+improve and still have work to do, but if I reach those goals and achieve my
 desired outcome, I consider that a success.
                 </Typography>
-                    <Button id="show-button" className={show ? classes.hideButton : classes.showButton} color="primary" variant={"contained"} onClick={showAnswer}>SHOW ANSWER</Button>
+                   {show ? <div/> : <Button id="show-button" className={classes.showButton} color="primary" variant={"contained"} onClick={showAnswer}>Show Answer</Button>} 
                 </Container>
+
+                {show ? <Button id="show-button" className={classes.hideButton} color="primary" variant={"contained"} onClick={showAnswer}>Hide Answer</Button> : <div/>} 
 
                 <IconButton className={classes.leftButton} >
                     <ArrowBackIcon/>

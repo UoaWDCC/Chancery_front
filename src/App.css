@@ -5,7 +5,7 @@
   height: 90%;
   position: relative;
   min-width: 150px;
-  min-height: 510px;
+  max-height: 650px;
 }
 
 .hotkey-box {
@@ -23,9 +23,11 @@
   background-color: #F5F5F5;
   border-radius: 10px;
   text-align: center;
-  padding: 20px;
+  padding: 20px 20px 84px 20px;
   position: relative;
   box-shadow: 0 0 5px 0 grey;
+  display: flex;
+  flex-flow: column;
 }
 
 .question-container {
@@ -33,11 +35,10 @@
   border-radius: 30px;
   text-align: left;
   margin-top: 10px;
+  min-height: 100px;
 }
 
 .answer-container {
-  margin-top: 30px;
-  margin-bottom: 64px;
   padding: 15px;
   background: rgba(255, 255, 255, 0.3);
   border-radius: 15px;

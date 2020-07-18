@@ -7,8 +7,11 @@ import HotkeyBox from "../components/HotkeyBox";
 function Revise() {
 
     const [isRendered, setHotkey] = React.useState(1); 
+    const doRender = (event) => {
+        setHotkey(true);
+    }
     const dontRender = (event) => {
-        setHotkey = false;
+        setHotkey(false);
     }
 
     return (
@@ -24,13 +27,15 @@ function Revise() {
                         <Grid item md={6} lg={3}>
                             <FilterBox/>
                         </Grid>
+                       
                         <Grid container item md={12} lg={9}>
-                            <Grid item xs={12}>
-                                <Flashcard/>
-                            </Grid>
-                            <Grid item xs={12}>
-                                {isRendered ? <HotkeyBox/> : <div/>}
-                            </Grid>
+
+                          <Grid item xs={12}>
+                                <Flashcard isRendered={isRendered} onClick={doRender} onClose={dontRender}/>
+                            </Grid> 
+                            
+                            {isRendered ? <Grid item xs={12}> <HotkeyBox/>
+                            </Grid> : <div/>}
                         </Grid>
                     </Grid>
                 </Grid>
