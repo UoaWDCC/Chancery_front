@@ -184,6 +184,10 @@ function Flashcard(props) {
             
             document.getElementById("one").style.height = '670px';
             document.getElementById("answer-container").style.flex = '1';
+
+            if (isOverflown(document.getElementById("answer-content"))) {
+                document.getElementById("one").style.height = '100%';
+            }
         }
             setShowAnswer(true);
             document.getElementById("answer-initial").style.color = '#21CE99';
@@ -252,7 +256,7 @@ function Flashcard(props) {
                 </Typography>
 
                 <Typography id="question-content" className={classes.questionContent} variant={"h4"} >
-                What does success look like in this position, and how do you measure it?
+                What’s the difference between LIFO and FIFO? Can you walk me through an example of how they differ?
                 </Typography>
                 </Container>
 
@@ -261,16 +265,14 @@ function Flashcard(props) {
                     A:&emsp;
                     </Typography>
                     <Typography id="answer-content" className={classes.answerContent} variant={"h4"} >
-                    I try to set goals that meet or beat expectations, and work as hard as I can to
-complete those goals. If I make mistakes along the way, then I know I can
-improve and still have work to do, but if I reach those goals and achieve my
-desired outcome, I consider that a success. I try to set goals that meet or beat expectations, and work as hard as I can to
-complete those goals. If I make mistakes along the way, then I know I can
-improve and still have work to do, but if I reach those goals and achieve my
-desired outcome, I consider that a success. I try to set goals that meet or beat expectations, and work as hard as I can to
-complete those goals. If I make mistakes along the way, then I know I can
-improve and still have work to do, but if I reach those goals and achieve my
-desired outcome, I consider that a success.
+                    First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO. But you may want to read this anyway because it’s good to know in case you ever work with US-based companies.
+LIFO stands for “Last-In, First-Out” and FIFO stands for “First-In, First-Out” – they are 2 different ways of recording the value of inventory and the Cost of Goods Sold (COGS).
+With LIFO, you use the value of the most recent inventory additions for COGS, but with FIFO you use the value of the oldest inventory additions for COGS.
+Here’s an example: let’s say your starting inventory balance is $100 (10 units valued at $10 each). You add 10 units each quarter for $12 each in Q1, $15 each in Q2, $17 each in Q3, and $20 each in Q4, so that the total is $120 in Q1, $150 in Q2, $170 in Q3, and $200 in Q4.
+You sell 40 of these units throughout the year for $30 each. In both LIFO and FIFO, you record 40 * $30 or $1,200 for the annual revenue.
+The difference is that in LIFO, you would use the 40 most recent inventory purchase values – $120 + $150 + $170 + $200 – for the Cost of Goods Sold, whereas in FIFO you would use the 40 oldest inventory values – $100 + $120 + $150 + $170 – for COGS.
+As a result, the LIFO COGS would be $640 and FIFO COGS would be $540, so LIFO would also have lower Pre-Tax Income and Net Income. The ending inventory value would be $100 higher under FIFO and $100 lower under FIFO.
+In general if inventory is getting more expensive to purchase, LIFO will produce higher values for COGS and lower ending inventory values and vice versa if inventory is getting cheaper to purchase.
                 </Typography>
                    {show ? <div/> : <Button id="show-button" className={classes.showButton} color="primary" variant={"contained"} onClick={showAnswer}>Show Answer</Button>} 
                 </Container>
