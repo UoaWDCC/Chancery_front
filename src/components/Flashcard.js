@@ -18,7 +18,7 @@ const useStyles = makeStyles({
         color: 'white',
         backgroundColor: '#21CE99',
         borderRadius: '5px',
-        fontSize: '15px',
+        fontSize: '18px',
         float: 'left',
         textTransform: 'uppercase',
         padding: '5px 10px 5px 10px',
@@ -28,7 +28,7 @@ const useStyles = makeStyles({
     page: {
         fontWeight: 'bold',
         color: '#818181',
-        fontSize: '20px',
+        fontSize: '43px',
         display: 'inline-block',
     },
     save: {
@@ -43,15 +43,15 @@ const useStyles = makeStyles({
     },
     subheading: {
         fontWeight: 'bold',
-        fontSize: '30px',
+        fontSize: '40px',
         display: 'inline-block',
         textTransform: 'uppercase',
     },
     questionContent: {
         fontWeight: 'bold',
-        fontSize: '25px',
+        fontSize: '30px',
         display: 'inline-block',
-        marginTop: '3px',
+        marginTop: '5px',
     },
     answerContent: {
         fontSize: '20px',
@@ -60,13 +60,14 @@ const useStyles = makeStyles({
         opacity: '0',
         transition: 'visibility 0s, opacity 0.5s linear',
         display: 'inline-block',
-        lineHeight: '170%',
+        lineHeight: '50px',
     },
     showButton: {
         color: 'white',
         borderRadius: '5px',
-        fontSize: '14px',
-        padding: '10px 20px 10px 20px',
+        fontSize: '20px',
+        padding: '10px 0px 10px 0px',
+        textAlign: 'center',
         textTransform: 'uppercase',
         boxShadow: 'none',
         position: 'absolute',
@@ -75,7 +76,7 @@ const useStyles = makeStyles({
         webkitTransform: 'translate(-50%, -50%)',
         transform: 'translate(-50%, -50%)',
 
-        width: '170px',
+        width: '210px',
 
         '&:hover': {
             borderWidth: '3px',
@@ -89,8 +90,8 @@ const useStyles = makeStyles({
         color: '#818181',
         backgroundColor: 'white',
         borderRadius: '5px',
-        fontSize: '14px',
-        padding: '10px 20px 10px 20px',
+        fontSize: '20px',
+        padding: '10px 0px 10px 0px',
         textTransform: 'uppercase',
         boxShadow: 'none',
         position: 'absolute',
@@ -98,7 +99,7 @@ const useStyles = makeStyles({
         bottom: '20px',
         left: 'calc(50% - 85px)',
 
-        width: '170px',
+        width: '210px',
 
         '&:hover': {
             borderWidth: '3px',
@@ -182,7 +183,7 @@ function Flashcard(props) {
             if (isOverflown(document.getElementById("answer-content"))) {
             props.onClose();
             
-            document.getElementById("one").style.height = '670px';
+            document.getElementById("one").style.height = '690px';
             document.getElementById("answer-container").style.flex = '1';
 
             if (isOverflown(document.getElementById("answer-content"))) {
@@ -211,13 +212,13 @@ function Flashcard(props) {
 
                     <Grid item container xs={5}>
                         <Typography id="difficulty" className={classes.tags} variant={"h3"} >
-                            <LocalOfferIcon style={{ fontSize: 10}}/>
+                            <LocalOfferIcon style={{ fontSize: 18}}/>
                                 
                         &nbsp;Easy
                         </Typography>
 
                         <Typography id="topic" className={classes.tags} variant={"h3"} >
-                        <LocalOfferIcon style={{ fontSize: 10}}/>
+                        <LocalOfferIcon style={{ fontSize: 18}}/>
                         &nbsp;Accounting
                         </Typography>
                     </Grid>
@@ -237,7 +238,7 @@ function Flashcard(props) {
                     </Grid>
 
                     <Grid item container xs={5} justify="flex-end">
-                        <Typography className={classes.subheading} style={{fontSize: 20, marginTop: 10}} variant={"h3"}>
+                        <Typography className={classes.subheading} style={{fontSize: 25, marginTop: 6}} variant={"h3"}>
                             Save&nbsp;
                         </Typography>
                         <Button className={classes.save} disableRipple onClick={saveFlashcard} >
@@ -252,7 +253,7 @@ function Flashcard(props) {
                 <Container className={"question-container"} style={{width: '80%', display: 'flex'}}>
 
                 <Typography className={classes.subheading} variant={"h4"}>
-                Q:&emsp;
+                Q.&emsp;
                 </Typography>
 
                 <Typography id="question-content" className={classes.questionContent} variant={"h4"} >
@@ -264,18 +265,10 @@ function Flashcard(props) {
 
                 <Container id="answer-container" className={"answer-container"} style={{width: '80%', display: 'flex'}}>
                     <Typography id="answer-initial" className={classes.subheading} variant={"h4"} style={{color: '#818181'}}>
-                    A:&emsp;
+                    A.&emsp;
                     </Typography>
                     <Typography id="answer-content" className={classes.answerContent} variant={"h4"} >
-                    First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO. But you may want to read this anyway because it’s good to know in case you ever work with US-based companies.
-LIFO stands for “Last-In, First-Out” and FIFO stands for “First-In, First-Out” – they are 2 different ways of recording the value of inventory and the Cost of Goods Sold (COGS).
-With LIFO, you use the value of the most recent inventory additions for COGS, but with FIFO you use the value of the oldest inventory additions for COGS.
-Here’s an example: let’s say your starting inventory balance is $100 (10 units valued at $10 each). You add 10 units each quarter for $12 each in Q1, $15 each in Q2, $17 each in Q3, and $20 each in Q4, so that the total is $120 in Q1, $150 in Q2, $170 in Q3, and $200 in Q4.
-You sell 40 of these units throughout the year for $30 each. In both LIFO and FIFO, you record 40 * $30 or $1,200 for the annual revenue.
-The difference is that in LIFO, you would use the 40 most recent inventory purchase values – $120 + $150 + $170 + $200 – for the Cost of Goods Sold, whereas in FIFO you would use the 40 oldest inventory values – $100 + $120 + $150 + $170 – for COGS.
-As a result, the LIFO COGS would be $640 and FIFO COGS would be $540, so LIFO would also have lower Pre-Tax Income and Net Income. The ending inventory value would be $100 higher under FIFO and $100 lower under FIFO.
-In general if inventory is getting more expensive to purchase, LIFO will produce higher values for COGS and lower ending inventory values and vice versa if inventory is getting cheaper to purchase.
-
+                    First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO. 
 
                 </Typography>
                    {show ? <div/> : <Button id="show-button" className={classes.showButton} color="primary" variant={"contained"} onClick={showAnswer}>Show Answer</Button>} 
