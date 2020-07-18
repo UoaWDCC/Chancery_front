@@ -22,17 +22,16 @@ const useStyles = makeStyles({
         textTransform: 'uppercase',
         float: 'left',
         padding: '5px 10px 5px 10px',
-        marginRight: '10px',
+        marginLeft: '10px',
     },
     page: {
         color: '#818181',
-        fontWeight: 'bold',
         fontSize: '43px',
         display: 'inline-block',
     },
     save: {
         float: 'right',
-        margin: '-5px -25px 0 -15px',
+        margin: '-5px -15px 0 -15px',
         '&:hover': {
             background: 'none',
             borderWidth: '3px',
@@ -58,7 +57,7 @@ const useStyles = makeStyles({
         fontSize: '20px',
         display: 'inline-block',
         marginTop: '2.5px',
-        lineHeight: '50px',
+        lineHeight: '40px',
         visibility: 'hidden',
         opacity: '0',
         transition: 'visibility 0s, opacity 0.5s linear',
@@ -274,11 +273,11 @@ function Flashcard(props) {
                 {show ? <Button id="show-button" className={classes.hideButton} color="primary" variant={"contained"} onClick={showAnswer}>Hide Answer</Button> : <div/>} 
 
                 <IconButton className={classes.leftButton} >
-                    <ArrowBackIcon style={{fontSize: 30}}/>
+                    <ArrowBackIcon style={{fontSize: 40}}/>
                 </IconButton>
 
                 <IconButton className={classes.rightButton} >
-                    <ArrowForwardIcon style={{fontSize: 30}}/>
+                    <ArrowForwardIcon style={{fontSize: 40}}/>
                 </IconButton>
                 
             </Container>
