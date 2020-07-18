@@ -8,6 +8,8 @@ import {makeStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Typography from "@material-ui/core/Typography";
 import clsx from 'clsx';
+import theme from "../theme";
+import Container from "@material-ui/core/Container";
 
 const useStyles = makeStyles({
     heading: {
@@ -63,12 +65,21 @@ const useStyles = makeStyles({
             backgroundColor: '#21CE99',
         },
         outline: '2px auto #1DA279',
-    }
+    },
+    filterBox: {
+        backgroundColor: theme.palette.background.default,
+        borderRadius: '10px',
+        padding: '25px',
+        height: '90%',
+        position: 'relative',
+        minWidth: '150px',
+        minHeight: '510px',
+        boxShadow: '0 0 5px 0 grey',
+    },
 });
 
 function StyledCheckbox(props) {
     const classes = useStyles();
-
     return (
         <Checkbox
             className={classes.root}
@@ -110,7 +121,7 @@ function FilterBox() {
     ));
 
     return (
-        <div className={"filter-box"}>
+        <Container className={classes.filterBox}>
             <FormControl component="fieldset">
                 <FormLabel className={classes.heading} component="label" focused color={"secondary"}>TOPICS:</FormLabel>
                 <FormGroup aria-label="position" row={false}>
@@ -126,7 +137,7 @@ function FilterBox() {
 
             <Button variant="contained" className={classes.button}><Typography className={classes.label}>Apply Filters</Typography></Button>
 
-        </div>
+        </Container>
     )
 }
 

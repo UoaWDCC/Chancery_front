@@ -42,7 +42,8 @@ const StyledMenuItem = withStyles((theme) => ({
 
 function AccountMenu(props) {
 
-    const anchorEl=props.anchorEl
+    const darkMode = props.darkMode;
+    const anchorEl=props.anchorEl;
 
     return (
         <StyledMenu
@@ -53,7 +54,7 @@ function AccountMenu(props) {
             open={Boolean(anchorEl)}
             onClose={props.onClose}
         >
-            <StyledMenuItem>
+            <StyledMenuItem onClick={() => props.setDarkMode(!darkMode)}>
                 <ListItemIcon>
                     <ToggleOffIcon fontSize="small" />
                 </ListItemIcon>

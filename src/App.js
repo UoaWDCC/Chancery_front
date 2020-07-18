@@ -1,6 +1,6 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useState} from 'react';
 import './App.css';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import {createMuiTheme, makeStyles, withStyles} from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Grid from "@material-ui/core/Grid";
@@ -9,8 +9,10 @@ import Home from './pages/home';
 import Revise from "./pages/revise";
 import Saved from "./pages/saved";
 import AccountMenu from "./components/AccountMenu";
+import Paper from "@material-ui/core/Paper";
+import {ThemeProvider} from "@material-ui/styles";
 
-const StyledTabs = withStyles({
+const StyledTabs = withStyles((theme) => ({
     indicator: {
         display: 'flex',
         justifyContent: 'center',
@@ -18,7 +20,7 @@ const StyledTabs = withStyles({
         '& > span': {
             maxWidth: 70,
             width: '100%',
-            backgroundColor: '#000000',
+            backgroundColor: theme.palette.primary.contrastText,
         },
         height: '3px',
     },
@@ -27,14 +29,14 @@ const StyledTabs = withStyles({
         paddingTop: '15px',
         paddingRight: '20px',
     }
-})((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
+}))((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
 
 const StyledTab = withStyles((theme) => ({
     root: {
         textTransform: 'uppercase',
         fontWeight: 'bold',
         fontSize: '20px',
-        color: '#000000',
+        color: theme.color,
         marginRight: theme.spacing(1),
         '&:focus': {
             opacity: 1,
@@ -58,7 +60,9 @@ const useStyles = makeStyles(() => ({
 function App() {
     const classes = useStyles();
     const allTabs = ['/', '/revise', '/saved'];
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [darkMode, setDarkMode] = useState(false);
+
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -68,39 +72,64 @@ function App() {
         setAnchorEl(null);
     };
 
+    const theme = createMuiTheme({
+        palette: {
+            type: darkMode ? "dark" : "light",
+            primary: {
+                light: '#21CE99',
+                main: '#21CE99',
+                dark: '#21CE99',
+                contrastText: darkMode ? '#fff' : '#000000'
+            },
+            secondary: {
+                main: '#000000',
+                light: '#F5F5F5',
+                dark: '#5F5F5F'
+            },
+            background: {
+                paper: darkMode ? '#313131' : '#fff',
+                default: darkMode ? '#313131' : '#fff',
+            },
+        },
+    })
+
     return (
-        <BrowserRouter>
-        <div className={classes.root}>
-            <Route
-                path="/"
-                render={({ location }) => (
-                    <Fragment>
-                        <Grid container style={{ minHeight: '10vh' }}>
-                            <Grid item xs>
-                                <div className={"logo"}> Chancery </div>
-                            </Grid>
-                            <Grid item xs>
-                                <div className={classes.nav}>
-                                    <StyledTabs value={location.pathname} aria-label="styled tabs example">
-                                        <StyledTab label="Home" value="/" component={Link} to={allTabs[0]} />
-                                        <StyledTab label="Revise" value="/revise" component={Link} to={allTabs[1]} />
-                                        <StyledTab label="Saved" value="/saved" component={Link} to={allTabs[2]} />
-                                        <StyledTab label="My Account" onClick={handleClick} />
-                                        <AccountMenu anchorEl={anchorEl} onClose={handleClose}/>
-                                    </StyledTabs>
-                                </div>
-                            </Grid>
-                        </Grid>
-                        <Switch>
-                            <Route path={allTabs[1]} render={() => <Revise/>} />
-                            <Route path={allTabs[2]} render={() => <Saved/>} />
-                            <Route path={allTabs[0]} render={() => <Home/>} />
-                        </Switch>
-                    </Fragment>
-                )}
-            />
-        </div>
-        </BrowserRouter>
+        <ThemeProvider theme={theme}>
+            <Paper style={{height: '100vh'}}>
+                <BrowserRouter>
+                    <div className={classes.root}>
+                        <Route
+                            path="/"
+                            render={({ location }) => (
+                                <Fragment>
+                                    <Grid container style={{ minHeight: '10vh' }}>
+                                        <Grid item xs>
+                                                <div className={"logo"}> Chancery </div>
+                                        </Grid>
+                                        <Grid item xs>
+                                            <div className={classes.nav}>
+                                                <StyledTabs value={location.pathname} aria-label="styled tabs example">
+                                                    <StyledTab label="Home" value="/" component={Link} to={allTabs[0]} />
+                                                    <StyledTab label="Revise" value="/revise" component={Link} to={allTabs[1]} />
+                                                    <StyledTab label="Saved" value="/saved" component={Link} to={allTabs[2]} />
+                                                    <StyledTab label="My Account" onClick={handleClick} />
+                                                    <AccountMenu anchorEl={anchorEl} onClose={handleClose} setDarkMode={setDarkMode} darkMode={darkMode}/>
+                                                </StyledTabs>
+                                            </div>
+                                        </Grid>
+                                    </Grid>
+                                    <Switch>
+                                        <Route path={allTabs[1]} render={() => <Revise/>} />
+                                        <Route path={allTabs[2]} render={() => <Saved/>} />
+                                        <Route path={allTabs[0]} render={() => <Home/>} />
+                                    </Switch>
+                                </Fragment>
+                            )}
+                        />
+                    </div>
+                </BrowserRouter>
+            </Paper>
+        </ThemeProvider>
     );
 }
 
