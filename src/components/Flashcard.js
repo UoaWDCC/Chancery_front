@@ -49,9 +49,9 @@ const useStyles = makeStyles({
     },
     questionContent: {
         fontWeight: 'bold',
-        fontSize: '22px',
+        fontSize: '25px',
         display: 'inline-block',
-        marginTop: '6px',
+        marginTop: '3px',
     },
     answerContent: {
         fontSize: '20px',
@@ -111,26 +111,26 @@ const useStyles = makeStyles({
     leftButton: {
         position: 'absolute',
         left: 'calc(5% - 15px)',
-        top: 'calc(50% - 30px)',
+        top: 'calc(200px)',
 
         color: '#F5F5F5',
         backgroundColor: '#B1B1B1',
         
-        height: '40px',
-        width: '40px',
+        height: '60px',
+        width: '60px',
 
 
     },
     rightButton: {
         position: 'absolute',
         right: 'calc(5% - 15px)',
-        top: 'calc(50% - 30px)',
+        top: 'calc(200px)',
 
         color: '#F5F5F5',
         backgroundColor: '#B1B1B1',
 
-        height: '40px',
-        width: '40px',
+        height: '60px',
+        width: '60px',
     },
 
       mirror: {
@@ -257,6 +257,8 @@ function Flashcard(props) {
 
                 <Typography id="question-content" className={classes.questionContent} variant={"h4"} >
                 What’s the difference between LIFO and FIFO? Can you walk me through an example of how they differ?
+
+
                 </Typography>
                 </Container>
 
@@ -273,6 +275,8 @@ You sell 40 of these units throughout the year for $30 each. In both LIFO and FI
 The difference is that in LIFO, you would use the 40 most recent inventory purchase values – $120 + $150 + $170 + $200 – for the Cost of Goods Sold, whereas in FIFO you would use the 40 oldest inventory values – $100 + $120 + $150 + $170 – for COGS.
 As a result, the LIFO COGS would be $640 and FIFO COGS would be $540, so LIFO would also have lower Pre-Tax Income and Net Income. The ending inventory value would be $100 higher under FIFO and $100 lower under FIFO.
 In general if inventory is getting more expensive to purchase, LIFO will produce higher values for COGS and lower ending inventory values and vice versa if inventory is getting cheaper to purchase.
+
+
                 </Typography>
                    {show ? <div/> : <Button id="show-button" className={classes.showButton} color="primary" variant={"contained"} onClick={showAnswer}>Show Answer</Button>} 
                 </Container>
@@ -280,11 +284,11 @@ In general if inventory is getting more expensive to purchase, LIFO will produce
                 {show ? <Button id="show-button" className={classes.hideButton} color="primary" variant={"contained"} onClick={showAnswer}>Hide Answer</Button> : <div/>} 
 
                 <IconButton className={classes.leftButton} >
-                    <ArrowBackIcon/>
+                    <ArrowBackIcon style={{fontSize: 30}}/>
                 </IconButton>
 
                 <IconButton className={classes.rightButton} >
-                    <ArrowForwardIcon/>
+                    <ArrowForwardIcon style={{fontSize: 30}}/>
                 </IconButton>
                 
             </Container>
