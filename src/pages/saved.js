@@ -1,4 +1,5 @@
 import React from "react";
+import SavedFlashcard from '../components/SavedFlashcard';
 
 import {makeStyles} from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
@@ -18,7 +19,7 @@ const useStyles = makeStyles({
         margin: 'auto 0',
     },
     button: {
-        borderRadius: '5px',
+        borderRadius: '10px',
         color: 'white',
         fontSize: '25px',
         textAlign: 'center',
@@ -35,7 +36,16 @@ const useStyles = makeStyles({
             boxShadow: 'none',
         },
     },
-    
+    flashcardContainer: {
+        marginTop: '20px',
+        padding: '0',
+    },
+    subheading: {
+        fontWeight: 'bold',
+        fontSize: '40px',
+        textTransform: 'uppercase',
+        display: 'inline-block',
+    },
 })
 
 function Saved() {
@@ -46,7 +56,7 @@ function Saved() {
            <Container
                 container
                 spacing={0}
-                style={{padding: '3em 3em 4em 3em', border: '2px solid black'}}
+                style={{padding: '3em 3em 4em 3em'}}
             >
 
                 <Grid container>
@@ -63,25 +73,22 @@ function Saved() {
 
                 </Grid>
 
-                <Grid container style={{border: '2px solid red'}}>
-                    <Grid item container xs={1}>
-                    </Grid>
-                    <Grid item container xs={11}>
-                        <Typography className={classes.title}>Saved Questions:</Typography>
-                    </Grid>
-                </Grid>
-
-                <Container style={{border: '2px solid black', height: 200}}>
-                    2
+                <Container className={classes.flashcardContainer}>
+                    <SavedFlashcard/>
                 </Container>
 
-                <Container style={{border: '2px solid black', height: 200}}>
-                    3
+                <Container className={classes.flashcardContainer}>
+                    <SavedFlashcard/>
                 </Container>
 
-                <Container style={{border: '2px solid black', height: 200}}>
-                    4
+                <Container className={classes.flashcardContainer}>
+                    <SavedFlashcard/>
                 </Container>
+
+                <Container className={classes.flashcardContainer}>
+                    <SavedFlashcard/>
+                </Container>
+                
                 
                
             </Container>
