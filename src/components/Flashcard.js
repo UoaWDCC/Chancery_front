@@ -1,102 +1,84 @@
 import React from "react";
+
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
-import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
 
+import IconButton from '@material-ui/core/IconButton';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
+import BookmarkTwoToneIcon from '@material-ui/icons/BookmarkTwoTone';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+
 const useStyles = makeStyles({
-    background: {
-        backgroundColor: '#F5F5F5',
-        borderRadius: '10px',
-        textAlign:'center',
-        padding: '20px',
-        position: 'relative',
-    },
     tags: {
-        color: 'white',
         backgroundColor: '#21CE99',
         borderRadius: '5px',
-        fontSize: '15px',
-        float: 'left',
+        color: 'white',
+        fontSize: '18px',
         textTransform: 'uppercase',
+        float: 'left',
         padding: '5px 10px 5px 10px',
-        marginRight: '10px',
-        
+        marginLeft: '10px',
     },
     page: {
-        fontWeight: 'bold',
         color: '#818181',
-        fontSize: '20px',
+        fontSize: '43px',
         display: 'inline-block',
     },
     save: {
         float: 'right',
-        fontSize: '14px',
-        margin: '0 -25px 0 -15px',
+        margin: '-5px -15px 0 -15px',
         '&:hover': {
+            background: 'none',
             borderWidth: '3px',
             borderColor: '#21CE99',
             color: '#21CE99',
-            background: 'none',
         },
     },
+
     subheading: {
         fontWeight: 'bold',
-        fontSize: '25px',
-        display: 'inline-block',
+        fontSize: '40px',
         textTransform: 'uppercase',
+        display: 'inline-block',
     },
-    questionContainer: {
-        padding: '15px',
-        borderRadius: '30px',
-        width: '80%',
-        textAlign: 'left',
-        display: 'flex',
-        marginTop: '10px',
-    },
+
     questionContent: {
         fontWeight: 'bold',
+        fontSize: '30px',
+        display: 'inline-block',
+        marginTop: '5px',
+    },
+    answerContent: {
         fontSize: '20px',
         display: 'inline-block',
         marginTop: '2.5px',
+        lineHeight: '40px',
+        visibility: 'hidden',
+        opacity: '0',
+        transition: 'visibility 0s, opacity 0.5s linear',
     },
-    answerContainer: {
-        marginTop: '30px',
-        marginBottom: '40px',
-        padding: '15px',
-        // backgroundColor: 'white',
-        background: 'rgba(255, 255, 255, 0.3)',
-        width: '80%',
-        borderRadius: '15px',
-        textAlign: 'left',
-        position: 'relative',
-        height: '200px',
-    },
-    answerContent: {
 
-    },
-    answerButton: {
-        color: 'white',
-        // backgroundColor: '#21CE99',
-        background: 'rgba(33, 206, 153, 1)',
-        borderColor: '#ffffff',
+    showButton: {
         borderRadius: '5px',
-        fontSize: '14px',
-        padding: '10px 20px 10px 20px',
+        color: 'white',
+        fontSize: '20px',
+        textAlign: 'center',
         textTransform: 'uppercase',
+        padding: '10px 0px 10px 0px',
         boxShadow: 'none',
+
         position: 'absolute',
         left: '50%',
         top: '50%',
         webkitTransform: 'translate(-50%, -50%)',
         transform: 'translate(-50%, -50%)',
 
+        width: '210px',
 
         '&:hover': {
             borderWidth: '3px',
@@ -105,113 +87,197 @@ const useStyles = makeStyles({
             boxShadow: 'none',
         },
     },
+    hideButton: {
+        backgroundColor: 'white',
+        borderRadius: '5px',
+        color: '#818181',
+        fontSize: '20px',
+        textAlign: 'center',
+        textTransform: 'uppercase',
+        padding: '10px 0px 10px 0px',
+        boxShadow: 'none',
+
+        position: 'absolute',
+        bottom: '20px',
+        left: 'calc(50% - 105px)',
+
+        width: '210px',
+
+        '&:hover': {
+            borderWidth: '3px',
+            backgroundColor: '#B1B1B1',
+            color: 'white',
+            boxShadow: 'none',
+        },
+    },
 
     leftButton: {
         position: 'absolute',
         left: 'calc(5% - 15px)',
-        top: 'calc(50% - 30px)',
+        top: 'calc(200px)',
 
         color: '#F5F5F5',
         backgroundColor: '#B1B1B1',
         
-        height: '40px',
-        width: '40px',
-
+        height: '60px',
+        width: '60px',
 
     },
     rightButton: {
         position: 'absolute',
         right: 'calc(5% - 15px)',
-        top: 'calc(50% - 30px)',
+        top: 'calc(200px)',
 
         color: '#F5F5F5',
         backgroundColor: '#B1B1B1',
 
-        height: '40px',
-        width: '40px',
+        height: '60px',
+        width: '60px',
     },
-
-
-      mirror: {
-        transform: [{ scaleX: '-1' }]
-        }
-
-
 })
 
-function Flashcard() {
+// Detects if answer-content is too large for answer-container, https://stackoverflow.com/questions/9333379/check-if-an-elements-content-is-overflowing/34299947 
+function isOverflown(element) {
+            return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
+          }
+
+
+function Flashcard(props) {
 
     const classes = useStyles();
 
+    // Define a state to detect if flashcard is saved
+    const [saved, setSaved] = React.useState(0);
+    const saveFlashcard = (event) => {
+        if (saved) {
+            setSaved(false);
+            event.currentTarget.style.filter = 'none'; 
+        }
+        else {
+            setSaved(true);
+            // https://codepen.io/sosuke/pen/Pjoqqp
+            event.currentTarget.style.filter = 'invert(62%) sepia(94%) saturate(364%) hue-rotate(108deg) brightness(89%) contrast(91%)';
+        }
+    };
+    
+    const [show, setShowAnswer] = React.useState(0);
+    const showAnswer = (event) => {
+
+        // NOTE: THIS NEEDS TO BE OPTIMISED 
+        if (show) { 
+            props.onClick();
+            setShowAnswer(false);
+            document.getElementById("answer-initial").style.color = '#818181';
+
+            document.getElementById("answer-content").style.opacity = '0';
+            document.getElementById("answer-content").style.visibility = 'hidden';
+
+            document.getElementById("answer-container").style.height = '200px';
+            document.getElementById("answer-container").style.flex = 'none';
+
+            document.getElementById("one").style.height = '100%';
+
+        }
+        else { 
+            // Check if answer exceeds initial height of 200px 
+            if (isOverflown(document.getElementById("answer-content"))) {
+                props.onClose();
+                
+                document.getElementById("one").style.height = '690px';
+                document.getElementById("answer-container").style.flex = '1';
+
+                // Check if answer exceeds filter-box height - induces a page scrollbar
+                if (isOverflown(document.getElementById("answer-content"))) {
+                    document.getElementById("one").style.height = '100%';
+                }
+            }
+            setShowAnswer(true);
+            document.getElementById("answer-initial").style.color = '#21CE99';
+
+            document.getElementById("answer-content").style.opacity = '1';
+            document.getElementById("answer-content").style.visibility = 'visible';
+        }
+    }
+
+
     return (
         <div>
-            <Container className={classes.background} >
+            <Container id="one" className={"flashcard-background"} style={{display: 'flex', flexFlow: 'column'}}>
 
-                <Grid container justify="center" alignItems="center">
-
-                    <Grid item container xs={5} justify="left">
-                        <Typography id="difficulty" className={classes.tags} variant={"h1"} >
-                            <LocalOfferIcon style={{ fontSize: 10}}/>
-                                
-                        &nbsp;Easy
+                {/* Top row is a grid containing two tags, page numbers and save toggle button */}
+                <Grid container justify="center" alignItems="center" style={{height: 30}}>
+                    
+                    {/* Tags */}
+                    <Grid item container xs={5}>
+                        <Typography id="difficulty" className={classes.tags}>
+                            <LocalOfferIcon style={{ fontSize: 18}}/>        
+                            &nbsp;Easy
                         </Typography>
-
-                        <Typography id="topic" className={classes.tags} variant={"h1"} >
-                        <LocalOfferIcon style={{ fontSize: 10}}/>
-                        &nbsp;Accounting
+                        <Typography id="topic" className={classes.tags}>
+                            <LocalOfferIcon style={{ fontSize: 18}}/>
+                            &nbsp;Accounting
                         </Typography>
                     </Grid>
 
+                    {/* Page Numbers*/}
                     <Grid item container xs={2} justify="center">
-                        <Typography id="flashcard-id" className={classes.page} variant={"h1"} >
-                        1
+                        <Typography id="flashcard-id" className={classes.page}>
+                            1
                         </Typography>
-
-                        <Typography className={classes.page} variant={"h1"} >
-                        &nbsp;/&nbsp;
+                        <Typography className={classes.page}>
+                            &nbsp;/&nbsp;
                         </Typography>
-
-                        <Typography id="total-flashcards" className={classes.page} variant={"h1"} >
-                        420
+                        <Typography id="total-flashcards" className={classes.page}>
+                            420
                         </Typography>
                     </Grid>
 
+                    {/* Save Toggle Button */}
                     <Grid item container xs={5} justify="flex-end">
-                        <Typography className={classes.subheading} style={{fontSize: 16, marginTop: 5}}>
-                            Save
+                        <Typography className={classes.subheading} style={{fontSize: 25, marginTop: 3}}>
+                            Save&nbsp;
                         </Typography>
-                        <Button className={classes.save} disableRipple>
-                            <BookmarkBorderIcon/>
+                        <Button className={classes.save} disableRipple onClick={saveFlashcard} >
+                            {saved ? <BookmarkTwoToneIcon style={{fontSize: 40}}/> : <BookmarkBorderIcon style={{fontSize: 40}}/> }
                         </Button>
                     </Grid>
 
                 </Grid>
 
-                <br/>
-                <Container className={classes.questionContainer}>
+                {/* Container containing question */}
+                <Container className={"question-container"} style={{width: '80%', display: 'flex'}}>
 
-                <Typography className={classes.subheading} variant={"h1"}>
-                Q:&emsp;
-                </Typography>
+                    <Typography className={classes.subheading} variant={"h4"}>Q.&emsp;</Typography>
 
-                <Typography id="question-content" className={classes.questionContent} variant={"h1"} >
-                What does success look like in this position, and how do you measure it?
-                </Typography>
-                </Container>
-
-                <Container className={classes.answerContainer}>
-                    <Typography id="answer-initial" className={classes.subheading} variant={"h1"} style={{color: '#818181'}}>
-                    A:&emsp;
+                    <Typography id="question-content" className={classes.questionContent} variant={"h4"} >
+                        What’s the difference between LIFO and FIFO? Can you walk me through an example of how they differ?
                     </Typography>
-                    <Button className={classes.answerButton} variant={"outlined"} style={{opacity: '1'}}>SHOW ANSWER</Button>
+
                 </Container>
+
+                {/* Container containing answer */}
+                <Container id="answer-container" className={"answer-container"} style={{width: '80%', display: 'flex'}}>
+
+                    <Typography id="answer-initial" className={classes.subheading} variant={"h4"} style={{color: '#818181'}}>A.&emsp;</Typography>
+
+                    <Typography id="answer-content" className={classes.answerContent} variant={"h4"} >
+                        First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO. 
+                    </Typography>
+
+                    {/* If answer is hidden, define the CSS class within the answer-container */}
+                    {show ? <div/> : <Button id="show-button" className={classes.showButton} color="primary" variant={"contained"} onClick={showAnswer}>Show Answer</Button>} 
+
+                </Container>
+
+                {/* Else define it within the flashcard-background */}
+                {show ? <Button id="show-button" className={classes.hideButton} color="primary" variant={"contained"} onClick={showAnswer}>Hide Answer</Button> : <div/>} 
 
                 <IconButton className={classes.leftButton} >
-                    <ArrowBackIcon/>
+                    <ArrowBackIcon style={{fontSize: 40}}/>
                 </IconButton>
 
                 <IconButton className={classes.rightButton} >
-                    <ArrowForwardIcon/>
+                    <ArrowForwardIcon style={{fontSize: 40}}/>
                 </IconButton>
                 
             </Container>
@@ -220,3 +286,4 @@ function Flashcard() {
 }
 
 export default Flashcard;
+
