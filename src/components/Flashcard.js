@@ -47,6 +47,35 @@ const useStyles = makeStyles({
         display: 'inline-block',
     },
 
+    flashcardBackground: {
+        backgroundColor: '#F5F5F5',
+        borderRadius: '10px',
+        textAlign: 'center',
+        padding: '20px 20px 94px 20px',
+        position: 'relative',
+        boxShadow: '0 0 5px 0 grey',
+        display: 'flex',
+        flexFlow: 'column',
+      },
+      
+      questionContainer: {
+        borderRadius: '30px',
+        textAlign: 'left',
+        padding: '15px',
+        marginTop: '50px',
+        minHeight: '100px',
+      },
+      
+      answerContainer: {
+        background: 'rgba(255, 255, 255, 0.3)',
+        borderRadius: '15px',
+        textAlign: 'left',
+        position: 'relative',
+        padding: '15px',
+        marginTop: '30px',
+        height: '200px',
+      },
+
     questionContent: {
         fontWeight: 'bold',
         fontSize: '30px',
@@ -175,7 +204,7 @@ function Flashcard(props) {
             document.getElementById("answer-container").style.height = '200px';
             document.getElementById("answer-container").style.flex = 'none';
 
-            document.getElementById("one").style.height = '100%';
+            document.getElementById("flashcard-box").style.height = '100%';
 
         }
         else { 
@@ -183,12 +212,12 @@ function Flashcard(props) {
             if (isOverflown(document.getElementById("answer-content"))) {
                 props.onClose();
                 
-                document.getElementById("one").style.height = '700px';
+                document.getElementById("flashcard-box").style.height = '700px';
                 document.getElementById("answer-container").style.flex = '1';
 
                 // Check if answer exceeds filter-box height - induces a page scrollbar
                 if (isOverflown(document.getElementById("answer-content"))) {
-                    document.getElementById("one").style.height = '100%';
+                    document.getElementById("flashcard-box").style.height = '100%';
                 }
             }
             setShowAnswer(true);
@@ -199,10 +228,9 @@ function Flashcard(props) {
         }
     }
 
-
     return (
         <div>
-            <Container id="one" className={"flashcard-background"} style={{display: 'flex', flexFlow: 'column'}}>
+            <Container id="flashcard-box" className={classes.flashcardBackground}>
 
                 {/* Top row is a grid containing two tags, page numbers and save toggle button */}
                 <Grid container justify="center" alignItems="center" style={{height: 30}}>
@@ -245,7 +273,7 @@ function Flashcard(props) {
                 </Grid>
 
                 {/* Container containing question */}
-                <Container className={"question-container"} style={{width: '80%', display: 'flex'}}>
+                <Container className={classes.questionContainer} style={{width: '80%', display: 'flex'}}>
 
                     <Typography className={classes.subheading} variant={"h4"}>Q.&emsp;</Typography>
 
@@ -256,7 +284,7 @@ function Flashcard(props) {
                 </Container>
 
                 {/* Container containing answer */}
-                <Container id="answer-container" className={"answer-container"} style={{width: '80%', display: 'flex'}}>
+                <Container id="answer-container" className={classes.answerContainer} style={{width: '80%', display: 'flex'}}>
 
                     <Typography id="answer-initial" className={classes.subheading} variant={"h4"} style={{color: '#818181'}}>A.&emsp;</Typography>
 
