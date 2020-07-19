@@ -1,49 +1,38 @@
-.filter-box {
-  background-color: #F5F5F5;
-  border-radius: 10px;
-  padding: 25px;
-  height: 90%;
-  position: relative;
-  min-width: 150px;
-  max-height: 650px;
-}
-
-.hotkey-box {
-  border-radius: 10px;
-  padding: 25px;
-}
-
-.hotkey-icon {
-  vertical-align: bottom;
-  padding-right: 7px;
-  color: black;
-}
-
-.flashcard-background {
-  background-color: #F5F5F5;
-  border-radius: 10px;
+.App {
   text-align: center;
-  padding: 20px 20px 94px 20px;
-  position: relative;
-  box-shadow: 0 0 5px 0 grey;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
   display: flex;
-  flex-flow: column;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
 }
 
-.question-container {
-  border-radius: 30px;
-  text-align: left;
-  padding: 15px;
-  margin-top: 50px;
-  min-height: 100px;
+.App-link {
+  color: #61dafb;
 }
 
-.answer-container {
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 15px;
-  text-align: left;
-  position: relative;
-  padding: 15px;
-  margin-top: 30px;
-  height: 200px;
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
