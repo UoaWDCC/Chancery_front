@@ -272,7 +272,6 @@ function Flashcard(props) {
 
                 </Grid>
 
-                {/* Container containing question */}
                 <Container className={classes.questionContainer} style={{width: '80%', display: 'flex'}}>
 
                     <Typography className={classes.subheading} variant={"h4"}>Q.&emsp;</Typography>
@@ -283,7 +282,6 @@ function Flashcard(props) {
 
                 </Container>
 
-                {/* Container containing answer */}
                 <Container id="answer-container" className={classes.answerContainer} style={{width: '80%', display: 'flex'}}>
 
                     <Typography id="answer-initial" className={classes.subheading} variant={"h4"} style={{color: '#818181'}}>A.&emsp;</Typography>
