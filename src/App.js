@@ -100,7 +100,7 @@ function App() {
 
     return (
         <ThemeProvider theme={theme}>
-            <Paper style={{borderRadius: 0}}>
+            <Paper elevation={0} square>
                 <BrowserRouter>
                     <div className={classes.root}>
                         <Route
