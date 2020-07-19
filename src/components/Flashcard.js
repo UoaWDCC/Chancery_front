@@ -182,7 +182,7 @@ function Flashcard(props) {
     const classes = useStyles();
 
     // Define a state to detect if flashcard is saved
-    const [saved, setSaved] = React.useState(0);
+    const [saved, setSaved] = React.useState(false);
     const saveFlashcard = (event) => {
         if (saved) {
             setSaved(false);
@@ -195,12 +195,12 @@ function Flashcard(props) {
         }
     };
     
-    const [show, setShowAnswer] = React.useState(0);
+    const [show, setShowAnswer] = React.useState(false);
     const showAnswer = () => {
 
         // NOTE: THIS NEEDS TO BE OPTIMISED 
-        if (show) { 
-            props.onClick();
+        if (show) {
+            props.setIsRendered(true);
             setShowAnswer(false);
             document.getElementById("answer-initial").style.color = '#818181';
 
@@ -216,7 +216,7 @@ function Flashcard(props) {
         else { 
             // Check if answer exceeds initial height of 200px 
             if (isOverflown(document.getElementById("answer-content"))) {
-                props.onClose();
+                props.setIsRendered(false);
                 
                 document.getElementById("answer-container").style.flex = '1';
 
@@ -224,10 +224,6 @@ function Flashcard(props) {
 
                  // Check if answer exceeds filter-box height of 750px 
                 if (isOverflown(document.getElementById("answer-content"))) {
-                    props.onClose();
-                    
-                    document.getElementById("answer-container").style.flex = '1';
-    
                     document.getElementById("flashcard-box").style.height = '100%';
     
                 }
