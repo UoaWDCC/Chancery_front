@@ -179,14 +179,14 @@ function Flashcard(props) {
 
         }
         else { 
-            {/* Check if answer exceeds initial height of 200px */}
+            // Check if answer exceeds initial height of 200px 
             if (isOverflown(document.getElementById("answer-content"))) {
                 props.onClose();
                 
                 document.getElementById("one").style.height = '690px';
                 document.getElementById("answer-container").style.flex = '1';
 
-                {/* Check if answer exceeds filter-box height - induces a page scrollbar*/}
+                // Check if answer exceeds filter-box height - induces a page scrollbar
                 if (isOverflown(document.getElementById("answer-content"))) {
                     document.getElementById("one").style.height = '100%';
                 }
@@ -261,7 +261,7 @@ function Flashcard(props) {
                     <Typography id="answer-initial" className={classes.subheading} variant={"h4"} style={{color: '#818181'}}>A.&emsp;</Typography>
 
                     <Typography id="answer-content" className={classes.answerContent} variant={"h4"} >
-                        First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO. 
+                        First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO. 
                     </Typography>
 
                     {/* If answer is hidden, define the CSS class within the answer-container */}
