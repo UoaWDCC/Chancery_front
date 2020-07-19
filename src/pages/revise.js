@@ -19,7 +19,7 @@ function Revise() {
             <Grid
                 container
                 spacing={0}
-                style={{ minHeight: '90vh', padding: '5em'}}
+                style={{ minHeight: '90vh', padding: '3em 5em 4em 5em'}}
             >
                 <Grid container item justify="center">
                     <Grid container item md={12} spacing={5} justify="center">
