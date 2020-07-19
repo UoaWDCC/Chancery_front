@@ -53,7 +53,7 @@ const useStyles = makeStyles( theme =>({
         textAlign: 'center',
         padding: '20px 20px 94px 20px',
         position: 'relative',
-        boxShadow: '0 0 5px 0 grey',
+        boxShadow: theme.palette.type === "dark" ? 'none' : '0 0 5px 0 grey',
         display: 'flex',
         flexFlow: 'column',
         height: '100%',
@@ -196,7 +196,7 @@ function Flashcard(props) {
     };
     
     const [show, setShowAnswer] = React.useState(0);
-    const showAnswer = (event) => {
+    const showAnswer = () => {
 
         // NOTE: THIS NEEDS TO BE OPTIMISED 
         if (show) { 
