@@ -57,9 +57,9 @@ function AccountMenu(props) {
             onClose={props.onClose}
         >
             <StyledMenuItem onClick={() => props.setDarkMode(!darkMode)}>
-                {<ListItemIcon>
+                <ListItemIcon>
                     {darkMode ? <ToggleOnIcon fontSize="small" /> : <ToggleOffIcon fontSize="small" />}
-                </ListItemIcon>}
+                </ListItemIcon>
                 {darkMode ? <ListItemText primary="Light Mode" /> : <ListItemText primary="Dark Mode" />}
             </StyledMenuItem>
             <StyledMenuItem>
