@@ -50,11 +50,11 @@ const useStyles = makeStyles({
     answerContainer: {
         padding: '0px',
         display: 'flex',
+        margin: '5px',
       },   
     answerContent: {
         fontSize: '20px',
         display: 'inline-block',
-        marginTop: '10px',
         lineHeight: '40px',
     },
     showButton: {

@@ -25,9 +25,10 @@ const useStyles = makeStyles({
         textAlign: 'center',
         textTransform: 'uppercase',
         boxShadow: 'none',
-        
         width: '350px',
         height: '80px',
+
+
 
         '&:hover': {
             borderWidth: '3px',
@@ -37,7 +38,7 @@ const useStyles = makeStyles({
         },
     },
     flashcardContainer: {
-        marginTop: '20px',
+        marginTop: '30px',
         padding: '0',
     },
     subheading: {
@@ -46,17 +47,48 @@ const useStyles = makeStyles({
         textTransform: 'uppercase',
         display: 'inline-block',
     },
+    footer: {
+        background: 'rgba(129, 129, 129, 0.3)',
+        maxWidth: '100vw',
+        height: '120px',
+        position: 'fixed',
+        bottom: 'calc(0% - 120px)',
+        textAlign: 'center',
+        padding: '20px',
+        zIndex: '1',
+        transition: 'bottom 0.5s',
+    }
 })
+
+function detectScrollDown() {
+      window.onscroll = function(e) {
+
+        if ( document.URL.includes("saved") ) { 
+            
+            if (this.oldScroll > this.scrollY) {
+                document.getElementById("footer-popup").style.bottom = 'calc(0% - 120px)';
+            }
+            else {
+                document.getElementById("footer-popup").style.bottom = 'calc(0%)';
+            }
+
+            this.oldScroll = this.scrollY;
+        }
+    }
+}
 
 function Saved() {
     const classes = useStyles();
 
+    detectScrollDown();
+
     return (
-        <div>
-           <Container
+        
+        <div style={{position: 'relative'}}>
+            <Container
                 container
                 spacing={0}
-                style={{padding: '3em 3em 4em 3em'}}
+                style={{padding: '3em 3em 150px 3em'}}
             >
 
                 <Grid container>
@@ -88,10 +120,15 @@ function Saved() {
                 <Container className={classes.flashcardContainer}>
                     <SavedFlashcard/>
                 </Container>
-                
-                
                
             </Container>
+
+            <Container id="footer-popup" className={classes.footer}>
+                <Link to={"/revise"} style={{textDecoration: "none"}}>
+                    <Button className={classes.button} color={"primary"} variant={"contained"}>Practice Now</Button>
+                </Link>
+            </Container>
+
         </div>
     )
 }
