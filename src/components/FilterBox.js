@@ -13,12 +13,12 @@ const useStyles = makeStyles({
     heading: {
         textTransform: 'uppercase',
         fontWeight: "bold",
-        fontSize: '18px',
+        fontSize: '25px',
         paddingBottom: '9px',
     },
     label: {
         textTransform: 'uppercase',
-        fontSize: '15px',
+        fontSize: '20px',
     },
     button: {
         position: "absolute",
@@ -89,7 +89,7 @@ function FilterBox() {
 
     const topicCheckBoxes = topics.map((topic) => (
         <FormControlLabel
-            style={{padding: '4px'}}
+            style={{padding: '8px'}}
             value={topic}
             control={<StyledCheckbox />}
             label={<Typography className={classes.label}>{topic}</Typography>}
@@ -100,7 +100,7 @@ function FilterBox() {
 
     const difficultyCheckBoxes = difficulties.map((difficulty) => (
         <FormControlLabel
-            style={{padding: '4px'}}
+            style={{padding: '8px'}}
             value={difficulty}
             control={<StyledCheckbox />}
             label={<Typography className={classes.label}>{difficulty}</Typography>}
