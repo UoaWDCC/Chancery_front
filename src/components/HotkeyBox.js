@@ -13,12 +13,12 @@ const useStyles = makeStyles({
     fontWeight: "bold",
     paddingBottom: "12px",
     textAlign: "center",
-    fontSize: "16px",
+    fontSize: "18px",
   },
 
   information: {
     textAlign: "left",
-    fontSize: "14px",
+    fontSize: "18px",
     color: "#818181",
   },
 });
