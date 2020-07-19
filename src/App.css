@@ -5,7 +5,8 @@
   height: 90%;
   position: relative;
   min-width: 150px;
-  min-height: 510px;
+  min-height: 600px;
+  max-height: 650px;
   box-shadow: 0 0 5px 0 grey;
 }
 
