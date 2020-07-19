@@ -16,7 +16,7 @@ const useStyles = makeStyles( theme => ({
         fontWeight: "bold",
         fontSize: '25px',
         paddingBottom: '9px',
-        color: theme.palette.type === "dark" ? "#ffffff" : "#000000",
+        color: theme.palette.primary.contrastText,
     },
     label: {
         textTransform: 'uppercase',
