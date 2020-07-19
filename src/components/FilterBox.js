@@ -32,8 +32,8 @@ const useStyles = makeStyles( theme => ({
     icon: {
         borderRadius: 5,
         borderStyle: "solid",
-        width: 18,
-        height: 18,
+        width: 20,
+        height: 20,
         'input:hover ~ &': {
             backgroundColor: theme.palette.type === "dark" ? '#6f6f6f' : '#e8e8e8' ,
         },
