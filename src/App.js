@@ -11,6 +11,7 @@ import Saved from "./pages/saved";
 import AccountMenu from "./components/AccountMenu";
 import Paper from "@material-ui/core/Paper";
 import {ThemeProvider} from "@material-ui/styles";
+import Logo from "./icons/Chancery_logo_white.png";
 
 const StyledTabs = withStyles((theme) => ({
     indicator: {
@@ -18,11 +19,11 @@ const StyledTabs = withStyles((theme) => ({
         justifyContent: 'center',
         backgroundColor: 'transparent',
         '& > span': {
-            maxWidth: 70,
+            maxWidth: 85,
             width: '100%',
             backgroundColor: theme.palette.primary.contrastText,
         },
-        height: '3px',
+        height: '4px',
     },
     root: {
         float: 'right',
@@ -35,7 +36,7 @@ const StyledTab = withStyles((theme) => ({
     root: {
         textTransform: 'uppercase',
         fontWeight: 'bold',
-        fontSize: '20px',
+        fontSize: '25px',
         color: theme.color,
         marginRight: theme.spacing(1),
         '&:focus': {
@@ -54,6 +55,10 @@ const useStyles = makeStyles(() => ({
     nav: {
         backgroundColor: '#FFFFFF',
         width: '100%'
+    },
+    logo: {
+        height: 60,
+        width: 60,
     },
 }));
 
@@ -104,7 +109,9 @@ function App() {
                                 <Fragment>
                                     <Grid container style={{ minHeight: '10vh' }}>
                                         <Grid item xs>
-                                                <div className={"logo"}> Chancery </div>
+                                                <div className={"logo"}>
+                                                    <img src={Logo} className={classes.logo} alt="Logo"/>
+                                                </div>
                                         </Grid>
                                         <Grid item xs>
                                             <div className={classes.nav}>
