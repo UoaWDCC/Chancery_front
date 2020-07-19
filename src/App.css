@@ -18,17 +18,6 @@
   100% {opacity:1;}
 }
 
-.filter-box {
-  background-color: #F5F5F5;
-  border-radius: 10px;
-  padding: 25px;
-  height: 90%;
-  position: relative;
-  min-width: 150px;
-  height: 650px;
-  box-shadow: 0 0 5px 0 grey;
-}
-
 .hotkey-box {
   border-radius: 10px;
   padding: 25px;

@@ -13,7 +13,7 @@ import BookmarkTwoToneIcon from '@material-ui/icons/BookmarkTwoTone';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles( theme =>({
     tags: {
         backgroundColor: '#21CE99',
         borderRadius: '5px',
@@ -25,7 +25,7 @@ const useStyles = makeStyles({
         marginLeft: '10px',
     },
     page: {
-        color: '#818181',
+        color: theme.palette.type === "dark" ? '#fff' : '#818181',
         fontSize: '43px',
         display: 'inline-block',
     },
@@ -48,7 +48,7 @@ const useStyles = makeStyles({
     },
 
     flashcardBackground: {
-        backgroundColor: '#F5F5F5',
+        backgroundColor: theme.palette.type === "dark" ? '#5F5F5F' : '#F5F5F5',
         borderRadius: '10px',
         textAlign: 'center',
         padding: '20px 20px 94px 20px',
@@ -67,7 +67,7 @@ const useStyles = makeStyles({
       },
       
       answerContainer: {
-        background: 'rgba(255, 255, 255, 0.3)',
+        background: theme.palette.type === "dark" ? '#565656' : '#FDFDFD',
         borderRadius: '15px',
         textAlign: 'left',
         position: 'relative',
@@ -117,9 +117,12 @@ const useStyles = makeStyles({
         },
     },
     hideButton: {
-        backgroundColor: 'white',
-        borderRadius: '5px',
-        color: '#818181',
+        backgroundColor: theme.palette.type === "dark" ? '#565656' : '#fff',
+        borderStyle: 'solid',
+        borderColor: theme.palette.type === "dark" ? '#929292' : '#fff',
+        borderWidth: 2,
+        borderRadius: 7,
+        color: theme.palette.type === "dark" ? '#B4B4B4' : '#818181',
         fontSize: '20px',
         textAlign: 'center',
         textTransform: 'uppercase',
@@ -133,7 +136,9 @@ const useStyles = makeStyles({
         width: '210px',
 
         '&:hover': {
-            borderWidth: '3px',
+            borderStyle: 'solid',
+            borderColor: '#B1B1B1',
+            borderWidth: 2,
             backgroundColor: '#B1B1B1',
             color: 'white',
             boxShadow: 'none',
@@ -163,7 +168,7 @@ const useStyles = makeStyles({
         height: '60px',
         width: '60px',
     },
-})
+}))
 
 // Detects if answer-content is too large for answer-container, https://stackoverflow.com/questions/9333379/check-if-an-elements-content-is-overflowing/34299947 
 function isOverflown(element) {
@@ -250,13 +255,7 @@ function Flashcard(props) {
                     {/* Page Numbers*/}
                     <Grid item container xs={2} justify="center">
                         <Typography id="flashcard-id" className={classes.page}>
-                            1
-                        </Typography>
-                        <Typography className={classes.page}>
-                            &nbsp;/&nbsp;
-                        </Typography>
-                        <Typography id="total-flashcards" className={classes.page}>
-                            420
+                            1 &nbsp;/&nbsp; 420
                         </Typography>
                     </Grid>
 

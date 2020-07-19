@@ -50,10 +50,9 @@ const useStyles = makeStyles( theme => ({
         backgroundColor: theme.palette.type === "dark" ? '#5F5F5F' : '#F5F5F5',
         borderRadius: '10px',
         padding: '25px',
-        height: '90%',
+        height: '100%',
         position: 'relative',
         minWidth: '150px',
-        minHeight: '510px',
         boxShadow: theme.palette.type === "dark" ? 'none' : '0 0 5px 0 grey',
     },
     button: {
