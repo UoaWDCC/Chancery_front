@@ -7,6 +7,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ToggleOffIcon from '@material-ui/icons/ToggleOff';
+import ToggleOnIcon from '@material-ui/icons/ToggleOn';
 
 const StyledMenu = withStyles(theme => ({
     paper: {
@@ -56,9 +57,9 @@ function AccountMenu(props) {
             onClose={props.onClose}
         >
             <StyledMenuItem onClick={() => props.setDarkMode(!darkMode)}>
-                <ListItemIcon>
-                    <ToggleOffIcon fontSize="small" />
-                </ListItemIcon>
+                {<ListItemIcon>
+                    {darkMode ? <ToggleOnIcon fontSize="small" /> : <ToggleOffIcon fontSize="small" />}
+                </ListItemIcon>}
                 {darkMode ? <ListItemText primary="Light Mode" /> : <ListItemText primary="Dark Mode" />}
             </StyledMenuItem>
             <StyledMenuItem>
