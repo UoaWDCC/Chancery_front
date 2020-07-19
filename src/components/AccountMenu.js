@@ -8,12 +8,13 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ToggleOffIcon from '@material-ui/icons/ToggleOff';
 
-const StyledMenu = withStyles({
+const StyledMenu = withStyles(theme => ({
     paper: {
         borderRadius: 0,
-        boxShadow: '0 0 5px 0 grey',
+        boxShadow: theme.palette.type === "dark" ? 'none' : '0 0 5px 0 grey',
+        backgroundColor: theme.palette.type === "dark" ? '#000000' : '#FFFFFF',
     },
-})((props) => (
+}))((props) => (
     <Menu
         elevation={0}
         getContentAnchorEl={null}
@@ -58,7 +59,7 @@ function AccountMenu(props) {
                 <ListItemIcon>
                     <ToggleOffIcon fontSize="small" />
                 </ListItemIcon>
-                <ListItemText primary="Dark mode" />
+                {darkMode ? <ListItemText primary="Light Mode" /> : <ListItemText primary="Dark Mode" />}
             </StyledMenuItem>
             <StyledMenuItem>
                 <ListItemIcon>
