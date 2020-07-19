@@ -25,7 +25,7 @@
   height: 90%;
   position: relative;
   min-width: 150px;
-  min-height: 510px;
+  height: 650px;
   box-shadow: 0 0 5px 0 grey;
 }
 
@@ -38,9 +38,9 @@
   position: relative;
   vertical-align: bottom;
   padding-right: 7px;
-  height: 25px;
-  width: 25px;
-  top: 3px;
+  height: 35px;
+  width: 35px;
+  top: 4px;
 }
 
 .welcome-page {
