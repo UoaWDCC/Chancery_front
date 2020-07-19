@@ -1,49 +1,74 @@
 @keyframes fadeIn {
-    0% {opacity:0;}
-    100% {opacity:1;}
+  0% {opacity:0;}
+  100% {opacity:1;}
 }
 
 @-moz-keyframes fadeIn {
-    0% {opacity:0;}
-    100% {opacity:1;}
+  0% {opacity:0;}
+  100% {opacity:1;}
 }
 
 @-webkit-keyframes fadeIn {
-    0% {opacity:0;}
-    100% {opacity:1;}
+  0% {opacity:0;}
+  100% {opacity:1;}
 }
 
 @-o-keyframes fadeIn {
-    0% {opacity:0;}
-    100% {opacity:1;}
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+.filter-box {
+  background-color: #F5F5F5;
+  border-radius: 10px;
+  padding: 25px;
+  height: 90%;
+  position: relative;
+  min-width: 150px;
+  height: 650px;
+  box-shadow: 0 0 5px 0 grey;
+}
+
+.hotkey-box {
+  border-radius: 10px;
+  padding: 25px;
+}
+
+.hotkey-icon {
+  position: relative;
+  vertical-align: bottom;
+  padding-right: 7px;
+  height: 35px;
+  width: 35px;
+  top: 4px;
 }
 
 .welcome-page {
-    -webkit-animation: fadeIn ease 2s;
-    -moz-animation: fadeIn ease 2s;
-    -o-animation: fadeIn ease 2s;
-    animation: fadeIn ease 3s;
+  -webkit-animation: fadeIn ease 2s;
+  -moz-animation: fadeIn ease 2s;
+  -o-animation: fadeIn ease 2s;
+  animation: fadeIn ease 3s;
 }
 
 .welcome-logo {
-    background-color: #21CE99;
-    width: 150px;
-    height: 150px;
-    margin: auto;
-    border-radius: 7px;
+  background-color: #21CE99;
+  width: 150px;
+  height: 150px;
+  margin: auto;
+  border-radius: 7px;
 }
 
 .logo {
-    background-color: #21CE99;
-    width: 200px;
-    height: 50px;
-    border-radius: 7px;
-    margin-top: 10px;
-    margin-left: 10px;
+  background-color: #21CE99;
+  width: 200px;
+  height: 50px;
+  border-radius: 7px;
+  margin-top: 10px;
+  margin-left: 10px;
 }
 
 @media screen and (min-width: 767px) {
-    .welcome-container {
-        padding-bottom: 100px;
-    }
+  .welcome-container {
+    padding-bottom: 100px;
+  }
 }
