@@ -15,7 +15,7 @@ const useStyles = makeStyles( theme => ({
         textTransform: 'uppercase',
         fontWeight: "bold",
         fontSize: '25px',
-        paddingBottom: '9px',
+        paddingBottom: '5px',
         color: theme.palette.primary.contrastText,
     },
     label: {
@@ -50,16 +50,13 @@ const useStyles = makeStyles( theme => ({
         backgroundColor: theme.palette.type === "dark" ? '#5F5F5F' : '#F5F5F5',
         borderRadius: '10px',
         padding: '25px',
-        height: '100%',
+        height: '750px',
         position: 'relative',
-        minWidth: '150px',
+        width: '350px',
         boxShadow: theme.palette.type === "dark" ? 'none' : '0 0 5px 0 grey',
     },
     button: {
-        position: "absolute",
-        bottom: 20,
-        left: 20,
-        width: 'calc(100% - 40px)',
+        width: '100%',
         padding: '10px 40px 10px 40px',
         backgroundColor: theme.palette.type === "dark" ? '#818181' : '#FFFFFF',
         boxShadow: "none",
@@ -82,17 +79,18 @@ function StyledCheckbox(props) {
             {...props}
         />
     );
-}
+} 
 
 function FilterBox() {
     const classes = useStyles();
+   
 
     const topics = ["Accounting", "EV / Equity Value", "Valuation", "Discounted Cash Flow", "Merger Model", "Leveraged buy-out"];
     const difficulties = ["Easy", "Medium", "Hard"];
 
     const topicCheckBoxes = topics.map((topic) => (
         <FormControlLabel
-            style={{padding: '8px'}}
+            style={{padding: '6px'}}
             value={topic}
             control={<StyledCheckbox />}
             label={<Typography className={classes.label}>{topic}</Typography>}
@@ -103,7 +101,7 @@ function FilterBox() {
 
     const difficultyCheckBoxes = difficulties.map((difficulty) => (
         <FormControlLabel
-            style={{padding: '8px'}}
+            style={{padding: '6px'}}
             value={difficulty}
             control={<StyledCheckbox />}
             label={<Typography className={classes.label}>{difficulty}</Typography>}

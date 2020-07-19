@@ -22,7 +22,7 @@ const useStyles = makeStyles( theme =>({
         textTransform: 'uppercase',
         float: 'left',
         padding: '5px 10px 5px 10px',
-        marginLeft: '10px',
+        margin: ' 0 10px 5px 0',
     },
     page: {
         color: theme.palette.type === "dark" ? '#fff' : '#818181',
@@ -56,13 +56,14 @@ const useStyles = makeStyles( theme =>({
         boxShadow: '0 0 5px 0 grey',
         display: 'flex',
         flexFlow: 'column',
+        height: '100%',
       },
       
       questionContainer: {
         borderRadius: '30px',
         textAlign: 'left',
         padding: '15px',
-        marginTop: '50px',
+        marginTop: '10px',
         minHeight: '100px',
       },
       
@@ -80,7 +81,7 @@ const useStyles = makeStyles( theme =>({
         fontWeight: 'bold',
         fontSize: '30px',
         display: 'inline-block',
-        marginTop: '5px',
+        marginTop: '2px',
     },
     answerContent: {
         fontSize: '20px',
@@ -217,12 +218,18 @@ function Flashcard(props) {
             if (isOverflown(document.getElementById("answer-content"))) {
                 props.onClose();
                 
-                document.getElementById("flashcard-box").style.height = '700px';
                 document.getElementById("answer-container").style.flex = '1';
 
-                // Check if answer exceeds filter-box height - induces a page scrollbar
+                document.getElementById("flashcard-box").style.height = '750px';
+
+                 // Check if answer exceeds filter-box height of 750px 
                 if (isOverflown(document.getElementById("answer-content"))) {
+                    props.onClose();
+                    
+                    document.getElementById("answer-container").style.flex = '1';
+    
                     document.getElementById("flashcard-box").style.height = '100%';
+    
                 }
             }
             setShowAnswer(true);
@@ -234,14 +241,14 @@ function Flashcard(props) {
     }
 
     return (
-        <div>
+        <div style={{height: '100%'}}>
             <Container id="flashcard-box" className={classes.flashcardBackground}>
 
                 {/* Top row is a grid containing two tags, page numbers and save toggle button */}
-                <Grid container justify="center" alignItems="center" style={{height: 30}}>
+                <Grid container justify="center" alignItems="center">
                     
                     {/* Tags */}
-                    <Grid item container xs={5}>
+                    <Grid item container xs={5} md={4}>
                         <Typography id="difficulty" className={classes.tags}>
                             <LocalOfferIcon style={{ fontSize: 18}}/>        
                             &nbsp;Easy
@@ -253,14 +260,14 @@ function Flashcard(props) {
                     </Grid>
 
                     {/* Page Numbers*/}
-                    <Grid item container xs={2} justify="center">
+                    <Grid item container xs={2} md={4} justify="center" >
                         <Typography id="flashcard-id" className={classes.page}>
                             1 &nbsp;/&nbsp; 420
                         </Typography>
                     </Grid>
 
                     {/* Save Toggle Button */}
-                    <Grid item container xs={5} justify="flex-end">
+                    <Grid item container xs={5} md={4} justify="flex-end">
                         <Typography className={classes.subheading} style={{fontSize: 25, marginTop: 3}}>
                             Save&nbsp;
                         </Typography>
@@ -275,7 +282,7 @@ function Flashcard(props) {
 
                     <Typography className={classes.subheading} variant={"h4"}>Q.&emsp;</Typography>
 
-                    <Typography id="question-content" className={classes.questionContent} variant={"h4"} >
+                    <Typography id="question-content" className={classes.questionContent}>
                         What’s the difference between LIFO and FIFO? Can you walk me through an example of how they differ?
                     </Typography>
 
@@ -283,11 +290,15 @@ function Flashcard(props) {
 
                 <Container id="answer-container" className={classes.answerContainer} style={{width: '80%', display: 'flex'}}>
 
-                    <Typography id="answer-initial" className={classes.subheading} variant={"h4"} style={{color: '#818181'}}>A.&emsp;</Typography>
+                    <Typography id="answer-initial" className={classes.subheading} style={{color: '#818181'}}>A.&emsp;</Typography>
 
-                    <Typography id="answer-content" className={classes.answerContent} variant={"h4"} >
-                        First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO. 
-                    </Typography>
+                    <Typography id="answer-content" className={classes.answerContent}>
+                         First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO. 
+                         First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO. 
+                         First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO. 
+                         First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO. 
+                         
+                         </Typography>
 
                     {/* If answer is hidden, define the CSS class within the answer-container */}
                     {show ? <div/> : <Button id="show-button" className={classes.showButton} color="primary" variant={"contained"} onClick={showAnswer}>Show Answer</Button>} 
