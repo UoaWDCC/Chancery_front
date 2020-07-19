@@ -11,7 +11,7 @@ const useStyles = makeStyles({
   title: {
     textTransform: "uppercase",
     fontWeight: "bold",
-    paddingBottom: "12px",
+    paddingBottom: "5px",
     textAlign: "center",
     fontSize: "18px",
   },
