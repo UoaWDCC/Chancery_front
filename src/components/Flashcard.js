@@ -183,7 +183,7 @@ function Flashcard(props) {
             if (isOverflown(document.getElementById("answer-content"))) {
                 props.onClose();
                 
-                document.getElementById("one").style.height = '690px';
+                document.getElementById("one").style.height = '700px';
                 document.getElementById("answer-container").style.flex = '1';
 
                 // Check if answer exceeds filter-box height - induces a page scrollbar
