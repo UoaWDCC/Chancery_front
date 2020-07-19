@@ -77,14 +77,14 @@ function App() {
             type: darkMode ? "dark" : "light",
             primary: {
                 light: '#21CE99',
-                main: '#21CE99',
+                main: '#21ce99',
                 dark: '#21CE99',
                 contrastText: darkMode ? '#fff' : '#000000'
             },
             secondary: {
                 main: '#000000',
                 light: '#F5F5F5',
-                dark: '#5F5F5F'
+                dark: '#5F5F5F',
             },
             background: {
                 paper: darkMode ? '#313131' : '#fff',
@@ -95,7 +95,7 @@ function App() {
 
     return (
         <ThemeProvider theme={theme}>
-            <Paper style={{height: '100vh'}}>
+            <Paper >
                 <BrowserRouter>
                     <div className={classes.root}>
                         <Route

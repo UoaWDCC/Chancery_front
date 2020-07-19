@@ -8,34 +8,19 @@ import {makeStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Typography from "@material-ui/core/Typography";
 import clsx from 'clsx';
-import theme from "../theme";
 import Container from "@material-ui/core/Container";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles( theme => ({
     heading: {
         textTransform: 'uppercase',
         fontWeight: "bold",
         fontSize: '18px',
         paddingBottom: '9px',
+        color: theme.palette.type === "dark" ? "#ffffff" : "#000000",
     },
     label: {
         textTransform: 'uppercase',
         fontSize: '15px',
-    },
-    button: {
-        position: "absolute",
-        bottom: 20,
-        left: 20,
-        width: 'calc(100% - 40px)',
-        paddingTop: '10px',
-        paddingBottom: '10px',
-        paddingRight: '40px',
-        paddingLeft: '40px',
-        backgroundColor: '#ffffff',
-        boxShadow: "none",
-        '&:hover': {
-            boxShadow: "none",
-        },
     },
     root: {
         '&:hover': {
@@ -45,38 +30,45 @@ const useStyles = makeStyles({
         marginLeft: '5px',
     },
     icon: {
-        borderRadius: 3,
-        outline: '2px auto #707070',
+        borderRadius: 5,
+        borderStyle: "solid",
         width: 18,
         height: 18,
-        boxShadow: 'inset 0 0 0 1px rgba(16,22,26,.2), inset 0 -1px 0 rgba(16,22,26,.1)',
-        backgroundColor: '#f5f8fa',
         'input:hover ~ &': {
-            backgroundColor: '#ebf1f5',
-        },
-        'input:disabled ~ &': {
-            boxShadow: 'none',
-            background: 'rgba(206,224,213,0.5)',
+            backgroundColor: theme.palette.type === "dark" ? '#6f6f6f' : '#e8e8e8' ,
         },
     },
     checkedIcon: {
         backgroundColor: '#21CE99',
+        borderStyle: "solid",
+        borderColor: "#1AA47A",
         'input:hover ~ &': {
             backgroundColor: '#21CE99',
         },
-        outline: '2px auto #1DA279',
     },
     filterBox: {
-        backgroundColor: theme.palette.background.default,
+        backgroundColor: theme.palette.type === "dark" ? '#5F5F5F' : '#F5F5F5',
         borderRadius: '10px',
         padding: '25px',
         height: '90%',
         position: 'relative',
         minWidth: '150px',
         minHeight: '510px',
-        boxShadow: '0 0 5px 0 grey',
+        boxShadow: theme.palette.type === "dark" ? 'none' : '0 0 5px 0 grey',
     },
-});
+    button: {
+        position: "absolute",
+        bottom: 20,
+        left: 20,
+        width: 'calc(100% - 40px)',
+        padding: '10px 40px 10px 40px',
+        backgroundColor: theme.palette.type === "dark" ? '#818181' : '#FFFFFF',
+        boxShadow: "none",
+        '&:hover': {
+            boxShadow: "none",
+        },
+    },
+}));
 
 function StyledCheckbox(props) {
     const classes = useStyles();
@@ -95,6 +87,7 @@ function StyledCheckbox(props) {
 
 function FilterBox() {
     const classes = useStyles();
+
     const topics = ["Accounting", "EV / Equity Value", "Valuation", "Discounted Cash Flow", "Merger Model", "Leveraged buy-out"];
     const difficulties = ["Easy", "Medium", "Hard"];
 
@@ -123,19 +116,29 @@ function FilterBox() {
     return (
         <Container className={classes.filterBox}>
             <FormControl component="fieldset">
-                <FormLabel className={classes.heading} component="label" focused color={"secondary"}>TOPICS:</FormLabel>
+
+                <FormLabel  component="label" focused >
+                    <Typography className={classes.heading}>
+                        Topics:
+                    </Typography>
+                </FormLabel>
+
                 <FormGroup aria-label="position" row={false}>
                     {topicCheckBoxes}
                 </FormGroup>
                 <br/>
-                <FormLabel className={classes.heading} component="label" focused color={"secondary"}>DIFFICULTY:</FormLabel>
+                <FormLabel component="label" focused>
+                    <Typography className={classes.heading}>
+                        Difficulty:
+                    </Typography>
+                </FormLabel>
                 <FormGroup aria-label="position" row={false}>
                     {difficultyCheckBoxes}
                 </FormGroup>
                 <br/>
             </FormControl>
 
-            <Button variant="contained" className={classes.button}><Typography className={classes.label}>Apply Filters</Typography></Button>
+            <Button className={classes.button}><Typography className={classes.label}>Apply Filters</Typography></Button>
 
         </Container>
     )
