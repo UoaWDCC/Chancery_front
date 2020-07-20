@@ -12,7 +12,8 @@ const useStyles = makeStyles( theme => ({
         textTransform: 'uppercase',
         fontWeight: 'bold',
         paddingBottom: '25px',
-        paddingTop: '25px'
+        paddingTop: '25px', 
+        position: "relative",
     },
     subheading: {
         fontSize: '35px',

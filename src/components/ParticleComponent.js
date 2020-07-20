@@ -40,8 +40,9 @@ function ParticleComponent() {
                                 enable: true,
                                 mode: "repulse"
                             }
-                        }
-                    }
+                        }, 
+                        detect_on: "window",
+                    }, 
                 }}
             />
         </div>
