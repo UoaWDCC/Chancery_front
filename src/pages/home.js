@@ -4,20 +4,23 @@ import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
 import {Link} from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
-import Logo from "../icons/Chancery_logo.png";
+import Logo from "../icons/Chancery_logo.png"
+import ParticleComponent from "../components/ParticleComponent";
 
 const useStyles = makeStyles( theme => ({
     title: {
         textTransform: 'uppercase',
         fontWeight: 'bold',
         paddingBottom: '25px',
-        paddingTop: '25px'
+        paddingTop: '25px', 
+        position: "relative",
     },
     subheading: {
         fontSize: '35px',
         fontWeight: 'bold',
         paddingBottom: '60px',
         textAlign: "center",
+        position: "relative",
     },
     button: {
         backgroundColor: theme.palette.type === "dark" ? '#000000' : '#fff',
@@ -52,6 +55,7 @@ function Home() {
             justify="center"
             style={{ minHeight: '90vh' }}
         >
+            <ParticleComponent/>
             <Grid className={"welcome-container"} item container direction="column" alignItems="center">
                 <img src={Logo} className={classes.logo} alt="Logo"/>
                 <Typography className={classes.title} variant={"h1"} color={"primary"}>
