@@ -5,6 +5,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import {Link} from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import Logo from "../icons/Chancery_logo_white.png"
+import ParticleComponent from "../components/ParticleComponent";
 
 const useStyles = makeStyles( theme => ({
     title: {
@@ -43,30 +44,35 @@ function Home() {
     const classes = useStyles();
 
     return (
-        <Grid
-            className={"welcome-page"}
-            container
-            spacing={0}
-            direction="column"
-            alignItems="center"
-            justify="center"
-            style={{ minHeight: '90vh' }}
-        >
-            <Grid className={"welcome-container"} item container direction="column" alignItems="center">
-                <div className={"welcome-logo"}>
-                    <img src={Logo} className={classes.logo} alt="Logo"/>
-                </div>
-                <Typography className={classes.title} variant={"h1"} color={"primary"}>
-                    Chancery
-                </Typography>
-                <Typography className={classes.subheading} variant={"h2"}>
-                    Prepare for your next investment banking interview
-                </Typography>
-                <Link to={"/revise"} style={{textDecoration: "none"}}>
-                    <Button variant={"outlined"} className={classes.button} color={"primary"}>Start Revising</Button>
-                </Link>
+        <div>
+
+            <Grid
+                className={"welcome-page"}
+                container
+                spacing={0}
+                direction="column"
+                alignItems="center"
+                justify="center"
+                style={{ minHeight: '90vh'}}
+            >
+                <ParticleComponent/>
+                <Grid className={"welcome-container"} item container direction="column" alignItems="center">
+                    <div className={"welcome-logo"}>
+                        <img src={Logo} className={classes.logo} alt="Logo"/>
+                    </div>
+                    <Typography className={classes.title} variant={"h1"} color={"primary"}>
+                        Chancery
+                    </Typography>
+                    <Typography className={classes.subheading} variant={"h2"}>
+                        Prepare for your next investment banking interview
+                    </Typography>
+                    <Link to={"/revise"} style={{textDecoration: "none"}}>
+                        <Button variant={"outlined"} className={classes.button} color={"primary"}>Start Revising</Button>
+                    </Link>
+                </Grid>
             </Grid>
-        </Grid>
+        </div>
+
     )
 }
 
