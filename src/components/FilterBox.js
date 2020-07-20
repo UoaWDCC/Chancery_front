@@ -47,7 +47,7 @@ const useStyles = makeStyles( theme => ({
         },
     },
     filterBox: {
-        backgroundColor: theme.palette.type === "dark" ? '#5F5F5F' : '#F5F5F5',
+        backgroundColor: theme.palette.background.default,
         borderRadius: '10px',
         padding: '25px',
         height: '750px',

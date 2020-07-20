@@ -1,6 +1,6 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, useTheme} from "@material-ui/core/styles";
 import SpaceBarIcon from "../icons/light/space.png";
 import KeyboardArrowLeftIcon from "../icons/light/left.png";
 import KeyboardArrowRightIcon from "../icons/light/right.png";
@@ -10,7 +10,6 @@ import KeyboardArrowLeftIconDark from "../icons/dark/left.png";
 import KeyboardArrowRightIconDark from "../icons/dark/right.png";
 import SaveIconDark from "../icons/dark/save.png";
 import Grid from "@material-ui/core/Grid";
-import useTheme from "@material-ui/core/styles/useTheme";
 
 const useStyles = makeStyles({
   title: {
