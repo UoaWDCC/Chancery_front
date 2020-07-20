@@ -37,7 +37,6 @@
   -moz-animation: fadeIn ease 2s;
   -o-animation: fadeIn ease 2s;
   animation: fadeIn ease 3s;
-  position: relative;
 }
 
 .welcome-logo {
@@ -46,6 +45,7 @@
   height: 150px;
   margin: auto;
   border-radius: 7px;
+  position: relative;
 }
 
 .logo {

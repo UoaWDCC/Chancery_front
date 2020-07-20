@@ -19,6 +19,7 @@ const useStyles = makeStyles( theme => ({
         fontWeight: 'bold',
         paddingBottom: '60px',
         textAlign: "center",
+        position: "relative",
     },
     button: {
         backgroundColor: theme.palette.type === "dark" ? '#000000' : '#fff',
@@ -56,8 +57,8 @@ function Home() {
                 style={{ minHeight: '90vh'}}
             >
                 <ParticleComponent/>
-                <Grid className={"welcome-container"} item container direction="column" alignItems="center">
-                    <div className={"welcome-logo"}>
+                <Grid item container direction="column" alignItems="center">
+                    <div className={"welcome-logo"} >
                         <img src={Logo} className={classes.logo} alt="Logo"/>
                     </div>
                     <Typography className={classes.title} variant={"h1"} color={"primary"}>
