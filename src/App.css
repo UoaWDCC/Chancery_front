@@ -18,17 +18,6 @@
   100% {opacity:1;}
 }
 
-.filter-box {
-  background-color: #F5F5F5;
-  border-radius: 10px;
-  padding: 25px;
-  height: 90%;
-  position: relative;
-  min-width: 150px;
-  height: 650px;
-  box-shadow: 0 0 5px 0 grey;
-}
-
 .hotkey-box {
   border-radius: 10px;
   padding: 25px;
@@ -56,19 +45,4 @@
   height: 150px;
   margin: auto;
   border-radius: 7px;
-}
-
-.logo {
-  background-color: #21CE99;
-  width: 200px;
-  height: 50px;
-  border-radius: 7px;
-  margin-top: 10px;
-  margin-left: 10px;
-}
-
-@media screen and (min-width: 767px) {
-  .welcome-container {
-    padding-bottom: 100px;
-  }
 }
