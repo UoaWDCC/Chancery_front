@@ -11,7 +11,8 @@ import Saved from "./pages/saved";
 import AccountMenu from "./components/AccountMenu";
 import Paper from "@material-ui/core/Paper";
 import {ThemeProvider} from "@material-ui/styles";
-import Logo from "./icons/Chancery_logo_white.png";
+import LogoIcon from "./icons/Chancery_logo_white.png";
+import Logo from "./components/Logo";
 
 const StyledTabs = withStyles((theme) => ({
     indicator: {
@@ -109,9 +110,10 @@ function App() {
                                 <Fragment>
                                     <Grid container style={{ minHeight: '10vh' }}>
                                         <Grid item xs>
-                                                <div className={"logo"}>
-                                                    <img src={Logo} className={classes.logo} alt="Logo"/>
-                                                </div>
+                                                {/* <div className={"logo"}>
+                                                    <img src={LogoIcon} className={classes.logo} alt="Logo"/>
+                                                </div> */}
+                                                <Logo/>
                                         </Grid>
                                         <Grid item xs>
                                             <div className={classes.nav}>
