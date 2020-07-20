@@ -1,72 +1,65 @@
 import React from "react";
-import SavedFlashcard from '../components/SavedFlashcard';
+import SavedFlashcard from "../components/SavedFlashcard";
 
-import {makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import { Button } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
+  title: {
+    fontSize: "40px",
+    fontWeight: "bold",
+    textTransform: "uppercase",
+    margin: "auto 0",
+  },
+  button: {
+    borderRadius: "10px",
+    color: "white",
+    fontSize: "25px",
+    textAlign: "center",
+    textTransform: "uppercase",
+    boxShadow: "none",
+    width: "350px",
+    height: "80px",
 
-    
-    title: {
-        fontSize: '40px',
-        fontWeight: 'bold',
-        textTransform: 'uppercase',
-        margin: 'auto 0',
+    "&:hover": {
+      borderWidth: "3px",
+      backgroundColor: "#ffffff",
+      color: "#21CE99",
+      boxShadow: "none",
     },
-    button: {
-        borderRadius: '10px',
-        color: 'white',
-        fontSize: '25px',
-        textAlign: 'center',
-        textTransform: 'uppercase',
-        boxShadow: 'none',
-        width: '350px',
-        height: '80px',
+  },
+  flashcardContainer: {
+    marginTop: "30px",
+    padding: "0",
+  },
+  subheading: {
+    fontWeight: "bold",
+    fontSize: "40px",
+    textTransform: "uppercase",
+    display: "inline-block",
+  },
+  footer: {
+    background: "rgba(129, 129, 129, 0.3)",
+    maxWidth: "100vw",
+    height: "120px",
+    position: "fixed",
+    bottom: "calc(0% - 120px)",
+    textAlign: "center",
+    padding: "20px",
+    zIndex: "1",
+    transition: "bottom 0.5s",
+  },
+});
 
-
-
-        '&:hover': {
-            borderWidth: '3px',
-            backgroundColor: '#ffffff',
-            color: '#21CE99',
-            boxShadow: 'none',
-        },
-    },
-    flashcardContainer: {
-        marginTop: '30px',
-        padding: '0',
-    },
-    subheading: {
-        fontWeight: 'bold',
-        fontSize: '40px',
-        textTransform: 'uppercase',
-        display: 'inline-block',
-    },
-    footer: {
-        background: 'rgba(129, 129, 129, 0.3)',
-        maxWidth: '100vw',
-        height: '120px',
-        position: 'fixed',
-        bottom: 'calc(0% - 120px)',
-        textAlign: 'center',
-        padding: '20px',
-        zIndex: '1',
-        transition: 'bottom 0.5s',
-    }
-})
-
-// Change function name later...
 function detectScrollDown() {
-      window.onscroll = function(e) {
-
-        if ( document.URL.includes("saved") ) { 
-            
-           /* if (this.oldScroll > this.scrollY) {
+  window.onscroll = function (e) {
+    if (document.URL.includes("saved")) {
+      /* if (this.oldScroll > this.scrollY) {
                 document.getElementById("footer-popup").style.bottom = 'calc(0% - 120px)';
             }
             else {
@@ -75,71 +68,74 @@ function detectScrollDown() {
 
             this.oldScroll = this.scrollY; */
 
-            // LATER remove 200 and Calculate actual y pos of practice button
-            if (this.scrollY > 200) {
-                document.getElementById("footer-popup").style.bottom = 'calc(0%)';
-            }
-            else {
-                document.getElementById("footer-popup").style.bottom = 'calc(0% - 120px)';
-            }
-        }
+      // LATER remove 200 and Calculate actual y pos of practice button
+      if (this.scrollY > 200) {
+        document.getElementById("footer-popup").style.bottom = "calc(0%)";
+      } else {
+        document.getElementById("footer-popup").style.bottom =
+          "calc(0% - 120px)";
+      }
     }
+  };
 }
 
 function Saved() {
-    const classes = useStyles();
 
-    detectScrollDown();
+  const classes = useStyles();
 
-    return (
-        
-        <div style={{position: 'relative'}}>
-            <Container
-                container
-                spacing={0}
-                style={{padding: '3em 3em 150px 3em'}}
-            >
+  detectScrollDown();
 
-                <Grid container>
-                    <Grid item container xs={1}>
-                    </Grid>
-                    <Grid item container xs={6}>
-                        <Typography className={classes.title}>Saved Questions:</Typography>
-                    </Grid>
-                    <Grid item container xs={5} justify="flex-end">
-                        <Link to={"/revise"} style={{textDecoration: "none"}}>
-                            <Button className={classes.button} color={"primary"} variant={"contained"}>Practice Now</Button>
-                        </Link>
-                    </Grid>
+  return (
+    <div style={{ position: "relative" }}>
+      <Container container style={{ padding: "3em 3em 150px 3em" }}>
+        <Grid container>
+          <Grid item container xs={1}></Grid>
+          <Grid item container xs={6}>
+            <Typography className={classes.title}>Saved Questions:</Typography>
+          </Grid>
+          <Grid item container xs={5} justify="flex-end">
+            <Link to={"/revise"} style={{ textDecoration: "none" }}>
+              <Button
+                className={classes.button}
+                color={"primary"}
+                variant={"contained"}
+              >
+                Practice Now
+              </Button>
+            </Link>
+          </Grid>
+        </Grid>
 
-                </Grid>
+        <Container className={classes.flashcardContainer}>
+          <SavedFlashcard />
+        </Container>
 
-                <Container className={classes.flashcardContainer}>
-                    <SavedFlashcard/>
-                </Container>
+        <Container className={classes.flashcardContainer}>
+          <SavedFlashcard />
+        </Container>
 
-                <Container className={classes.flashcardContainer}>
-                    <SavedFlashcard/>
-                </Container>
+        <Container className={classes.flashcardContainer}>
+          <SavedFlashcard />
+        </Container>
 
-                <Container className={classes.flashcardContainer}>
-                    <SavedFlashcard/>
-                </Container>
+        <Container className={classes.flashcardContainer}>
+          <SavedFlashcard />
+        </Container>
+      </Container>
 
-                <Container className={classes.flashcardContainer}>
-                    <SavedFlashcard/>
-                </Container>
-               
-            </Container>
-
-            <Container id="footer-popup" className={classes.footer}>
-                <Link to={"/revise"} style={{textDecoration: "none"}}>
-                    <Button className={classes.button} color={"primary"} variant={"contained"}>Practice Now</Button>
-                </Link>
-            </Container>
-
-        </div>
-    )
+      <Container id="footer-popup" className={classes.footer}>
+        <Link to={"/revise"} style={{ textDecoration: "none" }}>
+          <Button
+            className={classes.button}
+            color={"primary"}
+            variant={"contained"}
+          >
+            Practice Now
+          </Button>
+        </Link>
+      </Container>
+    </div>
+  );
 }
 
 export default Saved;
