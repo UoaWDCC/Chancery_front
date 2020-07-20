@@ -1,32 +1,28 @@
 import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
-import LogoIcon from '../icons/Chancery_logo_white.png';
+import LogoIcon from '../icons/Chancery_logo.png';
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
     logo: {
         height: 60,
         width: 60,
         borderRadius: 7,
-        backgroundColor: "#21CE99",
     },
     logoDiv: {
-        backgroundColor: theme.palette.type === 'dark' ? "#313131": "#21CE99",
-        width: 220,
         height: 60,
         borderRadius: 7,
         marginTop: 10,
         marginLeft: 10,
-        color: theme.palette.type === 'dark' ? "#21CE99": "#FFFFFF",
     },
     logoText: {
         textTransform: "uppercase",
-        fontSize: 24,
-        paddingLeft: 10,
-        paddingRight: 10,
+        fontSize: 35,
+        padding: '0px 10px 8px 10px',
+        fontWeight: 'bold',
     }
-}));
+});
 
 function Logo() {
     const classes = useStyles();
@@ -43,7 +39,7 @@ function Logo() {
                 <img src={LogoIcon} className={classes.logo} alt="Logo"/>
             </Grid>
             <Grid item>
-                <Typography className={classes.logoText}>
+                <Typography className={classes.logoText} color={'primary'}>
                     Chancery
                 </Typography>
             </Grid>
