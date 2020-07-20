@@ -60,19 +60,28 @@ const useStyles = makeStyles({
     }
 })
 
+// Change function name later...
 function detectScrollDown() {
       window.onscroll = function(e) {
 
         if ( document.URL.includes("saved") ) { 
             
-            if (this.oldScroll > this.scrollY) {
+           /* if (this.oldScroll > this.scrollY) {
                 document.getElementById("footer-popup").style.bottom = 'calc(0% - 120px)';
             }
             else {
                 document.getElementById("footer-popup").style.bottom = 'calc(0%)';
             }
 
-            this.oldScroll = this.scrollY;
+            this.oldScroll = this.scrollY; */
+
+            // LATER remove 200 and Calculate actual y pos of practice button
+            if (this.scrollY > 200) {
+                document.getElementById("footer-popup").style.bottom = 'calc(0%)';
+            }
+            else {
+                document.getElementById("footer-popup").style.bottom = 'calc(0% - 120px)';
+            }
         }
     }
 }
