@@ -1,0 +1,10 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\components",
+    "\\src\\redux"
+  ],
+  "SelectedNode": "\\src\\redux\\configureStore.js",
+  "PreviewInSolutionExplorer": false
+}
