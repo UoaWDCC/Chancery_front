@@ -95,7 +95,7 @@ function App() {
             },
             background: {
                 paper: darkMode ? '#313131' : '#fff',
-                default: darkMode ? '#313131' : '#fff',
+                default: darkMode ? '#5F5F5F' : '#F5F5F5',
             },
         },
     })

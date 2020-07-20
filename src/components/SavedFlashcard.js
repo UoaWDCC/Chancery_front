@@ -16,7 +16,7 @@ const useStyles = makeStyles( theme => ({
         padding: '20px',
     },
     flashcardBackground: {
-        backgroundColor: theme.palette.type === "dark" ? '#5F5F5F' : '#F5F5F5',
+        backgroundColor: theme.palette.background.default,
         borderRadius: '10px',
         boxShadow: theme.palette.type === "dark" ? 'none' : '0 0 5px 0 grey',
         padding: '20px 40px 20px 40px',
