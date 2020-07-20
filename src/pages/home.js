@@ -4,7 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
 import {Link} from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
-import Logo from "../icons/Chancery_logo_white.png"
+import Logo from "../icons/Chancery_logo.png"
 
 const useStyles = makeStyles( theme => ({
     title: {
@@ -53,9 +53,7 @@ function Home() {
             style={{ minHeight: '90vh' }}
         >
             <Grid className={"welcome-container"} item container direction="column" alignItems="center">
-                <div className={"welcome-logo"}>
-                    <img src={Logo} className={classes.logo} alt="Logo"/>
-                </div>
+                <img src={Logo} className={classes.logo} alt="Logo"/>
                 <Typography className={classes.title} variant={"h1"} color={"primary"}>
                     Chancery
                 </Typography>

@@ -8,7 +8,7 @@ import { Button } from "@material-ui/core";
 
 import BookmarkTwoToneIcon from '@material-ui/icons/BookmarkTwoTone';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles( theme => ({
     title: {
         fontSize: '40px',
         fontWeight: 'bold',
@@ -16,7 +16,7 @@ const useStyles = makeStyles({
         padding: '20px',
     },
     flashcardBackground: {
-        backgroundColor: '#F5F5F5',
+        backgroundColor: theme.palette.type === "dark" ? '#5F5F5F' : '#F5F5F5',
         borderRadius: '10px',
         boxShadow: '0 0 5px 0 grey',
         padding: '20px 40px 20px 40px',
@@ -58,16 +58,17 @@ const useStyles = makeStyles({
         lineHeight: '40px',
     },
     showButton: {
-        backgroundColor: 'white',
-        borderRadius: '5px',
-        color: '#818181',
         fontSize: '20px',
         textAlign: 'center',
         textTransform: 'uppercase',
         padding: '10px 0px 10px 0px',
         boxShadow: 'none',
-        border: '1px solid #818181',
-
+        backgroundColor: theme.palette.type === "dark" ? '#565656' : '#fff',
+        borderStyle: 'solid',
+        borderColor: theme.palette.type === "dark" ? '#929292' : '#C3C3C3',
+        borderWidth: 2,
+        borderRadius: 7,
+        color: theme.palette.type === "dark" ? '#B4B4B4' : '#818181',
         margin: '15px 0 15px 83px',
 
         width: '210px',
@@ -80,7 +81,7 @@ const useStyles = makeStyles({
     },
     
       
-})
+}))
 
 
 function SavedFlashcard() {
@@ -107,7 +108,7 @@ function SavedFlashcard() {
                         <Typography className={classes.title}>1</Typography>
                     </Grid>
 
-                    <Grid item container xs={11}className={classes.flashcardBackground}>
+                    <Grid item container xs={11} className={classes.flashcardBackground}>
                     <Grid item container xs={11} >
                         <Container className={classes.questionContainer} style={{display: 'flex'}}>
 
