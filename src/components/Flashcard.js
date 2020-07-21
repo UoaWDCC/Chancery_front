@@ -220,7 +220,7 @@ function Flashcard(props) {
                 
                 document.getElementById("answer-container").style.flex = '1';
 
-                document.getElementById("flashcard-box").style.height = '750px';
+                document.getElementById("flashcard-box").style.height = '760px';
 
                  // Check if answer exceeds filter-box height of 750px 
                 if (isOverflown(document.getElementById("answer-content"))) {
@@ -290,10 +290,7 @@ function Flashcard(props) {
 
                     <Typography id="answer-content" className={classes.answerContent}>
                          First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO. 
-                         First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO. 
-                         First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO. 
-                         First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO. 
-                         
+                         First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.
                          </Typography>
 
                     {/* If answer is hidden, define the CSS class within the answer-container */}
