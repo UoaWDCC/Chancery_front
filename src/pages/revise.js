@@ -17,7 +17,7 @@ function Revise() {
             >
                 <Grid container item justify="center">
                     <Grid container item md={12} spacing={5} justify="center">
-                        <Grid item lg={4} xl={3}>
+                        <Grid container item lg={4} xl={3} justify="center">
                             <FilterBox/>
                         </Grid>
 
