@@ -4,37 +4,43 @@ import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
 import {Link} from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
+import Logo from "../icons/Chancery_logo.png"
+import ParticleComponent from "../components/ParticleComponent";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles( theme => ({
     title: {
         textTransform: 'uppercase',
         fontWeight: 'bold',
         paddingBottom: '25px',
-        paddingTop: '25px'
+        paddingTop: '25px', 
+        position: "relative",
     },
     subheading: {
         fontSize: '35px',
         fontWeight: 'bold',
         paddingBottom: '60px',
         textAlign: "center",
+        position: "relative",
     },
     button: {
+        backgroundColor: theme.palette.type === "dark" ? '#000000' : '#fff',
         borderRadius: '7px',
         borderColor: '#21CE99',
         borderWidth: '3px',
         fontWeight: 'bold',
         fontSize: '25px',
-        paddingTop: '15px',
-        paddingBottom: '15px',
-        paddingRight: '35px',
-        paddingLeft: '35px',
+        padding: '15px 35px 15px 35px',
         '&:hover': {
             borderWidth: '3px',
             backgroundColor: '#21CE99',
             color: '#ffffff',
         },
+    },
+    logo: {
+        height: 150,
+        width: 150,
     }
-})
+}))
 
 function Home() {
     const classes = useStyles();
@@ -49,8 +55,9 @@ function Home() {
             justify="center"
             style={{ minHeight: '90vh' }}
         >
+            <ParticleComponent/>
             <Grid className={"welcome-container"} item container direction="column" alignItems="center">
-                <div className={"welcome-logo"}> logo </div>
+                <img src={Logo} className={classes.logo} alt="Logo"/>
                 <Typography className={classes.title} variant={"h1"} color={"primary"}>
                     Chancery
                 </Typography>
@@ -58,7 +65,7 @@ function Home() {
                     Prepare for your next investment banking interview
                 </Typography>
                 <Link to={"/revise"} style={{textDecoration: "none"}}>
-                    <Button className={classes.button} variant={"outlined"} color={"primary"}>Start Revising</Button>
+                    <Button variant={"outlined"} className={classes.button} color={"primary"}>Start Revising</Button>
                 </Link>
             </Grid>
         </Grid>

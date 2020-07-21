@@ -13,7 +13,7 @@ import BookmarkTwoToneIcon from '@material-ui/icons/BookmarkTwoTone';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles( theme =>({
     tags: {
         backgroundColor: '#21CE99',
         borderRadius: '5px',
@@ -22,10 +22,10 @@ const useStyles = makeStyles({
         textTransform: 'uppercase',
         float: 'left',
         padding: '5px 10px 5px 10px',
-        marginLeft: '10px',
+        margin: ' 0 10px 5px 0',
     },
     page: {
-        color: '#818181',
+        color: theme.palette.type === "dark" ? '#fff' : '#818181',
         fontSize: '43px',
         display: 'inline-block',
     },
@@ -48,26 +48,27 @@ const useStyles = makeStyles({
     },
 
     flashcardBackground: {
-        backgroundColor: '#F5F5F5',
+        backgroundColor: theme.palette.background.default,
         borderRadius: '10px',
         textAlign: 'center',
         padding: '20px 20px 94px 20px',
         position: 'relative',
-        boxShadow: '0 0 5px 0 grey',
+        boxShadow: theme.palette.type === "dark" ? 'none' : '0 0 5px 0 grey',
         display: 'flex',
         flexFlow: 'column',
+        height: '100%',
       },
       
       questionContainer: {
         borderRadius: '30px',
         textAlign: 'left',
         padding: '15px',
-        marginTop: '50px',
+        marginTop: '10px',
         minHeight: '100px',
       },
       
       answerContainer: {
-        background: 'rgba(255, 255, 255, 0.3)',
+        background: theme.palette.type === "dark" ? '#565656' : '#FDFDFD',
         borderRadius: '15px',
         textAlign: 'left',
         position: 'relative',
@@ -80,7 +81,7 @@ const useStyles = makeStyles({
         fontWeight: 'bold',
         fontSize: '30px',
         display: 'inline-block',
-        marginTop: '5px',
+        marginTop: '2px',
     },
     answerContent: {
         fontSize: '20px',
@@ -117,9 +118,12 @@ const useStyles = makeStyles({
         },
     },
     hideButton: {
-        backgroundColor: 'white',
-        borderRadius: '5px',
-        color: '#818181',
+        backgroundColor: theme.palette.type === "dark" ? '#565656' : '#fff',
+        borderStyle: 'solid',
+        borderColor: theme.palette.type === "dark" ? '#929292' : '#fff',
+        borderWidth: 2,
+        borderRadius: 7,
+        color: theme.palette.type === "dark" ? '#B4B4B4' : '#818181',
         fontSize: '20px',
         textAlign: 'center',
         textTransform: 'uppercase',
@@ -133,7 +137,9 @@ const useStyles = makeStyles({
         width: '210px',
 
         '&:hover': {
-            borderWidth: '3px',
+            borderStyle: 'solid',
+            borderColor: '#B1B1B1',
+            borderWidth: 2,
             backgroundColor: '#B1B1B1',
             color: 'white',
             boxShadow: 'none',
@@ -163,7 +169,7 @@ const useStyles = makeStyles({
         height: '60px',
         width: '60px',
     },
-})
+}))
 
 // Detects if answer-content is too large for answer-container, https://stackoverflow.com/questions/9333379/check-if-an-elements-content-is-overflowing/34299947 
 function isOverflown(element) {
@@ -176,7 +182,7 @@ function Flashcard(props) {
     const classes = useStyles();
 
     // Define a state to detect if flashcard is saved
-    const [saved, setSaved] = React.useState(0);
+    const [saved, setSaved] = React.useState(false);
     const saveFlashcard = (event) => {
         if (saved) {
             setSaved(false);
@@ -189,12 +195,12 @@ function Flashcard(props) {
         }
     };
     
-    const [show, setShowAnswer] = React.useState(0);
-    const showAnswer = (event) => {
+    const [show, setShowAnswer] = React.useState(false);
+    const showAnswer = () => {
 
         // NOTE: THIS NEEDS TO BE OPTIMISED 
-        if (show) { 
-            props.onClick();
+        if (show) {
+            props.setIsRendered(true);
             setShowAnswer(false);
             document.getElementById("answer-initial").style.color = '#818181';
 
@@ -210,14 +216,16 @@ function Flashcard(props) {
         else { 
             // Check if answer exceeds initial height of 200px 
             if (isOverflown(document.getElementById("answer-content"))) {
-                props.onClose();
+                props.setIsRendered(false);
                 
-                document.getElementById("flashcard-box").style.height = '700px';
                 document.getElementById("answer-container").style.flex = '1';
 
-                // Check if answer exceeds filter-box height - induces a page scrollbar
+                document.getElementById("flashcard-box").style.height = '760px';
+
+                 // Check if answer exceeds filter-box height of 750px 
                 if (isOverflown(document.getElementById("answer-content"))) {
                     document.getElementById("flashcard-box").style.height = '100%';
+    
                 }
             }
             setShowAnswer(true);
@@ -229,14 +237,14 @@ function Flashcard(props) {
     }
 
     return (
-        <div>
+        <div style={{height: '100%'}}>
             <Container id="flashcard-box" className={classes.flashcardBackground}>
 
                 {/* Top row is a grid containing two tags, page numbers and save toggle button */}
-                <Grid container justify="center" alignItems="center" style={{height: 30}}>
+                <Grid container justify="center" alignItems="center">
                     
                     {/* Tags */}
-                    <Grid item container xs={5}>
+                    <Grid item container xs={5} md={4}>
                         <Typography id="difficulty" className={classes.tags}>
                             <LocalOfferIcon style={{ fontSize: 18}}/>        
                             &nbsp;Easy
@@ -248,20 +256,14 @@ function Flashcard(props) {
                     </Grid>
 
                     {/* Page Numbers*/}
-                    <Grid item container xs={2} justify="center">
+                    <Grid item container xs={2} md={4} justify="center" >
                         <Typography id="flashcard-id" className={classes.page}>
-                            1
-                        </Typography>
-                        <Typography className={classes.page}>
-                            &nbsp;/&nbsp;
-                        </Typography>
-                        <Typography id="total-flashcards" className={classes.page}>
-                            420
+                            1 &nbsp;/&nbsp; 420
                         </Typography>
                     </Grid>
 
                     {/* Save Toggle Button */}
-                    <Grid item container xs={5} justify="flex-end">
+                    <Grid item container xs={5} md={4} justify="flex-end">
                         <Typography className={classes.subheading} style={{fontSize: 25, marginTop: 3}}>
                             Save&nbsp;
                         </Typography>
@@ -276,7 +278,7 @@ function Flashcard(props) {
 
                     <Typography className={classes.subheading} variant={"h4"}>Q.&emsp;</Typography>
 
-                    <Typography id="question-content" className={classes.questionContent} variant={"h4"} >
+                    <Typography id="question-content" className={classes.questionContent}>
                         What’s the difference between LIFO and FIFO? Can you walk me through an example of how they differ?
                     </Typography>
 
@@ -284,11 +286,12 @@ function Flashcard(props) {
 
                 <Container id="answer-container" className={classes.answerContainer} style={{width: '80%', display: 'flex'}}>
 
-                    <Typography id="answer-initial" className={classes.subheading} variant={"h4"} style={{color: '#818181'}}>A.&emsp;</Typography>
+                    <Typography id="answer-initial" className={classes.subheading} style={{color: '#818181'}}>A.&emsp;</Typography>
 
-                    <Typography id="answer-content" className={classes.answerContent} variant={"h4"} >
-                        First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO. 
-                    </Typography>
+                    <Typography id="answer-content" className={classes.answerContent}>
+                         First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO. 
+                         First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.
+                         </Typography>
 
                     {/* If answer is hidden, define the CSS class within the answer-container */}
                     {show ? <div/> : <Button id="show-button" className={classes.showButton} color="primary" variant={"contained"} onClick={showAnswer}>Show Answer</Button>} 
