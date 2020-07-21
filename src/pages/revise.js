@@ -3,7 +3,6 @@ import Grid from '@material-ui/core/Grid';
 import FilterBox from '../components/FilterBox';
 import Flashcard from '../components/Flashcard';
 import HotkeyBox from "../components/HotkeyBox";
-import {useSelector} from 'react-redux';
 
 function Revise() {
 
