@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
@@ -12,6 +12,12 @@ import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import BookmarkTwoToneIcon from '@material-ui/icons/BookmarkTwoTone';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+
+import {getFlashcards} from '../redux/selectors';
+import {useSelector} from 'react-redux';
+
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 const useStyles = makeStyles( theme =>({
     tags: {
@@ -180,20 +186,13 @@ function isOverflown(element) {
 function Flashcard(props) {
 
     const classes = useStyles();
+    const flashcardsBank = useSelector(getFlashcards);
+    console.log(flashcardsBank);
 
-    // Define a state to detect if flashcard is saved
-    const [saved, setSaved] = React.useState(false);
-    const saveFlashcard = (event) => {
-        if (saved) {
-            setSaved(false);
-            event.currentTarget.style.filter = 'none'; 
-        }
-        else {
-            setSaved(true);
-            // https://codepen.io/sosuke/pen/Pjoqqp
-            event.currentTarget.style.filter = 'invert(62%) sepia(94%) saturate(364%) hue-rotate(108deg) brightness(89%) contrast(91%)';
-        }
-    };
+    const status = useSelector(state => state.loading);
+    const getFlashcard = id => {
+        return flashcardsBank.filter(flashcard => flashcard.id === id.toString())[0];
+    }
     
     const [show, setShowAnswer] = React.useState(false);
     const showAnswer = () => {
@@ -236,82 +235,107 @@ function Flashcard(props) {
         }
     }
 
+    const [currentFlashcard, setCurrentFlashcard] = useState(getFlashcard(1));
+
+    const previousFlashcard = () => {
+        setCurrentFlashcard(currentFlashcard.id === "1" ? getFlashcard(flashcardsBank.length) : getFlashcard(parseInt(currentFlashcard.id) - 1));
+        setShowAnswer(false);
+    }
+    
+    const nextFlashcard = () => {
+        setCurrentFlashcard(currentFlashcard.id === flashcardsBank.length.toString() ? getFlashcard(1) : getFlashcard(parseInt(currentFlashcard.id) + 1));
+        setShowAnswer(false);
+    }
+
+    // Define a state to detect if flashcard is saved
+    const [saved, setSaved] = React.useState(false);
+    const saveFlashcard = (event) => {
+        if (saved) {
+            setSaved(false);
+            event.currentTarget.style.filter = 'none'; 
+        }
+        else {
+            setSaved(true);
+            // https://codepen.io/sosuke/pen/Pjoqqp
+            event.currentTarget.style.filter = 'invert(62%) sepia(94%) saturate(364%) hue-rotate(108deg) brightness(89%) contrast(91%)';
+        }
+    };
+
     return (
-        <div style={{height: '100%'}}>
+        <div style={{height: '100%'}}> 
+        
             <Container id="flashcard-box" className={classes.flashcardBackground}>
-
-                {/* Top row is a grid containing two tags, page numbers and save toggle button */}
-                <Grid container justify="center" alignItems="center">
+                {status ? <CircularProgress/> : 
+                <React.Fragment>
+                    {/* Top row is a grid containing two tags, page numbers and save toggle button */}
+                    <Grid container justify="center" alignItems="center">
                     
-                    {/* Tags */}
-                    <Grid item container xs={5} md={4}>
-                        <Typography id="difficulty" className={classes.tags}>
-                            <LocalOfferIcon style={{ fontSize: 18}}/>        
-                            &nbsp;Easy
-                        </Typography>
-                        <Typography id="topic" className={classes.tags}>
-                            <LocalOfferIcon style={{ fontSize: 18}}/>
-                            &nbsp;Accounting
-                        </Typography>
+                        {/* Tags */}
+                        <Grid item container xs={5} md={4}>
+                            <Typography id="difficulty" className={classes.tags}>
+                                <LocalOfferIcon style={{ fontSize: 18}}/>        
+                                &nbsp;{currentFlashcard.difficulty}
+                            </Typography>
+                            <Typography id="topic" className={classes.tags}>
+                                <LocalOfferIcon style={{ fontSize: 18}}/>
+                                &nbsp;{currentFlashcard.topic}
+                            </Typography>
+                        </Grid>
+
+                        {/* Page Numbers*/}
+                        <Grid item container xs={2} md={4} justify="center" >
+                            <Typography id="flashcard-id" className={classes.page}>
+                                {currentFlashcard.id} &nbsp;/&nbsp; {flashcardsBank.length}
+                            </Typography>
+                        </Grid>
+
+                        {/* Save Toggle Button */}
+                        <Grid item container xs={5} md={4} justify="flex-end">
+                            <Typography className={classes.subheading} style={{fontSize: 25, marginTop: 3}}>
+                                Save&nbsp;
+                            </Typography>
+                            <Button className={classes.save} disableRipple onClick={saveFlashcard} >
+                                {saved ? <BookmarkTwoToneIcon style={{fontSize: 40}}/> : <BookmarkBorderIcon style={{fontSize: 40}}/> }
+                            </Button>
+                        </Grid>
+                    
                     </Grid>
 
-                    {/* Page Numbers*/}
-                    <Grid item container xs={2} md={4} justify="center" >
-                        <Typography id="flashcard-id" className={classes.page}>
-                            1 &nbsp;/&nbsp; 420
+                    <Container className={classes.questionContainer} style={{width: '80%', display: 'flex'}}>
+
+                        <Typography className={classes.subheading} variant={"h4"}>Q.&emsp;</Typography>
+
+                        <Typography id="question-content" className={classes.questionContent}>
+                            {currentFlashcard.question}
                         </Typography>
-                    </Grid>
 
-                    {/* Save Toggle Button */}
-                    <Grid item container xs={5} md={4} justify="flex-end">
-                        <Typography className={classes.subheading} style={{fontSize: 25, marginTop: 3}}>
-                            Save&nbsp;
+                    </Container>
+
+                    <Container id="answer-container" className={classes.answerContainer} style={{width: '80%', display: 'flex'}}>
+
+                        <Typography id="answer-initial" className={classes.subheading} style={{color: '#818181'}}>A.&emsp;</Typography>
+
+                        <Typography id="answer-content" className={classes.answerContent}>
+                            {currentFlashcard.answer}
                         </Typography>
-                        <Button className={classes.save} disableRipple onClick={saveFlashcard} >
-                            {saved ? <BookmarkTwoToneIcon style={{fontSize: 40}}/> : <BookmarkBorderIcon style={{fontSize: 40}}/> }
-                        </Button>
-                    </Grid>
 
-                </Grid>
+                        {/* If answer is hidden, define the CSS class within the answer-container */}
+                        {show ? <div/> : <Button id="show-button" className={classes.showButton} color="primary" variant={"contained"} onClick={showAnswer}>Show Answer</Button>} 
 
-                <Container className={classes.questionContainer} style={{width: '80%', display: 'flex'}}>
+                    </Container>
 
-                    <Typography className={classes.subheading} variant={"h4"}>Q.&emsp;</Typography>
+                    {/* Else define it within the flashcard-background */}
+                    {show ? <Button id="show-button" className={classes.hideButton} color="primary" variant={"contained"} onClick={showAnswer}>Hide Answer</Button> : <div/>} 
 
-                    <Typography id="question-content" className={classes.questionContent}>
-                        What’s the difference between LIFO and FIFO? Can you walk me through an example of how they differ?
-                    </Typography>
+                    <IconButton className={classes.leftButton} onClick={previousFlashcard} >
+                        <ArrowBackIcon style={{fontSize: 40}}/>
+                    </IconButton>
 
-                </Container>
-
-                <Container id="answer-container" className={classes.answerContainer} style={{width: '80%', display: 'flex'}}>
-
-                    <Typography id="answer-initial" className={classes.subheading} style={{color: '#818181'}}>A.&emsp;</Typography>
-
-                    <Typography id="answer-content" className={classes.answerContent}>
-                         First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO. 
-                         First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO. 
-                         First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO. 
-                         First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO.  First, note that this question does not apply to you if you’re outside the US as IFRS does not permit the use of LIFO. 
-                         
-                         </Typography>
-
-                    {/* If answer is hidden, define the CSS class within the answer-container */}
-                    {show ? <div/> : <Button id="show-button" className={classes.showButton} color="primary" variant={"contained"} onClick={showAnswer}>Show Answer</Button>} 
-
-                </Container>
-
-                {/* Else define it within the flashcard-background */}
-                {show ? <Button id="show-button" className={classes.hideButton} color="primary" variant={"contained"} onClick={showAnswer}>Hide Answer</Button> : <div/>} 
-
-                <IconButton className={classes.leftButton} >
-                    <ArrowBackIcon style={{fontSize: 40}}/>
-                </IconButton>
-
-                <IconButton className={classes.rightButton} >
-                    <ArrowForwardIcon style={{fontSize: 40}}/>
-                </IconButton>
-                
+                    <IconButton className={classes.rightButton} onClick={nextFlashcard} >
+                        <ArrowForwardIcon style={{fontSize: 40}}/>
+                    </IconButton>
+                    </React.Fragment>
+                }    
             </Container>
         </div>
     )

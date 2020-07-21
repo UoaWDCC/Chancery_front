@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import FilterBox from '../components/FilterBox';
 import Flashcard from '../components/Flashcard';
 import HotkeyBox from "../components/HotkeyBox";
+import {useSelector} from 'react-redux';
 
 function Revise() {
 
@@ -24,7 +25,7 @@ function Revise() {
                         <Grid container item lg={8} xl={9}>
 
                             <Grid item xs={12}>
-                                <Flashcard setIsRendered={setIsRendered}/>
+                               <Flashcard setIsRendered={setIsRendered}/>
                             </Grid>
                             {isRendered &&
                                 <Grid item xs={12}>
