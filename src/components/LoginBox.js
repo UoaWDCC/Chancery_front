@@ -6,8 +6,13 @@ import {Link} from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import Logo from "../icons/Chancery_logo.png"
 import ParticleComponent from "../components/ParticleComponent";
+import clsx from 'clsx';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 
 import TextField from "@material-ui/core/TextField";
+import FormControl from '@material-ui/core/FormControl';
+import FormGroup from '@material-ui/core/FormGroup';
 
 const useStyles = makeStyles( theme => ({
     heading: {
@@ -31,8 +36,43 @@ const useStyles = makeStyles( theme => ({
     textbox: {
         width: '100%',
         padding: '20px 0 20px 0',
-    }
+    },
+    loginButton: {
+        borderRadius: "10px",
+        color: "white",
+        fontSize: "24px",
+        textAlign: "center",
+        textTransform: "uppercase",
+        padding: "10px 0px 10px 0px",
+        boxShadow: "none",
+        marginTop: '40px',
+    
+        width: "100%",
+        height: '80px',
+    
+        "&:hover": {
+          borderWidth: "3px",
+          backgroundColor: "#ffffff",
+          color: "#21CE99",
+          boxShadow: "none",
+        },
+      },
 }))
+
+function StyledCheckbox(props) {
+    const classes = useStyles();
+    return (
+        <Checkbox
+            className={classes.root}
+            disableRipple
+            color="primary"
+            checkedIcon={<span className={clsx(classes.icon, classes.checkedIcon)} />}
+            icon={<span className={classes.icon} />}
+            inputProps={{ 'aria-label': 'decorative checkbox' }}
+            {...props}
+        />
+    );
+}
 
 function LoginBox(props) {
 
@@ -42,7 +82,7 @@ function LoginBox(props) {
     const anchorEl=props.anchorEl;
 
     return (
-        <Grid className={"welcome-container"} item container direction="column" alignItems="center">
+        <Grid className={"welcome-container"} item container direction="column" alignItems="center" style={{paddingBottom: '10vh'}}>
             <img src={Logo} className={classes.logo} alt="Logo" />
             <Grid item container xs={12} className={classes.background}>
 
@@ -66,9 +106,8 @@ function LoginBox(props) {
 
                 <Grid item container xs={12}>
                     <Grid item xs={6} >
-                        <Typography>
-                            1
-                        </Typography>
+
+                   
                     
                     </Grid>
                     <Grid item container xs={6} justify="flex-end">
@@ -77,9 +116,20 @@ function LoginBox(props) {
                     </Grid>
                 </Grid>
 
-                {/*<Link to={"/revise"} style={{textDecoration: "none"}}>
-                    <Button variant={"outlined"} className={classes.button} color={"primary"}>Start Revising</Button>
-    </Link>*/}
+                <Grid item xs={12} >
+
+                    <Button
+                    className={classes.loginButton}
+                    color="primary"
+                    variant={"contained"}
+                    >
+                    Login
+                    </Button>
+                
+                </Grid>
+
+                
+                  
             </Grid>
         </Grid>
     )
