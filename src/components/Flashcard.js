@@ -207,7 +207,7 @@ function Flashcard(props) {
         if (isOverflown()) {
             props.setIsRendered(false);
             document.getElementById("answer-container").style.flex = '1';
-            document.getElementById("flashcard-box").style.height = '750px';
+            document.getElementById("flashcard-box").style.height = '760px';
             if (isOverflown()) {
                 document.getElementById("flashcard-box").style.height = '100%';
             }
