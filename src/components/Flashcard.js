@@ -276,12 +276,6 @@ function Flashcard(props) {
     };
   }, [hkFunction]);
 
-  window.onkeydown = function (e) {
-    if (document.URL.includes("revise")) {
-      return !(e.keyCode === 32);
-    }
-  };
-
   return (
     <div style={{ height: "100%" }}>
       {status ? (

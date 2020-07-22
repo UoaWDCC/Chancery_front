@@ -107,6 +107,12 @@ function App() {
         dispatch(fetchQuestions());
     });
 
+    window.onkeydown = function (e) {
+        if (document.URL.includes("revise")) {
+          return !(e.keyCode === 32);
+        }
+      };
+
     return (
         <React.StrictMode>
             <ThemeProvider theme={theme}>
