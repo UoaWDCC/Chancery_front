@@ -3,7 +3,14 @@ import * as constants from './constants';
 export const initialState = {
     topics: ["Accounting", "EV / Equity Value", "Valuation", "Discounted Cash Flow", "Merger Model", "Leveraged buy-out"],
     difficulties: ["Easy", "Medium", "Hard"],
-    questions: [],
+    flashcards: [{
+        question:"",
+        answer:"", 
+        difficulty:"",
+        topic:"", 
+        id:"1",
+    }],
+    loading: true,
 };
 
 export const reducer = (state = initialState, action) => {
@@ -11,7 +18,8 @@ export const reducer = (state = initialState, action) => {
         case constants.FETCH_QUESTIONS_SUCCESS:
             return {
                 ...state, 
-                questions: action.payload,
+                flashcards: action.payload,
+                loading: false,
             };
         default:
             return state;
