@@ -108,42 +108,44 @@ function App() {
     });
 
     return (
-        <ThemeProvider theme={theme}>
-            <Paper elevation={0} square>
-                <BrowserRouter>
-                    <div className={classes.root}>
-                        <Route
-                            path="/"
-                            render={({ location }) => (
-                                <Fragment>
-                                    <Grid container style={{ minHeight: '10vh' }}>
-                                        <Grid item xs>
-                                            <Logo/>
+        <React.StrictMode>
+            <ThemeProvider theme={theme}>
+                <Paper elevation={0} square>
+                    <BrowserRouter>
+                        <div className={classes.root}>
+                            <Route
+                                path="/"
+                                render={({ location }) => (
+                                    <Fragment>
+                                        <Grid container style={{ minHeight: '10vh' }}>
+                                            <Grid item xs>
+                                                <Logo/>
+                                            </Grid>
+                                            <Grid item xs>
+                                                <div className={classes.nav}>
+                                                    <StyledTabs value={location.pathname} aria-label="styled tabs example">
+                                                        <StyledTab label="Home" value="/" component={Link} to={allTabs[0]} />
+                                                        <StyledTab label="Revise" value="/revise" component={Link} to={allTabs[1]} />
+                                                        <StyledTab label="Saved" value="/saved" component={Link} to={allTabs[2]} />
+                                                        <StyledTab label="My Account" onClick={handleClick} />
+                                                        <AccountMenu anchorEl={anchorEl} onClose={handleClose} setDarkMode={setDarkMode} darkMode={darkMode}/>
+                                                    </StyledTabs>
+                                                </div>
+                                            </Grid>
                                         </Grid>
-                                        <Grid item xs>
-                                            <div className={classes.nav}>
-                                                <StyledTabs value={location.pathname} aria-label="styled tabs example">
-                                                    <StyledTab label="Home" value="/" component={Link} to={allTabs[0]} />
-                                                    <StyledTab label="Revise" value="/revise" component={Link} to={allTabs[1]} />
-                                                    <StyledTab label="Saved" value="/saved" component={Link} to={allTabs[2]} />
-                                                    <StyledTab label="My Account" onClick={handleClick} />
-                                                    <AccountMenu anchorEl={anchorEl} onClose={handleClose} setDarkMode={setDarkMode} darkMode={darkMode}/>
-                                                </StyledTabs>
-                                            </div>
-                                        </Grid>
-                                    </Grid>
-                                    <Switch>
-                                        <Route path={allTabs[1]} render={() => <Revise/>} />
-                                        <Route path={allTabs[2]} render={() => <Saved/>} />
-                                        <Route path={allTabs[0]} render={() => <Home/>} />
-                                    </Switch>
-                                </Fragment>
-                            )}
-                        />
-                    </div>
-                </BrowserRouter>
-            </Paper>
-        </ThemeProvider>
+                                        <Switch>
+                                            <Route path={allTabs[1]} render={() => <Revise/>} />
+                                            <Route path={allTabs[2]} render={() => <Saved/>} />
+                                            <Route path={allTabs[0]} render={() => <Home/>} />
+                                        </Switch>
+                                    </Fragment>
+                                )}
+                            />
+                        </div>
+                    </BrowserRouter>
+                </Paper>
+            </ThemeProvider>
+        </React.StrictMode>
     );
 }
 
