@@ -44,7 +44,7 @@ const useStyles = makeStyles({
     display: "inline-block",
   },
   footer: {
-    background: "rgba(129, 129, 129, 0.3)",
+    background: 'rgba(0, 0, 0, 0.2)',
     maxWidth: "100vw",
     height: "120px",
     position: "fixed",
