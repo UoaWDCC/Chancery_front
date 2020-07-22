@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from 'react';
+import React, {Fragment, useState, useEffect} from 'react';
 import './App.css';
 import {createMuiTheme, makeStyles, withStyles} from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
@@ -12,6 +12,8 @@ import AccountMenu from "./components/AccountMenu";
 import Paper from "@material-ui/core/Paper";
 import {ThemeProvider} from "@material-ui/styles";
 import Logo from "./components/Logo";
+import { useDispatch } from 'react-redux';
+import { fetchQuestions } from './redux/actions';
 
 const StyledTabs = withStyles((theme) => ({
     indicator: {
@@ -99,6 +101,11 @@ function App() {
             },
         },
     })
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(fetchQuestions());
+    });
 
     return (
         <ThemeProvider theme={theme}>

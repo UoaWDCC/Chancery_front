@@ -6,6 +6,6 @@ export const getDifficulties = state => {
     return state.difficulties;
 }
 
-export const getTheme = state => {
-    return state.isDark;
+export const getFlashcards = state => {
+    return state.flashcards;
 }
