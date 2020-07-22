@@ -8,7 +8,6 @@ export const fetchQuestionsEpic = (action$, state$) =>
 action$.ofType(constants.FETCH_QUESTIONS).pipe(
     mergeMap(async () => {
         const result = await getFlashcards();
-        console.log(result);
         return fetchQuestionsSuccess(result);
     })    
 );
