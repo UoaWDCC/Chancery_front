@@ -117,7 +117,7 @@ function App() {
                                 path="/"
                                 render={({ location }) => (
                                     <Fragment>
-                                        <Grid container style={{ minHeight: '10vh' }}>
+                                        <Grid container style={{ minHeight: '10vh', position: 'fixed', top: '0', zIndex: '1', backgroundColor: theme.palette.background.paper}}>
                                             <Grid item xs>
                                                 <Logo/>
                                             </Grid>
@@ -133,11 +133,12 @@ function App() {
                                                 </div>
                                             </Grid>
                                         </Grid>
+                                        <div style={{paddingTop: '10vh'}}>
                                         <Switch>
                                             <Route path={allTabs[1]} render={() => <Revise/>} />
                                             <Route path={allTabs[2]} render={() => <Saved/>} />
                                             <Route path={allTabs[0]} render={() => <Home/>} />
-                                        </Switch>
+                                        </Switch></div>
                                     </Fragment>
                                 )}
                             />
