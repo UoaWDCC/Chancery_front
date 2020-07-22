@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
@@ -181,13 +181,38 @@ function isOverflown() {
 function Flashcard(props) {
 
     const classes = useStyles();
-
-    const flashcardsBank = useSelector(getFlashcards);
-
     const status = useSelector(state => state.loading);
-    const getFlashcard = id => {
-        return flashcardsBank.filter(flashcard => flashcard.id === id.toString())[0];
+    const selectedIds = useSelector(state => state.selectedFlashcards);
+    const [totalNum, setTotalNum] = useState(0);
+    const [fullBank, setFullBank] = useState(useSelector(getFlashcards));
+    const [flashcardsBank, setFlashcardsBank] = useState(useSelector(getFlashcards));
+    const [currentIndex, setCurrentIndex] = useState(1);
+
+    const [currentFlashcard, setCurrentFlashcard] = useState(flashcardsBank[0]);
+
+    const previousFlashcard = () => {
+        setCurrentFlashcard(currentIndex === 0 ? flashcardsBank[flashcardsBank.length - 1] : flashcardsBank[currentIndex - 1]);
+        setShowAnswer(false);
     }
+    
+    const nextFlashcard = () => {
+        setCurrentFlashcard(currentIndex === flashcardsBank.length - 1 ? flashcardsBank[0] : flashcardsBank[currentIndex + 1]);
+        setShowAnswer(false);
+    }
+
+    useEffect(() => {
+        setCurrentIndex(0);
+        setFlashcardsBank(selectedIds.length == 0 ? fullBank : fullBank.filter(flashcard => selectedIds.includes(flashcard.id)));
+    }, [selectedIds]);
+
+    useEffect(()=> {
+        setCurrentFlashcard(flashcardsBank[0]);
+        setTotalNum(selectedIds.length == 0 ? fullBank.length : selectedIds.length);
+    }, [flashcardsBank]);
+
+    useEffect(()=> {
+        setCurrentIndex(flashcardsBank.findIndex(flashcard => flashcard.id === currentFlashcard.id))
+    }, [currentFlashcard]);
 
     const [show, setShowAnswer] = useState(false);
     const [saved, setSaved] = useState(false);
@@ -203,7 +228,6 @@ function Flashcard(props) {
             event.currentTarget.style.filter = 'invert(62%) sepia(94%) saturate(364%) hue-rotate(108deg) brightness(89%) contrast(91%)';
         }
     };
-
     const AnswerContent = withStyles({
         root: {
             fontSize: '20px',
@@ -236,84 +260,73 @@ function Flashcard(props) {
         document.getElementById("flashcard-box").style.height = '100%';
     }
 
-    const [currentFlashcard, setCurrentFlashcard] = useState(getFlashcard(1));
-
-    const previousFlashcard = () => {
-        setCurrentFlashcard(currentFlashcard.id === "1" ? getFlashcard(flashcardsBank.length) : getFlashcard(parseInt(currentFlashcard.id) - 1));
-        setShowAnswer(false);
-    }
-    
-    const nextFlashcard = () => {
-        setCurrentFlashcard(currentFlashcard.id === flashcardsBank.length.toString() ? getFlashcard(1) : getFlashcard(parseInt(currentFlashcard.id) + 1));
-        setShowAnswer(false);
-    }
-
     return (
         <div style={{height: '100%'}}>
             {status ? 
                 <Grid container justify="center" alignItems="center" id="flashcard-box" className={classes.flashcardBackground}>
                     <CircularProgress/>
                 </Grid> :
-            <Grid container id="flashcard-box" className={classes.flashcardBackground}>
                 
-                    <React.Fragment>
-
+                <Grid container id="flashcard-box" className={classes.flashcardBackground}>
                     
-                        <Grid container justify="center" alignItems="center">
-                            <Grid item container xs={5} md={4}>
-                                <Typography id="difficulty" className={classes.tags}>
-                                    <LocalOfferIcon style={{ fontSize: 18}}/>
-                                    &nbsp;{currentFlashcard.difficulty}
-                                </Typography>
-                                <Typography id="topic" className={classes.tags}>
-                                    <LocalOfferIcon style={{ fontSize: 18}}/>
-                                    &nbsp;{currentFlashcard.topic}
-                                </Typography>
+                        <React.Fragment>
+
+                        
+                            <Grid container justify="center" alignItems="center">
+                                <Grid item container xs={5} md={4}>
+                                    <Typography id="difficulty" className={classes.tags}>
+                                        <LocalOfferIcon style={{ fontSize: 18}}/>
+                                        &nbsp;{currentFlashcard.difficulty}
+                                    </Typography>
+                                    <Typography id="topic" className={classes.tags}>
+                                        <LocalOfferIcon style={{ fontSize: 18}}/>
+                                        &nbsp;{currentFlashcard.topic}
+                                    </Typography>
+                                </Grid>
+                                <Grid item container xs={2} md={4} justify="center" >
+                                    <Typography id="flashcard-id" className={classes.page}>
+                                        {currentIndex + 1} &nbsp;/&nbsp; {totalNum}
+                                    </Typography>
+                                </Grid>
+                                <Grid item container xs={5} md={4} justify="flex-end">
+                                    <Typography className={classes.subheading} style={{fontSize: 25, marginTop: 3}}>
+                                        Save&nbsp;
+                                    </Typography>
+                                    <Button className={classes.save} disableRipple onClick={saveFlashcard} >
+                                        {saved ? <BookmarkTwoToneIcon style={{fontSize: 40}}/> : <BookmarkBorderIcon style={{fontSize: 40}}/> }
+                                    </Button>
+                                </Grid>
                             </Grid>
-                            <Grid item container xs={2} md={4} justify="center" >
-                                <Typography id="flashcard-id" className={classes.page}>
-                                    {currentFlashcard.id} &nbsp;/&nbsp; {flashcardsBank.length}
+
+                            <Container className={classes.questionContainer}>
+                                <Typography className={classes.subheading} variant={"h4"}>Q.&emsp;</Typography>
+                                <Typography id="question-content" className={classes.questionContent}>
+                                    {currentFlashcard.question}
                                 </Typography>
-                            </Grid>
-                            <Grid item container xs={5} md={4} justify="flex-end">
-                                <Typography className={classes.subheading} style={{fontSize: 25, marginTop: 3}}>
-                                    Save&nbsp;
-                                </Typography>
-                                <Button className={classes.save} disableRipple onClick={saveFlashcard} >
-                                    {saved ? <BookmarkTwoToneIcon style={{fontSize: 40}}/> : <BookmarkBorderIcon style={{fontSize: 40}}/> }
-                                </Button>
-                            </Grid>
-                        </Grid>
+                            </Container>
 
-                        <Container className={classes.questionContainer}>
-                            <Typography className={classes.subheading} variant={"h4"}>Q.&emsp;</Typography>
-                            <Typography id="question-content" className={classes.questionContent}>
-                                {currentFlashcard.question}
-                            </Typography>
-                        </Container>
+                            <Container id="answer-container" className={classes.answerContainer}>
+                                <Typography id="answer-initial" className={classes.subheading} style={{color: show ? '#21CE99' : '#818181' }}>A.&emsp;</Typography>
+                                <AnswerContent id="answer-content">
+                                    {currentFlashcard.answer}
+                                </AnswerContent>
+                                {!show && <Button id="show-button" className={classes.showButton} color="primary" variant={"contained"} onClick={showAnswer}>Show Answer</Button>}
+                            </Container>
 
-                        <Container id="answer-container" className={classes.answerContainer}>
-                            <Typography id="answer-initial" className={classes.subheading} style={{color: show ? '#21CE99' : '#818181' }}>A.&emsp;</Typography>
-                            <AnswerContent id="answer-content">
-                                {currentFlashcard.answer}
-                            </AnswerContent>
-                            {!show && <Button id="show-button" className={classes.showButton} color="primary" variant={"contained"} onClick={showAnswer}>Show Answer</Button>}
-                        </Container>
+                            {show && <Button id="show-button" className={classes.hideButton} color="primary" variant={"contained"} onClick={hideAnswer}>Hide Answer</Button>}
 
-                        {show && <Button id="show-button" className={classes.hideButton} color="primary" variant={"contained"} onClick={hideAnswer}>Hide Answer</Button>}
+                                <IconButton className={classes.leftButton} onClick={previousFlashcard} >
+                                    <ArrowBackIcon style={{fontSize: 40}}/>
+                                </IconButton>
 
-                            <IconButton className={classes.leftButton} onClick={previousFlashcard} >
-                                <ArrowBackIcon style={{fontSize: 40}}/>
+                            <IconButton className={classes.rightButton} onClick={nextFlashcard}>
+                                <ArrowForwardIcon style={{fontSize: 40}}/>
                             </IconButton>
+                        </React.Fragment>
+                    
 
-                        <IconButton className={classes.rightButton} onClick={nextFlashcard}>
-                            <ArrowForwardIcon style={{fontSize: 40}}/>
-                        </IconButton>
-                    </React.Fragment>
-                
-
-            </Grid>
-            }
+                </Grid>
+                }
         </div>
     )
 }

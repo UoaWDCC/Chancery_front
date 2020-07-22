@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect, useRef} from "react";
 import Checkbox from '@material-ui/core/Checkbox';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -9,6 +9,8 @@ import Button from '@material-ui/core/Button';
 import Typography from "@material-ui/core/Typography";
 import clsx from 'clsx';
 import Container from "@material-ui/core/Container";
+import { useDispatch } from 'react-redux';
+import { updateSelectedTopics } from '../redux/actions';
 
 const useStyles = makeStyles( theme => ({
     heading: {
@@ -83,11 +85,34 @@ function StyledCheckbox(props) {
 
 function FilterBox() {
     const classes = useStyles();
-   
+    const loaded = useRef(false);
+    const dispatch = useDispatch();
 
     const topics = ["Accounting", "EV / Equity Value", "Valuation", "Discounted Cash Flow", "Merger Model", "Leveraged buy-out"];
     const difficulties = ["Easy", "Medium", "Hard"];
 
+    const [selectedTopics, setSelectedTopics] = useState([]);
+
+    const applyTopicFilters = (event, topic) => {
+        topic = topic === "Leveraged buy-out" ? "LBO" : topic; // backend stores Leveraged buyout as "LBO"
+        event.target.checked ? setSelectedTopics(selectedTopics.concat(topic)) : setSelectedTopics(selectedTopics.filter(selectedTopic => selectedTopic !== topic));    
+    }
+
+    const clearFilters = () => {
+        //TODO: to be implemented
+        console.log("clearing filters");
+    }
+
+
+    useEffect(()=> {
+        if (loaded.current) {
+            dispatch(updateSelectedTopics(selectedTopics));
+        } else {
+            loaded.current = true;
+        }
+        
+    }, [selectedTopics])
+    
     const topicCheckBoxes = topics.map((topic) => (
         <FormControlLabel
             style={{padding: '6px'}}
@@ -96,6 +121,7 @@ function FilterBox() {
             label={<Typography className={classes.label}>{topic}</Typography>}
             labelPlacement="end"
             key={topic}
+            onChange={(event) => applyTopicFilters(event, topic)}
         />
     ));
 
@@ -109,6 +135,7 @@ function FilterBox() {
             key={difficulty}
         />
     ));
+
 
     return (
         <Container className={classes.filterBox}>
@@ -135,7 +162,11 @@ function FilterBox() {
                 <br/>
             </FormControl>
 
-            <Button className={classes.button}><Typography className={classes.label}>Apply Filters</Typography></Button>
+            <Button className={classes.button} onClick={clearFilters}>
+                <Typography className={classes.label}>
+                    Clear Filters
+                </Typography>
+            </Button>
 
         </Container>
     )

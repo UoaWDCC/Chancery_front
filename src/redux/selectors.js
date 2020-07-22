@@ -7,5 +7,10 @@ export const getDifficulties = state => {
 }
 
 export const getFlashcards = state => {
+
     return state.flashcards;
+}
+
+export const getSelectedTopics = state => {
+    return state.selectedTopics;
 }
