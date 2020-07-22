@@ -291,7 +291,7 @@ function Flashcard(props) {
                                     Save&nbsp;
                                 </Typography>
                                 <Button className={classes.save} disableRipple onClick={() => setSaved(!saved)} >
-                                    {saved ? <SavedIcon/> : <BookmarkBorderIcon style={{fontSize: 40}}/> }
+                                    {saved ? <SavedIcon style={{fontSize: 40}}/> : <BookmarkBorderIcon style={{fontSize: 40}}/> }
                                 </Button>
                             </Grid>
                         </Grid>
