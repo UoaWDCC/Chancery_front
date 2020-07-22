@@ -45,7 +45,7 @@ const useStyles = makeStyles( theme => ({
         textTransform: "uppercase",
         padding: "10px 0px 10px 0px",
         boxShadow: "none",
-        marginTop: '40px',
+        margin: '40px 0 30px 0',
     
         width: "100%",
         height: '80px',
@@ -125,6 +125,15 @@ function LoginBox(props) {
                     >
                     Login
                     </Button>
+                
+                </Grid>
+
+                <Grid item container xs={12} justify="center">
+                    <Typography style={{display: 'inline-block', fontSize: '20px'}}>
+                        Don't have an account yet?
+                    </Typography>
+
+                    <Button className={classes.button} color="primary" style={{textDecoration: 'underline', marginTop: '-6px'}}>Sign Up</Button>
                 
                 </Grid>
 
