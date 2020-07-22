@@ -9,7 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
-import BookmarkTwoToneIcon from '@material-ui/icons/BookmarkTwoTone';
+import SavedIcon from "../icons/SavedIcon";
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -18,7 +18,6 @@ import {getFlashcards} from '../redux/selectors';
 import {useSelector} from 'react-redux';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
-
 
 const useStyles = makeStyles( theme =>({
     tags: {
@@ -192,18 +191,6 @@ function Flashcard(props) {
     const [show, setShowAnswer] = useState(false);
     const [saved, setSaved] = useState(false);
 
-    const saveFlashcard = (event) => {
-        if (saved) {
-            setSaved(false);
-            event.currentTarget.style.filter = 'none';
-        }
-        else {
-            setSaved(true);
-            // https://codepen.io/sosuke/pen/Pjoqqp
-            event.currentTarget.style.filter = 'invert(62%) sepia(94%) saturate(364%) hue-rotate(108deg) brightness(89%) contrast(91%)';
-        }
-    };
-
     const AnswerContent = withStyles({
         root: {
             fontSize: '20px',
@@ -242,7 +229,7 @@ function Flashcard(props) {
         setCurrentFlashcard(currentFlashcard.id === "1" ? getFlashcard(flashcardsBank.length) : getFlashcard(parseInt(currentFlashcard.id) - 1));
         hideAnswer()
     }
-    
+
     const nextFlashcard = () => {
         setCurrentFlashcard(currentFlashcard.id === flashcardsBank.length.toString() ? getFlashcard(1) : getFlashcard(parseInt(currentFlashcard.id) + 1));
         hideAnswer()
@@ -277,15 +264,12 @@ function Flashcard(props) {
 
     return (
         <div style={{height: '100%'}}>
-            {status ? 
+            {status ?
                 <Grid container justify="center" alignItems="center" id="flashcard-box" className={classes.flashcardBackground}>
                     <CircularProgress/>
                 </Grid> :
-            <Grid container id="flashcard-box" className={classes.flashcardBackground}>
-                
+                <Grid container id="flashcard-box" className={classes.flashcardBackground}>
                     <React.Fragment>
-
-                    
                         <Grid container justify="center" alignItems="center">
                             <Grid item container xs={5} md={4}>
                                 <Typography id="difficulty" className={classes.tags}>
@@ -306,8 +290,8 @@ function Flashcard(props) {
                                 <Typography className={classes.subheading} style={{fontSize: 25, marginTop: 3}}>
                                     Save&nbsp;
                                 </Typography>
-                                <Button className={classes.save} disableRipple onClick={saveFlashcard} >
-                                    {saved ? <BookmarkTwoToneIcon style={{fontSize: 40}}/> : <BookmarkBorderIcon style={{fontSize: 40}}/> }
+                                <Button className={classes.save} disableRipple onClick={() => setSaved(!saved)} >
+                                    {saved ? <SavedIcon/> : <BookmarkBorderIcon style={{fontSize: 40}}/> }
                                 </Button>
                             </Grid>
                         </Grid>
@@ -329,17 +313,17 @@ function Flashcard(props) {
 
                         {show && <Button id="show-button" className={classes.hideButton} color="primary" variant={"contained"} onClick={hideAnswer}>Hide Answer</Button>}
 
-                            <IconButton className={classes.leftButton} onClick={previousFlashcard} >
-                                <ArrowBackIcon style={{fontSize: 40}}/>
-                            </IconButton>
+                        <IconButton className={classes.leftButton} onClick={previousFlashcard} >
+                            <ArrowBackIcon style={{fontSize: 40}}/>
+                        </IconButton>
 
                         <IconButton className={classes.rightButton} onClick={nextFlashcard}>
                             <ArrowForwardIcon style={{fontSize: 40}}/>
                         </IconButton>
                     </React.Fragment>
-                
 
-            </Grid>
+
+                </Grid>
             }
         </div>
     )
