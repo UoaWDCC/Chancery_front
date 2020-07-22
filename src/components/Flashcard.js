@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
@@ -240,13 +240,40 @@ function Flashcard(props) {
 
     const previousFlashcard = () => {
         setCurrentFlashcard(currentFlashcard.id === "1" ? getFlashcard(flashcardsBank.length) : getFlashcard(parseInt(currentFlashcard.id) - 1));
-        setShowAnswer(false);
+        hideAnswer()
     }
     
     const nextFlashcard = () => {
         setCurrentFlashcard(currentFlashcard.id === flashcardsBank.length.toString() ? getFlashcard(1) : getFlashcard(parseInt(currentFlashcard.id) + 1));
-        setShowAnswer(false);
+        hideAnswer()
     }
+
+    const hkFunction = useCallback((event) => {
+        if(event.keyCode === 32) {
+            show ? hideAnswer() : showAnswer()
+        }
+        if(event.keyCode === 39) {
+            nextFlashcard()
+        }
+        if(event.keyCode === 37) {
+            previousFlashcard()
+        }
+        if(event.keyCode === 83) {
+            setSaved(!saved)
+        }
+    }, [show, currentFlashcard, saved]);
+
+    useEffect(() => {
+        document.addEventListener("keydown", hkFunction, false);
+        document.querySelectorAll("button").forEach( function(item) {
+            item.addEventListener('focus', function() {
+                this.blur();
+            })
+        })
+        return () => {
+            document.removeEventListener("keydown", hkFunction, false);
+        };
+    }, [hkFunction]);
 
     return (
         <div style={{height: '100%'}}>
