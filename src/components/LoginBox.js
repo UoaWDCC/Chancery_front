@@ -12,30 +12,12 @@ import TextField from "@material-ui/core/TextField";
 const useStyles = makeStyles( theme => ({
     heading: {
         fontSize: '24px',
-        padding: '25px 0 25px 0',
         position: "relative",
         color: theme.palette.primary.contrastText,
     },
-    subheading: {
-        fontSize: '35px',
-        fontWeight: 'bold',
-        paddingBottom: '60px',
-        textAlign: "center",
-        position: "relative",
-    },
     button: {
-        backgroundColor: theme.palette.type === "dark" ? '#000000' : '#fff',
-        borderRadius: '7px',
-        borderColor: '#21CE99',
-        borderWidth: '3px',
-        fontWeight: 'bold',
-        fontSize: '25px',
-        padding: '15px 35px 15px 35px',
-        '&:hover': {
-            borderWidth: '3px',
-            backgroundColor: '#21CE99',
-            color: '#ffffff',
-        },
+        textTransform: 'none',
+        fontSize: '20px',
     },
     logo: {
         height: 200,
@@ -48,6 +30,7 @@ const useStyles = makeStyles( theme => ({
     },
     textbox: {
         width: '100%',
+        padding: '20px 0 20px 0',
     }
 }))
 
@@ -59,16 +42,6 @@ function LoginBox(props) {
     const anchorEl=props.anchorEl;
 
     return (
-        <Grid
-        className={"welcome-page"}
-        container
-        spacing={0}
-        direction="column"
-        alignItems="center"
-        justify="center"
-        style={{ minHeight: '90vh' }}
-    >
-        <ParticleComponent/>
         <Grid className={"welcome-container"} item container direction="column" alignItems="center">
             <img src={Logo} className={classes.logo} alt="Logo" />
             <Grid item container xs={12} className={classes.background}>
@@ -91,12 +64,24 @@ function LoginBox(props) {
                 
                 </Grid>
 
+                <Grid item container xs={12}>
+                    <Grid item xs={6} >
+                        <Typography>
+                            1
+                        </Typography>
+                    
+                    </Grid>
+                    <Grid item container xs={6} justify="flex-end">
+                        <Button className={classes.button}>Forgot password?</Button>
+                    
+                    </Grid>
+                </Grid>
+
                 {/*<Link to={"/revise"} style={{textDecoration: "none"}}>
                     <Button variant={"outlined"} className={classes.button} color={"primary"}>Start Revising</Button>
     </Link>*/}
             </Grid>
         </Grid>
-    </Grid>
     )
 }
 
