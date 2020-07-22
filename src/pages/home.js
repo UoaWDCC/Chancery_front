@@ -6,6 +6,7 @@ import {Link} from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import Logo from "../icons/Chancery_logo.png"
 import ParticleComponent from "../components/ParticleComponent";
+import LoginBox from "../components/LoginBox";
 
 const useStyles = makeStyles( theme => ({
     title: {
@@ -46,6 +47,7 @@ function Home() {
     const classes = useStyles();
 
     return (
+        /*
         <Grid
             className={"welcome-page"}
             container
@@ -68,7 +70,8 @@ function Home() {
                     <Button variant={"outlined"} className={classes.button} color={"primary"}>Start Revising</Button>
                 </Link>
             </Grid>
-        </Grid>
+        </Grid>*/
+        <LoginBox/>
     )
 }
 
