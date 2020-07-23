@@ -23,6 +23,9 @@ const useStyles = makeStyles( theme => ({
     button: {
         textTransform: 'none',
         fontSize: '20px',
+        "&:hover": {
+            background: 'transparent',
+        }
     },
     logo: {
         height: 200,
@@ -91,7 +94,7 @@ function LoginBox(props) {
                         Email
                     </Typography>
 
-                    <TextField inputProps={{style: {fontSize: 24}}} className={classes.textbox}/>
+                    <TextField type={"email"} inputProps={{style: {fontSize: 24}}} className={classes.textbox}/>
                 
                 </Grid>
 
@@ -100,7 +103,7 @@ function LoginBox(props) {
                         Password
                     </Typography>
 
-                    <TextField inputProps={{style: {fontSize: 24}}} className={classes.textbox}/>
+                    <TextField type={"password"} inputProps={{style: {fontSize: 24}}} className={classes.textbox}/>
                 
                 </Grid>
 
@@ -133,7 +136,7 @@ function LoginBox(props) {
                         Don't have an account yet?
                     </Typography>
 
-                    <Button className={classes.button} color="primary" style={{textDecoration: 'underline', marginTop: '-6px'}}>Sign Up</Button>
+                    <Button className={classes.button} color="primary" style={{textDecoration: 'underline', marginTop: '-8px'}}>Sign Up</Button>
                 
                 </Grid>
 
