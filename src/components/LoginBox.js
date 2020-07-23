@@ -4,8 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
 import {Link} from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
-import Logo from "../icons/Chancery_logo.png"
-import ParticleComponent from "../components/ParticleComponent";
+import Logo from "../icons/Chancery_logo.png";
 import clsx from 'clsx';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -22,7 +21,8 @@ const useStyles = makeStyles( theme => ({
     },
     button: {
         textTransform: 'none',
-        fontSize: '20px',
+        fontSize: '18px',
+        opacity: '0.5',
         "&:hover": {
             background: 'transparent',
         }
@@ -60,6 +60,25 @@ const useStyles = makeStyles( theme => ({
           boxShadow: "none",
         },
       },
+      
+    icon: {
+        borderRadius: 5,
+        borderStyle: "solid",
+        width: 18,
+        height: 18,
+        marginRight: '3px',
+        'input:hover ~ &': {
+            backgroundColor: theme.palette.type === "dark" ? '#6f6f6f' : '#e8e8e8' ,
+        },
+    },
+    checkedIcon: {
+        backgroundColor: '#21CE99',
+        borderStyle: "solid",
+        borderColor: "#1AA47A",
+        'input:hover ~ &': {
+            backgroundColor: '#21CE99',
+        },
+    },
 }))
 
 function StyledCheckbox(props) {
@@ -81,8 +100,8 @@ function LoginBox(props) {
 
     const classes = useStyles();
 
-    const darkMode = props.darkMode;
-    const anchorEl=props.anchorEl;
+    //const darkMode = props.darkMode;
+    //const anchorEl=props.anchorEl;
 
     return (
         <Grid className={"welcome-container"} item container direction="column" alignItems="center" style={{paddingBottom: '10vh'}}>
@@ -110,11 +129,20 @@ function LoginBox(props) {
                 <Grid item container xs={12}>
                     <Grid item xs={6} >
 
+                        
+                        <FormControlLabel
+            control={<StyledCheckbox />}
+            label={<Typography style={{fontSize: 18, opacity: 0.5}}>Remember me</Typography>}
+            labelPlacement="end"
+        />
+
+
+                   
                    
                     
                     </Grid>
                     <Grid item container xs={6} justify="flex-end">
-                        <Button className={classes.button}>Forgot password?</Button>
+                        <Button className={classes.button} disableRipple>Forgot password?</Button>
                     
                     </Grid>
                 </Grid>
@@ -136,7 +164,7 @@ function LoginBox(props) {
                         Don't have an account yet?
                     </Typography>
 
-                    <Button className={classes.button} color="primary" style={{textDecoration: 'underline', marginTop: '-8px'}}>Sign Up</Button>
+                    <Button className={classes.button} disableRipple color="primary" style={{textDecoration: 'underline', marginTop: '-6px', opacity: '1'}}>Sign Up</Button>
                 
                 </Grid>
 
