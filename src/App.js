@@ -29,7 +29,6 @@ const StyledTabs = withStyles((theme) => ({
     },
     root: {
         float: 'right',
-        paddingTop: '15px',
         paddingRight: '20px',
     }
 }))((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
@@ -123,7 +122,7 @@ function App() {
                                 path="/"
                                 render={({ location }) => (
                                     <Fragment>
-                                        <Grid container style={{ minHeight: '10vh', position: 'fixed', top: '0', zIndex: '1', backgroundColor: theme.palette.background.paper}}>
+                                        <Grid container alignItems={"center"} style={{ minHeight: '10vh', position: 'fixed', top: '0', zIndex: '1', backgroundColor: theme.palette.background.paper}}>
                                             <Grid item xs>
                                                 <Logo/>
                                             </Grid>
