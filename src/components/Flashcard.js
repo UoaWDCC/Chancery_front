@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useState } from "react";
 
+import React, { useCallback, useEffect, useState } from "react";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
@@ -180,30 +180,65 @@ function isOverflown() {
 }
 
 function Flashcard(props) {
+
   const classes = useStyles();
+  const status = useSelector(state => state.loading);
+  const selectedIds = useSelector(state => state.selectedFlashcards);
+  const [totalNum, setTotalNum] = useState(0);
+  const [fullBank, setFullBank] = useState(useSelector(getFlashcards));
+  const [flashcardsBank, setFlashcardsBank] = useState(useSelector(getFlashcards));
+  const [currentIndex, setCurrentIndex] = useState(1);
 
-  const flashcardsBank = useSelector(getFlashcards);
+  const [currentFlashcard, setCurrentFlashcard] = useState(flashcardsBank[0]);
 
-  const status = useSelector((state) => state.loading);
-  const getFlashcard = (id) => {
-    return flashcardsBank.filter(
-      (flashcard) => flashcard.id === id.toString()
-    )[0];
-  };
+  const previousFlashcard = () => {
+      setCurrentFlashcard(currentIndex === 0 ? flashcardsBank[flashcardsBank.length - 1] : flashcardsBank[currentIndex - 1]);
+      setShowAnswer(false);
+  }
+
+  const nextFlashcard = () => {
+      setCurrentFlashcard(currentIndex === flashcardsBank.length - 1 ? flashcardsBank[0] : flashcardsBank[currentIndex + 1]);
+      setShowAnswer(false);
+  }
+
+  useEffect(() => {
+      setCurrentIndex(0);
+      setFlashcardsBank(selectedIds.length === 0 ? fullBank : fullBank.filter(flashcard => selectedIds.includes(flashcard.id)));
+  }, [selectedIds]);
+
+  useEffect(()=> {
+      setCurrentFlashcard(flashcardsBank[0]);
+      setTotalNum(selectedIds.length === 0 ? fullBank.length : selectedIds.length);
+  }, [flashcardsBank]);
+
+  useEffect(()=> {
+      setCurrentIndex(flashcardsBank.findIndex(flashcard => flashcard.id === currentFlashcard.id))
+  }, [currentFlashcard]);
 
   const [show, setShowAnswer] = useState(false);
   const [saved, setSaved] = useState(false);
 
+  const saveFlashcard = (event) => {
+      if (saved) {
+          setSaved(false);
+          event.currentTarget.style.filter = 'none';
+      }
+      else {
+          setSaved(true);
+          // https://codepen.io/sosuke/pen/Pjoqqp
+          event.currentTarget.style.filter = 'invert(62%) sepia(94%) saturate(364%) hue-rotate(108deg) brightness(89%) contrast(91%)';
+      }
+  };
   const AnswerContent = withStyles({
-    root: {
-      fontSize: "20px",
-      display: "inline-block",
-      marginTop: "2.5px",
-      lineHeight: "40px",
-      visibility: show ? "visible" : "hidden",
-      opacity: show ? "1" : "0",
-      transition: "visibility 0s, opacity 0.5s linear",
-    },
+      root: {
+          fontSize: '20px',
+          display: 'inline-block',
+          marginTop: '2.5px',
+          lineHeight: '40px',
+          visibility: show ? 'visible' : 'hidden',
+          opacity: show ? '1' : '0',
+          transition: 'visibility 0s, opacity 0.5s linear',
+      },
   })(Typography);
 
   const showAnswer = () => {
@@ -225,27 +260,7 @@ function Flashcard(props) {
     document.getElementById("answer-container").style.flex = "none";
     document.getElementById("flashcard-box").style.height = "100%";
   };
-
-  const [currentFlashcard, setCurrentFlashcard] = useState(getFlashcard(1));
-
-  const previousFlashcard = () => {
-    setCurrentFlashcard(
-      currentFlashcard.id === "1"
-        ? getFlashcard(flashcardsBank.length)
-        : getFlashcard(parseInt(currentFlashcard.id) - 1)
-    );
-    hideAnswer();
-  };
-
-  const nextFlashcard = () => {
-    setCurrentFlashcard(
-      currentFlashcard.id === flashcardsBank.length.toString()
-        ? getFlashcard(1)
-        : getFlashcard(parseInt(currentFlashcard.id) + 1)
-    );
-    hideAnswer();
-  };
-
+      
   const hkFunction = useCallback(
     (event) => {
       if (event.keyCode === 32) {
@@ -308,7 +323,7 @@ function Flashcard(props) {
               </Grid>
               <Grid item container xs={2} md={4} justify="center">
                 <Typography id="flashcard-id" className={classes.page}>
-                  {currentFlashcard.id} &nbsp;/&nbsp; {flashcardsBank.length}
+                  {currentIndex + 1} &nbsp;/&nbsp; {totalNum}
                 </Typography>
               </Grid>
               <Grid item container xs={5} md={4} justify="flex-end">
