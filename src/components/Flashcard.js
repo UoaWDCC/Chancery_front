@@ -202,12 +202,12 @@ function Flashcard(props) {
 
     useEffect(() => {
         setCurrentIndex(0);
-        setFlashcardsBank(selectedIds.length == 0 ? fullBank : fullBank.filter(flashcard => selectedIds.includes(flashcard.id)));
+        setFlashcardsBank(selectedIds.length === 0 ? fullBank : fullBank.filter(flashcard => selectedIds.includes(flashcard.id)));
     }, [selectedIds]);
 
     useEffect(()=> {
         setCurrentFlashcard(flashcardsBank[0]);
-        setTotalNum(selectedIds.length == 0 ? fullBank.length : selectedIds.length);
+        setTotalNum(selectedIds.length === 0 ? fullBank.length : selectedIds.length);
     }, [flashcardsBank]);
 
     useEffect(()=> {
