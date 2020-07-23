@@ -193,12 +193,12 @@ function Flashcard(props) {
 
   const previousFlashcard = () => {
       setCurrentFlashcard(currentIndex === 0 ? flashcardsBank[flashcardsBank.length - 1] : flashcardsBank[currentIndex - 1]);
-      setShowAnswer(false);
+      hideAnswer();
   }
 
   const nextFlashcard = () => {
       setCurrentFlashcard(currentIndex === flashcardsBank.length - 1 ? flashcardsBank[0] : flashcardsBank[currentIndex + 1]);
-      setShowAnswer(false);
+      hideAnswer();
   }
 
   useEffect(() => {
@@ -276,7 +276,7 @@ function Flashcard(props) {
         setSaved(!saved);
       }
     },
-    [show, currentFlashcard, saved]
+    [show, currentIndex, saved]
   );
 
   useEffect(() => {

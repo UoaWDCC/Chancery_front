@@ -13,7 +13,9 @@ function Revise() {
             <Grid
                 container
                 spacing={0}
-                style={{ minHeight: '90vh', padding: '1em 5em 4em 5em'}}
+                style={{ minHeight: '90vh', padding: '4em 5em 0em 5em'}}
+                alignItems={"center"}
+                // justify={"center"}
             >
                 <Grid container item justify="center">
                     <Grid container item md={12} spacing={5} justify="center">
