@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "uppercase",
     float: "left",
     padding: "5px 10px 5px 10px",
-    margin: " 0 10px 5px 0",
+    margin: " 0 10px 10px 0",
   },
   page: {
     color: theme.palette.type === "dark" ? "#fff" : "#818181",
@@ -309,7 +309,7 @@ function Flashcard(props) {
               <Grid item container xs={5} md={4}>
                 <Typography id="difficulty" className={classes.tags}>
                   <LocalOfferIcon style={{ fontSize: 18 }} />
-                  &nbsp;{currentFlashcard.difficulty}
+                    &nbsp;{currentFlashcard.difficulty}
                 </Typography>
                 <Typography id="topic" className={classes.tags}>
                   <LocalOfferIcon style={{ fontSize: 18 }} />
