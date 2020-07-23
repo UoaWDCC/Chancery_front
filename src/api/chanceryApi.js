@@ -5,7 +5,7 @@ export const getFlashcards = () => {
     try {     
         // return fetch(proxyurl + `${API_ROOT}/flashcard/scan`).then(result => result.json());
         return fetch(`${API_ROOT}/flashcard/scan`).then(result => result.json());
-
+      
     } catch (error) {
         console.log(error);
     }

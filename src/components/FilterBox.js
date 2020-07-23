@@ -8,67 +8,66 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import clsx from "clsx";
-import Container from "@material-ui/core/Container";
 import { useDispatch } from "react-redux";
 import {
   updateSelectedTopics,
   updateSelectedDifficulties,
 } from "../redux/actions";
+import Grid from "@material-ui/core/Grid";
 
-const useStyles = makeStyles((theme) => ({
-  heading: {
-    textTransform: "uppercase",
-    fontWeight: "bold",
-    fontSize: "25px",
-    paddingBottom: "5px",
-    color: theme.palette.primary.contrastText,
-  },
-  label: {
-    textTransform: "uppercase",
-    fontSize: "20px",
-  },
-  root: {
-    "&:hover": {
-      backgroundColor: "transparent",
+
+const useStyles = makeStyles( theme => ({
+    heading: {
+        textTransform: 'uppercase',
+        fontWeight: "bold",
+        fontSize: '25px',
+        paddingBottom: '5px',
+        color: theme.palette.primary.contrastText,
     },
-    marginRight: "12px",
-    marginLeft: "5px",
-  },
-  icon: {
-    borderRadius: 5,
-    borderStyle: "solid",
-    width: 20,
-    height: 20,
-    "input:hover ~ &": {
-      backgroundColor: theme.palette.type === "dark" ? "#6f6f6f" : "#e8e8e8",
+    label: {
+        textTransform: 'uppercase',
+        fontSize: '20px',
     },
-  },
-  checkedIcon: {
-    backgroundColor: "#21CE99",
-    borderStyle: "solid",
-    borderColor: "#1AA47A",
-    "input:hover ~ &": {
-      backgroundColor: "#21CE99",
+    root: {
+        '&:hover': {
+            backgroundColor: 'transparent',
+        },
+        marginRight: '12px',
     },
-  },
-  filterBox: {
-    backgroundColor: theme.palette.background.default,
-    borderRadius: "10px",
-    padding: "25px",
-    height: "750px",
-    position: "relative",
-    width: "350px",
-    boxShadow: theme.palette.type === "dark" ? "none" : "0 0 5px 0 grey",
-  },
-  button: {
-    width: "100%",
-    padding: "10px 40px 10px 40px",
-    backgroundColor: theme.palette.type === "dark" ? "#818181" : "#FFFFFF",
-    boxShadow: "none",
-    "&:hover": {
-      boxShadow: "none",
+    icon: {
+        borderRadius: 5,
+        borderStyle: "solid",
+        width: 20,
+        height: 20,
+        'input:hover ~ &': {
+            backgroundColor: theme.palette.type === "dark" ? '#6f6f6f' : '#e8e8e8' ,
+        },
     },
-  },
+    checkedIcon: {
+        backgroundColor: '#21CE99',
+        borderStyle: "solid",
+        borderColor: "#1AA47A",
+        'input:hover ~ &': {
+            backgroundColor: '#21CE99',
+        },
+    },
+    filterBox: {
+        backgroundColor: theme.palette.background.default,
+        borderRadius: '10px',
+        height: '760px',
+        width: '365px',
+        boxShadow: theme.palette.type === "dark" ? 'none' : '0 0 5px 0 grey',
+    },
+    button: {
+        width: 310,
+        borderRadius: 7,
+        padding: '20px 40px 20px 40px',
+        backgroundColor: theme.palette.type === "dark" ? '#818181' : '#FFFFFF',
+        boxShadow: "none",
+        '&:hover': {
+            boxShadow: "none",
+        },
+    },
 }));
 
 function StyledCheckbox(props) {
@@ -169,30 +168,42 @@ function FilterBox() {
   ));
 
   return (
-    <Container className={classes.filterBox}>
-      <FormControl component="fieldset">
-        <FormLabel component="label" focused>
-          <Typography className={classes.heading}>Topics:</Typography>
-        </FormLabel>
+      <Grid
+          className={classes.filterBox}
+          container
+          direction="column"
+          justify="center"
+          alignItems="center"
+      >
+          <Grid item style={{paddingLeft: 20}}>
+              <FormControl component="fieldset">
+                  <FormLabel  component="label" focused >
+                      <Typography className={classes.heading}>
+                          Topics:
+                      </Typography>
+                  </FormLabel>
 
-        <FormGroup aria-label="position" row={false}>
-          {topicCheckBoxes}
-        </FormGroup>
-        <br />
-        <FormLabel component="label" focused>
-          <Typography className={classes.heading}>Difficulty:</Typography>
-        </FormLabel>
-        <FormGroup aria-label="position" row={false}>
-          {difficultyCheckBoxes}
-        </FormGroup>
-        <br />
-      </FormControl>
+                  <FormGroup aria-label="position" row={false}>
+                      {topicCheckBoxes}
+                  </FormGroup>
+                  <br/>
+                  <FormLabel component="label" focused>
+                      <Typography className={classes.heading}>
+                          Difficulty:
+                      </Typography>
+                  </FormLabel>
+                  <FormGroup aria-label="position" row={false}>
+                      {difficultyCheckBoxes}
+                  </FormGroup>
+                  <br/>
+              </FormControl>
+          </Grid>
+          <Grid item>
+              <Button className={classes.button}><Typography className={classes.label}>Clear Filters</Typography></Button>
+          </Grid>
 
-      <Button className={classes.button} onClick={clearFilters}>
-        <Typography className={classes.label}>Clear Filters</Typography>
-      </Button>
-    </Container>
-  );
+      </Grid>
+  )
 }
 
 export default FilterBox;

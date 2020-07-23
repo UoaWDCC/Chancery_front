@@ -44,7 +44,7 @@ const useStyles = makeStyles({
     display: "inline-block",
   },
   footer: {
-    background: "rgba(129, 129, 129, 0.3)",
+    background: 'rgba(0, 0, 0, 0.2)',
     maxWidth: "100vw",
     height: "120px",
     position: "fixed",
@@ -57,7 +57,7 @@ const useStyles = makeStyles({
 });
 
 function detectScrollDown() {
-  window.onscroll = function (e) {
+  window.onscroll = function () {
     if (document.URL.includes("saved")) {
       /* if (this.oldScroll > this.scrollY) {
                 document.getElementById("footer-popup").style.bottom = 'calc(0% - 120px)';
@@ -87,9 +87,9 @@ function Saved() {
 
   return (
     <div style={{ position: "relative" }}>
-      <Container container style={{ padding: "3em 3em 150px 3em" }}>
+      <Container style={{ padding: "3em 3em 150px 3em" }}>
         <Grid container>
-          <Grid item container xs={1}></Grid>
+          <Grid item container xs={1}/>
           <Grid item container xs={6}>
             <Typography className={classes.title}>Saved Questions:</Typography>
           </Grid>
