@@ -47,18 +47,17 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.default,
     borderRadius: "10px",
     textAlign: "center",
-    padding: "20px 20px 94px 20px",
+    padding: "20px 30px 100px 30px",
     position: "relative",
     boxShadow: theme.palette.type === "dark" ? "none" : "0 0 5px 0 grey",
     display: "flex",
     flexFlow: "column",
-    height: "100%",
   },
 
   questionContainer: {
     borderRadius: "30px",
     textAlign: "left",
-    padding: "15px",
+    padding: "15px 25px 15px 25px",
     marginTop: "10px",
     minHeight: "100px",
     width: "80%",
@@ -70,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "15px",
     textAlign: "left",
     position: "relative",
-    padding: "15px",
+    padding: "15px 25px 15px 25px",
     marginTop: "30px",
     height: "200px",
     width: "80%",
@@ -223,10 +222,7 @@ function Flashcard() {
   const showAnswer = () => {
     if (isOverflown()) {
       document.getElementById("answer-container").style.flex = "1";
-      document.getElementById("flashcard-box").style.height = "760px";
-      if (isOverflown()) {
-        document.getElementById("flashcard-box").style.height = "100%";
-      }
+      document.getElementById("answer-container").style.height = "100%";
     }
     setShowAnswer(true);
   };
@@ -235,7 +231,6 @@ function Flashcard() {
     setShowAnswer(false);
     document.getElementById("answer-container").style.height = "200px";
     document.getElementById("answer-container").style.flex = "none";
-    document.getElementById("flashcard-box").style.height = "100%";
   };
       
   const hkFunction = useCallback(

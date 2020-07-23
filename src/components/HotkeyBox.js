@@ -23,6 +23,7 @@ const useStyles = makeStyles({
     textAlign: "left",
     fontSize: "18px",
     color: "#818181",
+    lineHeight: '35px',
   },
 });
 
