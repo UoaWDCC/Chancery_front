@@ -53,7 +53,7 @@ function Home() {
             direction="column"
             alignItems="center"
             justify="center"
-            style={{ minHeight: '90vh' }}
+            style={{ minHeight: '100vh' }}
         >
             <ParticleComponent/>
             <Grid className={"welcome-container"} item container direction="column" alignItems="center">

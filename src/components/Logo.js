@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
     }, 
     
     button: {
-        marginLeft: 20,
         '&:hover': {
             borderWidth: '3px',
             backgroundColor: theme.palette.background.paper,

@@ -3,7 +3,6 @@ import './App.css';
 import {createMuiTheme, makeStyles, withStyles} from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Grid from "@material-ui/core/Grid";
 import { Switch, Route, Link, BrowserRouter} from "react-router-dom";
 import Home from './pages/home';
 import Revise from "./pages/revise";
@@ -14,6 +13,27 @@ import {ThemeProvider} from "@material-ui/styles";
 import Logo from "./components/Logo";
 import { useDispatch } from 'react-redux';
 import { fetchQuestions } from './redux/actions';
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+
+const useStyles = makeStyles(() => ({
+    root: {
+        flexGrow: 1,
+    },
+    padding: {
+        padding: '10px',
+    },
+    nav: {
+        backgroundColor: '#FFFFFF',
+        width: '100%'
+    },
+    logo: {
+        height: 60,
+        width: 60,
+        marginTop: 10,
+        marginLeft: 10,
+    },
+}));
 
 const StyledTabs = withStyles((theme) => ({
     indicator: {
@@ -46,39 +66,14 @@ const StyledTab = withStyles((theme) => ({
     },
 }))((props) => <Tab disableRipple {...props} />);
 
-const useStyles = makeStyles(() => ({
-    root: {
-        flexGrow: 1,
-    },
-    padding: {
-        padding: '10px',
-    },
-    nav: {
-        backgroundColor: '#FFFFFF',
-        width: '100%'
-    },
-    logo: {
-        height: 60,
-        width: 60,
-        marginTop: 10,
-        marginLeft: 10,
-    },
-}));
-
 function App() {
     const classes = useStyles();
     const allTabs = ['/', '/revise', '/saved'];
     const [anchorEl, setAnchorEl] = useState(null);
     const [darkMode, setDarkMode] = useState(false);
-
-
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+    const isHome = () => {
+        return window.location.pathname === "/" ? "transparent" : theme.palette.background.paper
+    }
 
     const theme = createMuiTheme({
         palette: {
@@ -101,6 +96,14 @@ function App() {
         },
     })
 
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(fetchQuestions());
@@ -108,9 +111,9 @@ function App() {
 
     window.onkeydown = function (e) {
         if (document.URL.includes("revise")) {
-          return !(e.keyCode === 32);
+            return !(e.keyCode === 32);
         }
-      };
+    };
 
     return (
         <React.StrictMode>
@@ -122,28 +125,28 @@ function App() {
                                 path="/"
                                 render={({ location }) => (
                                     <Fragment>
-                                        <Grid container alignItems={"center"} style={{ minHeight: '10vh', position: 'fixed', top: '0', zIndex: '1', backgroundColor: theme.palette.background.paper}}>
-                                            <Grid item xs>
+                                        <AppBar position={"fixed"} color={isHome()} style={{boxShadow: 'none', paddingTop: 10}}>
+                                            <Toolbar>
                                                 <Logo/>
-                                            </Grid>
-                                            <Grid item xs>
-                                                <div className={classes.nav}>
+                                                <div className={classes.nav} style={{backgroundColor: isHome()}}>
                                                     <StyledTabs value={location.pathname} aria-label="styled tabs example">
                                                         <StyledTab label="Home" value="/" component={Link} to={allTabs[0]} />
                                                         <StyledTab label="Revise" value="/revise" component={Link} to={allTabs[1]} />
-                                                        <StyledTab label="Saved" value="/saved" component={Link} to={allTabs[2]} />
-                                                        <StyledTab label="My Account" onClick={handleClick} />
+                                                        <StyledTab label="Saved" value="/saved" component={Link} to={allTabs[2]}/>
+                                                        <StyledTab label="My Account" onClick={handleClick} style={{paddingLeft: 25}} />
                                                         <AccountMenu anchorEl={anchorEl} onClose={handleClose} setDarkMode={setDarkMode} darkMode={darkMode}/>
                                                     </StyledTabs>
                                                 </div>
-                                            </Grid>
-                                        </Grid>
-                                        <div style={{paddingTop: '10vh'}}>
-                                        <Switch>
-                                            <Route path={allTabs[1]} render={() => <Revise/>} />
-                                            <Route path={allTabs[2]} render={() => <Saved/>} />
-                                            <Route path={allTabs[0]} render={() => <Home/>} />
-                                        </Switch></div>
+                                            </Toolbar>
+
+                                        </AppBar>
+                                        <div>
+                                            <Switch>
+                                                <Route path={allTabs[1]} render={() => <Revise/>} />
+                                                <Route path={allTabs[2]} render={() => <Saved/>} />
+                                                <Route path={allTabs[0]} render={() => <Home/>} />
+                                            </Switch>
+                                        </div>
                                     </Fragment>
                                 )}
                             />
