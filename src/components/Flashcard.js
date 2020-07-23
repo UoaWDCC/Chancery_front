@@ -307,14 +307,16 @@ function Flashcard(props) {
           <React.Fragment>
             <Grid container justify="center" alignItems="center">
               <Grid item container xs={5} md={4}>
-                <Typography id="difficulty" className={classes.tags}>
-                  <LocalOfferIcon style={{ fontSize: 18 }} />
-                    &nbsp;{currentFlashcard.difficulty}
-                </Typography>
+                
                 <Typography id="topic" className={classes.tags}>
                   <LocalOfferIcon style={{ fontSize: 18 }} />
                   &nbsp;{currentFlashcard.topic}
                 </Typography>
+                <Typography id="difficulty" className={classes.tags}>
+                  <LocalOfferIcon style={{ fontSize: 18 }} />
+                    &nbsp;{currentFlashcard.difficulty}
+                </Typography>
+               
               </Grid>
               <Grid item container xs={2} md={4} justify="center">
                 <Typography id="flashcard-id" className={classes.page}>
