@@ -24,12 +24,10 @@
 }
 
 .hotkey-icon {
-  position: relative;
   vertical-align: bottom;
   padding-right: 7px;
   height: 35px;
   width: 35px;
-  top: 4px;
 }
 
 .welcome-page {
