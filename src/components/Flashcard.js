@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "uppercase",
     float: "left",
     padding: "5px 10px 5px 10px",
-    margin: " 0 10px 10px 0",
+    margin: "5px 10px 5px 0",
   },
   page: {
     color: theme.palette.type === "dark" ? "#fff" : "#818181",
