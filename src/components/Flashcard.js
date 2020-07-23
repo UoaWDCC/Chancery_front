@@ -7,12 +7,12 @@ import { Button } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 
 import IconButton from "@material-ui/core/IconButton";
-import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import SavedIcon from "../icons/SavedIcon";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import withStyles from "@material-ui/core/styles/withStyles";
+import Tag from "./Tag"
 
 import { getFlashcards } from "../redux/selectors";
 import { useSelector } from "react-redux";
@@ -20,16 +20,6 @@ import { useSelector } from "react-redux";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles((theme) => ({
-  tags: {
-    backgroundColor: "#21CE99",
-    borderRadius: "5px",
-    color: "white",
-    fontSize: "18px",
-    textTransform: "uppercase",
-    float: "left",
-    padding: "5px 10px 5px 10px",
-    margin: "5px 10px 5px 0",
-  },
   page: {
     color: theme.palette.type === "dark" ? "#fff" : "#818181",
     fontSize: "43px",
@@ -294,16 +284,8 @@ function Flashcard() {
           <React.Fragment>
             <Grid container justify="center" alignItems="center">
               <Grid item container xs={5} md={4}>
-                
-                <Typography id="topic" className={classes.tags}>
-                  <LocalOfferIcon style={{ fontSize: 18 }} />
-                  &nbsp;{currentFlashcard.topic}
-                </Typography>
-                <Typography id="difficulty" className={classes.tags}>
-                  <LocalOfferIcon style={{ fontSize: 18 }} />
-                    &nbsp;{currentFlashcard.difficulty}
-                </Typography>
-               
+                <Tag text={currentFlashcard.topic}/>
+                <Tag text={currentFlashcard.difficulty}/>
               </Grid>
               <Grid item container xs={2} md={4} justify="center">
                 <Typography id="flashcard-id" className={classes.page}>
