@@ -62,7 +62,6 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.palette.type === "dark" ? "none" : "0 0 5px 0 grey",
     display: "flex",
     flexFlow: "column",
-    height: "100%",
   },
 
   questionContainer: {
@@ -245,10 +244,7 @@ function Flashcard(props) {
     if (isOverflown()) {
       props.setIsRendered(false);
       document.getElementById("answer-container").style.flex = "1";
-      document.getElementById("flashcard-box").style.height = "760px";
-      if (isOverflown()) {
-        document.getElementById("flashcard-box").style.height = "100%";
-      }
+      document.getElementById("answer-container").style.height = "100%";
     }
     setShowAnswer(true);
   };
@@ -258,7 +254,6 @@ function Flashcard(props) {
     setShowAnswer(false);
     document.getElementById("answer-container").style.height = "200px";
     document.getElementById("answer-container").style.flex = "none";
-    document.getElementById("flashcard-box").style.height = "100%";
   };
       
   const hkFunction = useCallback(
