@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.default,
     borderRadius: "10px",
     textAlign: "center",
-    padding: "20px 20px 100px 20px",
+    padding: "20px 30px 100px 30px",
     position: "relative",
     boxShadow: theme.palette.type === "dark" ? "none" : "0 0 5px 0 grey",
     display: "flex",
