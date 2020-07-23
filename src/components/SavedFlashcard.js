@@ -39,7 +39,7 @@ const useStyles = makeStyles( theme => ({
         fontWeight: "bold",
         fontSize: "25px",
         display: "inline-block",
-        marginTop: "12.5px",
+        marginTop: "7px",
     },
     save: {
         '&:hover': {
@@ -147,15 +147,13 @@ function SavedFlashcard() {
                                 style={{
                                     fontSize: 60,
                                     position: "absolute",
-                                    top: "10px",
-                                    right: "-7px",
+                                    top: "7px",
                                 }}
                             /> : <BookmarkBorderIcon
                                 style={{
                                     fontSize: 60,
                                     position: "absolute",
-                                    top: "10px",
-                                    right: "-7px",
+                                    top: "7px"
                                 }}/>}
                         </IconButton>
                     </Grid>
