@@ -179,7 +179,7 @@ function isOverflown() {
   );
 }
 
-function Flashcard(props) {
+function Flashcard() {
 
   const classes = useStyles();
   const status = useSelector(state => state.loading);
@@ -218,17 +218,6 @@ function Flashcard(props) {
   const [show, setShowAnswer] = useState(false);
   const [saved, setSaved] = useState(false);
 
-  const saveFlashcard = (event) => {
-      if (saved) {
-          setSaved(false);
-          event.currentTarget.style.filter = 'none';
-      }
-      else {
-          setSaved(true);
-          // https://codepen.io/sosuke/pen/Pjoqqp
-          event.currentTarget.style.filter = 'invert(62%) sepia(94%) saturate(364%) hue-rotate(108deg) brightness(89%) contrast(91%)';
-      }
-  };
   const AnswerContent = withStyles({
       root: {
           fontSize: '20px',
@@ -243,7 +232,6 @@ function Flashcard(props) {
 
   const showAnswer = () => {
     if (isOverflown()) {
-      props.setIsRendered(false);
       document.getElementById("answer-container").style.flex = "1";
       document.getElementById("flashcard-box").style.height = "760px";
       if (isOverflown()) {
@@ -254,7 +242,6 @@ function Flashcard(props) {
   };
 
   const hideAnswer = () => {
-    props.setIsRendered(true);
     setShowAnswer(false);
     document.getElementById("answer-container").style.height = "200px";
     document.getElementById("answer-container").style.flex = "none";
@@ -292,7 +279,7 @@ function Flashcard(props) {
   }, [hkFunction]);
 
   return (
-    <div style={{ height: "100%" }}>
+    <div style={{ height: "100%", maxWidth: 1150 }}>
       {status ? (
         <Grid
           container
