@@ -11,12 +11,6 @@ export const initialState = {
         id:"1",
     }],
     loading: true,
-    selectedTopics: [],
-    selectedDifficulties: [],
-    flashcardsBySelectedTopic: [],
-    selectedEasy: [],
-    selectedMedium: [],
-    selectedHard: [],
     displayedFlashcards: [],
 
 };
@@ -30,32 +24,10 @@ export const reducer = (state = initialState, action) => {
                 loading: false,
             };
 
-        case constants.FETCH_QUESTIONS_BY_TOPIC_SUCCESS:
+        case constants.UPDATE_FILTERS_SUCCESS:
             return {
                 ...state, 
-                flashcardsBySelectedTopic: action.payload,
-                loading: false,
-                displayedFlashcards: action.payload,
-            }
-
-        case constants.UPDATE_SELECTED_TOPICS:
-            return {
-                ...state, 
-                selectedTopics: action.payload,
-                loading: true,
-            }
-
-        case constants.UPDATE_SELECTED_DIFFICULTIES:
-            return {
-                ...state, 
-                selectedDifficulties: action.payload,
-                loading: true,
-            }
-
-        case constants.FETCH_QUESTIONS_BY_DIFFICULTIES_SUCCESS:
-            return {
-                ...state, 
-                loading: false,
+                loading: false, 
                 displayedFlashcards: action.payload,
             }
 

@@ -2,7 +2,7 @@ import { combineEpics } from 'redux-observable';
 import { mergeMap, map } from 'rxjs/operators';
 import { getFlashcards } from '../api/chanceryApi';
 import * as constants from './constants';
-import {fetchQuestionsSuccess, fetchQuestionsByTopicSuccess, fetchQuestionsByTopic, filterByDifficulties, filterByDifficultiesSuccess} from './actions';
+import {fetchQuestionsSuccess, updateFiltersSuccess} from './actions';
 
 export const fetchQuestionsEpic = (action$, state$) =>
 action$.ofType(constants.FETCH_QUESTIONS).pipe(
@@ -12,74 +12,16 @@ action$.ofType(constants.FETCH_QUESTIONS).pipe(
     })    
 );
 
-export const updateSelectedTopicsEpic = (action$, state$) =>
-action$.ofType(constants.UPDATE_SELECTED_TOPICS).pipe(
+export const updateFiltersEpic = (action$, state$) =>
+action$.ofType(constants.UPDATE_FILTERS).pipe(
     map( action => {
-        return fetchQuestionsByTopic(action.payload);
+        const flashcardsByTopic = state$.value.flashcards.filter(flashcard => action.payload.topics.length === 0 || action.payload.topics.includes(flashcard.topic));
+        const filteredFlashcardsId = flashcardsByTopic.filter(flashcard => action.payload.difficulties.length === 0 || action.payload.difficulties.includes(flashcard.difficulty)).map(flashcard => flashcard.id);
+        return updateFiltersSuccess(filteredFlashcardsId);
     })
-);
-
-export const fetchQuestionsByTopicEpic = (action$, state$) =>
-action$.ofType(constants.FETCH_QUESTIONS_BY_TOPIC).pipe(
-    map( action => {
-        const filteredQuestions = state$.value.flashcards.filter(flashcard => action.payload.includes(flashcard.topic));
-        const filteredIds = filteredQuestions.map(flashcard => flashcard.id);
-
-        let selectedQuestionsByDifficulty = [];
-        if (state$.value.selectedDifficulties.includes(constants.EASY)) {
-            selectedQuestionsByDifficulty = selectedQuestionsByDifficulty.concat(filteredQuestions.filter(flashcard => flashcard.difficulty === constants.EASY).map(flashcard => flashcard.id));
-        } 
-
-        if (state$.value.selectedDifficulties.includes(constants.MEDIUM)) {
-            selectedQuestionsByDifficulty = selectedQuestionsByDifficulty.concat(filteredQuestions.filter(flashcard => flashcard.difficulty === constants.MEDIUM).map(flashcard => flashcard.id));
-        } 
-
-        if (state$.value.selectedDifficulties.includes(constants.HARD)) {
-            console.log(selectedQuestionsByDifficulty.concat(filteredQuestions.filter(flashcard => flashcard.difficulty === constants.HARD).map(flashcard => flashcard.id)));
-            selectedQuestionsByDifficulty = selectedQuestionsByDifficulty.concat(filteredQuestions.filter(flashcard => flashcard.difficulty === constants.HARD).map(flashcard => flashcard.id));
-        } 
-
-        const result = filteredIds.filter(id => selectedQuestionsByDifficulty.includes(id));
-        console.log(result);
-        return fetchQuestionsByTopicSuccess(result);
-    })    
-);
-
-export const updateSelectedDifficultiesEpic = (action$, state$) =>
-action$.ofType(constants.UPDATE_SELECTED_DIFFICULTIES).pipe(
-    map( action => {
-        return filterByDifficulties(action.payload);
-    })
-);
-
-export const fetchQuestionsByDifficultiesEpic = (action$, state$) =>
-action$.ofType(constants.FETCH_QUESTIONS_BY_DIFFICULTIES).pipe(
-    map( action => {
-    
-        const filteredQuestions = state$.value.flashcards.filter(flashcard => action.payload.includes(flashcard.difficulty));
-
-        let selectedQuestionsByDifficulty = [];
-        if (state$.value.selectedDifficulties.includes(constants.EASY)) {
-            selectedQuestionsByDifficulty = selectedQuestionsByDifficulty.concat(filteredQuestions.filter(flashcard => flashcard.difficulty === constants.EASY).map(flashcard => flashcard.id));
-        } 
-
-        if (state$.value.selectedDifficulties.includes(constants.MEDIUM)) {
-            selectedQuestionsByDifficulty = selectedQuestionsByDifficulty.concat(filteredQuestions.filter(flashcard => flashcard.difficulty === constants.MEDIUM).map(flashcard => flashcard.id));
-        } 
-
-        if (state$.value.selectedDifficulties.includes(constants.HARD)) {
-            selectedQuestionsByDifficulty = selectedQuestionsByDifficulty.concat(filteredQuestions.filter(flashcard => flashcard.difficulty === constants.HARD).map(flashcard => flashcard.id));
-        } 
-
-        const result = state$.value.flashcardsBySelectedTopic.filter(id => selectedQuestionsByDifficulty.includes(id));
-        return filterByDifficultiesSuccess(result);
-    })    
 );
 
 export const rootEpic = combineEpics(
     fetchQuestionsEpic,
-    updateSelectedTopicsEpic,
-    updateSelectedDifficultiesEpic,
-    fetchQuestionsByTopicEpic,
-    fetchQuestionsByDifficultiesEpic,
+    updateFiltersEpic,
 );

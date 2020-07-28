@@ -9,10 +9,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import clsx from "clsx";
 import { useDispatch } from "react-redux";
-import {
-  updateSelectedTopics,
-  updateSelectedDifficulties,
-} from "../redux/actions";
+import { updateFilters } from "../redux/actions";
 import Grid from "@material-ui/core/Grid";
 import * as constants from "../redux/constants";
 
@@ -128,24 +125,12 @@ function FilterBox() {
 
   useEffect(() => {
     if (loaded.current) {
-      console.log(updateSelectedTopics(selectedTopics));
-      dispatch(updateSelectedTopics(selectedTopics));
+      console.log(updateFilters(selectedTopics, selectedDifficulties));
+      dispatch(updateFilters(selectedTopics, selectedDifficulties));
     } else {
       loaded.current = true;
     }
-  }, [selectedTopics]);
-
-  useEffect(() => {
-    if (loaded.current) {
-      if (selectedDifficulties.length === 0) {
-        dispatch(updateSelectedDifficulties(difficulties));
-      } else {
-        dispatch(updateSelectedDifficulties(selectedDifficulties));
-      }
-    } else {
-      loaded.current = true;
-    }
-  }, [selectedDifficulties]);
+  }, [selectedTopics, selectedDifficulties]);
 
   const topicCheckBoxes = topics.map((topic) => (
     <FormControlLabel
