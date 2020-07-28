@@ -1,7 +1,7 @@
 # Chancery Frontend
 This project is about the frontend of the Chancery web application. Chancery aims to become a platform where students can prepare for investment banking interviews. The web application provides a bank of flashcards where students can practice answering common questions that appear in the interviews.
 
-###Frameworks used in the project
+### Frameworks used in the project
 * [React](https://reactjs.org/)
 * [Redux](https://redux.js.org/)
 * [React-redux](https://react-redux.js.org/)
