@@ -113,13 +113,13 @@ function FilterBox() {
   };
 
   const applyDifficultyFilters = (event, difficulty) => {
-    // event.target.checked
-    //   ? setSelectedDifficulties(selectedDifficulties.concat(difficulty))
-    //   : setSelectedDifficulties(
-    //       selectedDifficulties.filter(
-    //         (selectedDifficulty) => selectedDifficulty !== difficulty
-    //       )
-    //     );
+    event.target.checked
+      ? setSelectedDifficulties(selectedDifficulties.concat(difficulty))
+      : setSelectedDifficulties(
+          selectedDifficulties.filter(
+            (selectedDifficulty) => selectedDifficulty !== difficulty
+          )
+        );
   };
 
   const clearFilters = () => {
@@ -129,6 +129,7 @@ function FilterBox() {
 
   useEffect(() => {
     if (loaded.current) {
+      console.log(updateSelectedTopics(selectedTopics));
       dispatch(updateSelectedTopics(selectedTopics));
     } else {
       loaded.current = true;
@@ -137,7 +138,11 @@ function FilterBox() {
 
   useEffect(() => {
     if (loaded.current) {
-      dispatch(updateSelectedDifficulties(selectedDifficulties));
+      if (selectedDifficulties.length === 0) {
+        dispatch(updateSelectedDifficulties(difficulties));
+      } else {
+        dispatch(updateSelectedDifficulties(selectedDifficulties));
+      }
     } else {
       loaded.current = true;
     }

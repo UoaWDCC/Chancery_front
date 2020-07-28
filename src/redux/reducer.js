@@ -14,6 +14,11 @@ export const initialState = {
     selectedTopics: [],
     selectedDifficulties: [],
     selectedFlashcards: [],
+    selectedEasy: [],
+    selectedMedium: [],
+    selectedHard: [],
+    displayedFlashcards: [],
+
 };
 
 export const reducer = (state = initialState, action) => {
@@ -30,6 +35,7 @@ export const reducer = (state = initialState, action) => {
                 ...state, 
                 selectedFlashcards: action.payload,
                 loading: false,
+                displayedFlashcards: action.payload,
             }
 
         case constants.UPDATE_SELECTED_TOPICS:
@@ -49,8 +55,8 @@ export const reducer = (state = initialState, action) => {
         case constants.FETCH_QUESTIONS_BY_DIFFICULTIES_SUCCESS:
             return {
                 ...state, 
-                selectedFlashcards: action.payload,
                 loading: false,
+                displayedFlashcards: action.payload,
             }
 
         default:

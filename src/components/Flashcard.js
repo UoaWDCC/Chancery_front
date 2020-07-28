@@ -172,7 +172,7 @@ function Flashcard() {
 
   const classes = useStyles();
   const status = useSelector(state => state.loading);
-  const selectedIds = useSelector(state => state.selectedFlashcards);
+  const selectedIds = useSelector(state => state.displayedFlashcards);
   const [totalNum, setTotalNum] = useState(0);
   const [fullBank, setFullBank] = useState(useSelector(getFlashcards));
   const [flashcardsBank, setFlashcardsBank] = useState(useSelector(getFlashcards));

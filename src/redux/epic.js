@@ -38,14 +38,25 @@ action$.ofType(constants.UPDATE_SELECTED_DIFFICULTIES).pipe(
 export const fetchQuestionsByDifficultiesEpic = (action$, state$) =>
 action$.ofType(constants.FETCH_QUESTIONS_BY_DIFFICULTIES).pipe(
     map( action => {
-        console.log(action.payload);
+    
         const filteredQuestions = state$.value.flashcards.filter(flashcard => action.payload.includes(flashcard.difficulty));
 
-        console.log(filteredQuestions);
-        const result = filteredQuestions.map(flashcard => flashcard.id);
-        const filteredIds = state$.value.selectedFlashcards.filter(id => result.includes(id));
-        console.log(filteredIds)
-        return filterByDifficultiesSuccess(filteredIds);
+        let selectedQuestionsByDifficulty = [];
+        if (action.payload.includes(constants.EASY)) {
+            selectedQuestionsByDifficulty = selectedQuestionsByDifficulty.concat(filteredQuestions.filter(flashcard => flashcard.difficulty === constants.EASY).map(flashcard => flashcard.id));
+        } 
+
+        if (action.payload.includes(constants.MEDIUM)) {
+            selectedQuestionsByDifficulty = selectedQuestionsByDifficulty.concat(filteredQuestions.filter(flashcard => flashcard.difficulty === constants.MEDIUM).map(flashcard => flashcard.id));
+        } 
+
+        if (action.payload.includes(constants.HARD)) {
+            selectedQuestionsByDifficulty = selectedQuestionsByDifficulty.concat(filteredQuestions.filter(flashcard => flashcard.difficulty === constants.HARD).map(flashcard => flashcard.id));
+        } 
+
+        const result = state$.value.selectedFlashcards.filter(id => selectedQuestionsByDifficulty.includes(id));
+        console.log(result);
+        return filterByDifficultiesSuccess(result);
     })    
 );
 
