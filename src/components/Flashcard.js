@@ -157,6 +157,23 @@ const useStyles = makeStyles((theme) => ({
     height: "60px",
     width: "60px",
   },
+
+  pre: {
+    fontSize: '20px',
+    display: 'inline-block',
+    marginTop: '2.5px',
+    lineHeight: '40px',
+
+
+
+    overflowX: 'auto',
+            whiteSpace: 'pre-wrap',
+            whiteSpace: 'moz-pre-wrap',
+            whiteSpace: '-pre-wrap',
+            whiteSpace: '-o-pre-wrap',
+            wordWrap: 'break-word',
+  }
+  
 }));
 
 // Detects if answer-content is too large for answer-container, https://stackoverflow.com/questions/9333379/check-if-an-elements-content-is-overflowing/34299947
@@ -337,7 +354,10 @@ function Flashcard() {
                 A.&emsp;
               </Typography>
               <AnswerContent id="answer-content">
-                {currentFlashcard.answer}
+
+                <pre>{currentFlashcard.answer}</pre>
+                 
+                
               </AnswerContent>
               {!show && (
                 <Button
