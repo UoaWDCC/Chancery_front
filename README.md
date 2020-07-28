@@ -16,7 +16,7 @@ This project is about the frontend of the Chancery web application. Chancery aim
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisites
-Please make sure you install [yarn](https://yarnpkg.com/), [node.js](https://nodejs.org/en/) and [Material-UI](https://material-ui.com/) in your local machines.
+Please make sure you install [yarn](https://yarnpkg.com/) and [node.js](https://nodejs.org/en/) in your local machines.
 
 ### Installation
 For [yarn](https://classic.yarnpkg.com/en/docs/install), visit this installation page and follow instructions to download.
