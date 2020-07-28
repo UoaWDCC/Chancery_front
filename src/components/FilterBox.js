@@ -14,60 +14,60 @@ import {
   updateSelectedDifficulties,
 } from "../redux/actions";
 import Grid from "@material-ui/core/Grid";
+import * as constants from "../redux/constants";
 
-
-const useStyles = makeStyles( theme => ({
-    heading: {
-        textTransform: 'uppercase',
-        fontWeight: "bold",
-        fontSize: '25px',
-        paddingBottom: '5px',
-        color: theme.palette.primary.contrastText,
+const useStyles = makeStyles((theme) => ({
+  heading: {
+    textTransform: "uppercase",
+    fontWeight: "bold",
+    fontSize: "25px",
+    paddingBottom: "5px",
+    color: theme.palette.primary.contrastText,
+  },
+  label: {
+    textTransform: "uppercase",
+    fontSize: "20px",
+  },
+  root: {
+    "&:hover": {
+      backgroundColor: "transparent",
     },
-    label: {
-        textTransform: 'uppercase',
-        fontSize: '20px',
+    marginRight: "12px",
+  },
+  icon: {
+    borderRadius: 5,
+    borderStyle: "solid",
+    width: 20,
+    height: 20,
+    "input:hover ~ &": {
+      backgroundColor: theme.palette.type === "dark" ? "#6f6f6f" : "#e8e8e8",
     },
-    root: {
-        '&:hover': {
-            backgroundColor: 'transparent',
-        },
-        marginRight: '12px',
+  },
+  checkedIcon: {
+    backgroundColor: "#21CE99",
+    borderStyle: "solid",
+    borderColor: "#1AA47A",
+    "input:hover ~ &": {
+      backgroundColor: "#21CE99",
     },
-    icon: {
-        borderRadius: 5,
-        borderStyle: "solid",
-        width: 20,
-        height: 20,
-        'input:hover ~ &': {
-            backgroundColor: theme.palette.type === "dark" ? '#6f6f6f' : '#e8e8e8' ,
-        },
+  },
+  filterBox: {
+    backgroundColor: theme.palette.background.default,
+    borderRadius: "10px",
+    height: "760px",
+    width: "365px",
+    boxShadow: theme.palette.type === "dark" ? "none" : "0 0 5px 0 grey",
+  },
+  button: {
+    width: 310,
+    borderRadius: 7,
+    padding: "20px 40px 20px 40px",
+    backgroundColor: theme.palette.type === "dark" ? "#818181" : "#FFFFFF",
+    boxShadow: "none",
+    "&:hover": {
+      boxShadow: "none",
     },
-    checkedIcon: {
-        backgroundColor: '#21CE99',
-        borderStyle: "solid",
-        borderColor: "#1AA47A",
-        'input:hover ~ &': {
-            backgroundColor: '#21CE99',
-        },
-    },
-    filterBox: {
-        backgroundColor: theme.palette.background.default,
-        borderRadius: '10px',
-        height: '760px',
-        width: '365px',
-        boxShadow: theme.palette.type === "dark" ? 'none' : '0 0 5px 0 grey',
-    },
-    button: {
-        width: 310,
-        borderRadius: 7,
-        padding: '20px 40px 20px 40px',
-        backgroundColor: theme.palette.type === "dark" ? '#818181' : '#FFFFFF',
-        boxShadow: "none",
-        '&:hover': {
-            boxShadow: "none",
-        },
-    },
+  },
 }));
 
 function StyledCheckbox(props) {
@@ -91,20 +91,19 @@ function FilterBox() {
   const dispatch = useDispatch();
 
   const topics = [
-    "Accounting",
-    "EV / Equity Value",
-    "Valuation",
-    "Discounted Cash Flow",
-    "Merger Model",
-    "Leveraged buy-out",
+    constants.ACCOUNTING,
+    constants.EQUITY_VALUE,
+    constants.VALUATION,
+    constants.DISCOUNTED_CASH_FLOW,
+    constants.MERGER_MODEL,
+    constants.LEVERAGED_BUY_OUT,
   ];
-  const difficulties = ["Easy", "Medium", "Hard"];
+  const difficulties = [constants.EASY, constants.MEDIUM, constants.HARD];
 
   const [selectedTopics, setSelectedTopics] = useState([]);
   const [selectedDifficulties, setSelectedDifficulties] = useState([]);
 
   const applyTopicFilters = (event, topic) => {
-    topic = topic === "Leveraged buy-out" ? "LBO" : topic; // backend stores Leveraged buyout as "LBO"
     event.target.checked
       ? setSelectedTopics(selectedTopics.concat(topic))
       : setSelectedTopics(
@@ -173,42 +172,39 @@ function FilterBox() {
   ));
 
   return (
-      <Grid
-          className={classes.filterBox}
-          container
-          direction="column"
-          justify="center"
-          alignItems="center"
-      >
-          <Grid item style={{paddingLeft: 20}}>
-              <FormControl component="fieldset">
-                  <FormLabel  component="label" focused >
-                      <Typography className={classes.heading}>
-                          Topics:
-                      </Typography>
-                  </FormLabel>
+    <Grid
+      className={classes.filterBox}
+      container
+      direction="column"
+      justify="center"
+      alignItems="center"
+    >
+      <Grid item style={{ paddingLeft: 20 }}>
+        <FormControl component="fieldset">
+          <FormLabel component="label" focused>
+            <Typography className={classes.heading}>Topics:</Typography>
+          </FormLabel>
 
-                  <FormGroup aria-label="position" row={false}>
-                      {topicCheckBoxes}
-                  </FormGroup>
-                  <br/>
-                  <FormLabel component="label" focused>
-                      <Typography className={classes.heading}>
-                          Difficulty:
-                      </Typography>
-                  </FormLabel>
-                  <FormGroup aria-label="position" row={false}>
-                      {difficultyCheckBoxes}
-                  </FormGroup>
-                  <br/>
-              </FormControl>
-          </Grid>
-          <Grid item>
-              <Button className={classes.button}><Typography className={classes.label}>Clear Filters</Typography></Button>
-          </Grid>
-
+          <FormGroup aria-label="position" row={false}>
+            {topicCheckBoxes}
+          </FormGroup>
+          <br />
+          <FormLabel component="label" focused>
+            <Typography className={classes.heading}>Difficulty:</Typography>
+          </FormLabel>
+          <FormGroup aria-label="position" row={false}>
+            {difficultyCheckBoxes}
+          </FormGroup>
+          <br />
+        </FormControl>
       </Grid>
-  )
+      <Grid item>
+        <Button className={classes.button}>
+          <Typography className={classes.label}>Clear Filters</Typography>
+        </Button>
+      </Grid>
+    </Grid>
+  );
 }
 
 export default FilterBox;
