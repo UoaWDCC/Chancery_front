@@ -8,9 +8,7 @@ export const initialState = {
         topic:"", 
         id:"",
     }],
-    loading: true,
     displayedFlashcards: [],
-
 };
 
 export const reducer = (state = initialState, action) => {
@@ -19,13 +17,11 @@ export const reducer = (state = initialState, action) => {
             return {
                 ...state, 
                 flashcards: action.payload,
-                loading: false,
             };
 
         case constants.UPDATE_FILTERS_SUCCESS:
             return {
                 ...state, 
-                loading: false, 
                 displayedFlashcards: action.payload,
             }
 

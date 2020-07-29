@@ -13,7 +13,7 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Tag from "./Tag";
 
-import { getFlashcards } from "../redux/selectors";
+import { getFlashcards, getDisplayedFlashcards } from "../redux/selectors";
 import { useSelector } from "react-redux";
 
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -169,9 +169,10 @@ function isOverflown() {
 
 function Flashcard() {
   const classes = useStyles();
-  const selectedIds = useSelector(state => state.displayedFlashcards);
+  const selectedIds = useSelector(getDisplayedFlashcards);
   const [totalNum, setTotalNum] = useState(0);
   const fullBank = useSelector(getFlashcards);
+  const [isLoading, setIsLoading] = useState(true);
   const [flashcardsBank, setFlashcardsBank] = useState(useSelector(getFlashcards));
   const [currentIndex, setCurrentIndex] = useState(1);
   const [currentFlashcard, setCurrentFlashcard] = useState(null);
@@ -211,6 +212,7 @@ function Flashcard() {
   }, [flashcardsBank]);
 
   useEffect(()=> {
+    setIsLoading(false);
     if (currentFlashcard != null) {
       setCurrentIndex(flashcardsBank.findIndex(flashcard => flashcard.id === currentFlashcard.id))
     }
@@ -273,7 +275,7 @@ function Flashcard() {
 
   return (
     <div style={{ height: "100%", maxWidth: 1150 }}>
-      {currentFlashcard === null ? (
+      {isLoading ? (
         <Grid
           container
           justify="center"
