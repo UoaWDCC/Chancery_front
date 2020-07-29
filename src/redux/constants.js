@@ -18,7 +18,7 @@ export const HARD = 'Hard';
 
 export const ACCOUNTING = 'Accounting';
 
-export const EQUITY_VALUE = 'Equity Value';
+export const EV_EQUITY_VALUE = 'EV / Equity Value';
 
 export const VALUATION = 'Valuation';
 
