@@ -99,8 +99,20 @@ function FilterBox() {
 
   const [selectedTopics, setSelectedTopics] = useState([]);
   const [selectedDifficulties, setSelectedDifficulties] = useState([]);
+  const initialCheckboxStates = {};
+
+  topics.forEach(topic => {
+    initialCheckboxStates[topic] = false;
+  });
+
+  difficulties.forEach(difficulty => {
+    initialCheckboxStates[difficulty] = false;
+  });
+
+  const [checkedStates, setCheckedStates] = useState(initialCheckboxStates);
 
   const applyTopicFilters = (event, topic) => {
+    setCheckedStates({...checkedStates, [topic]: event.target.checked});
     event.target.checked
       ? setSelectedTopics(selectedTopics.concat(topic))
       : setSelectedTopics(
@@ -109,6 +121,7 @@ function FilterBox() {
   };
 
   const applyDifficultyFilters = (event, difficulty) => {
+    setCheckedStates({...checkedStates, [difficulty]: event.target.checked});
     event.target.checked
       ? setSelectedDifficulties(selectedDifficulties.concat(difficulty))
       : setSelectedDifficulties(
@@ -119,24 +132,24 @@ function FilterBox() {
   };
 
   const clearFilters = () => {
-    //TODO: to be implemented
-    console.log("clearing filters");
+    setCheckedStates(initialCheckboxStates);
+    setSelectedDifficulties([]);
+    setSelectedTopics([]);
   };
 
   useEffect(() => {
     if (loaded.current) {
-      console.log(updateFilters(selectedTopics, selectedDifficulties));
       dispatch(updateFilters(selectedTopics, selectedDifficulties));
     } else {
       loaded.current = true;
     }
   }, [selectedTopics, selectedDifficulties]);
-
+  
   const topicCheckBoxes = topics.map((topic) => (
     <FormControlLabel
       style={{ padding: "6px" }}
       value={topic}
-      control={<StyledCheckbox />}
+      control={<StyledCheckbox checked={checkedStates[topic]}/>}
       label={<Typography className={classes.label}>{topic}</Typography>}
       labelPlacement="end"
       key={topic}
@@ -148,7 +161,7 @@ function FilterBox() {
     <FormControlLabel
       style={{ padding: "6px" }}
       value={difficulty}
-      control={<StyledCheckbox />}
+      control={<StyledCheckbox checked={checkedStates[difficulty]}/>}
       label={<Typography className={classes.label}>{difficulty}</Typography>}
       labelPlacement="end"
       key={difficulty}
@@ -184,7 +197,7 @@ function FilterBox() {
         </FormControl>
       </Grid>
       <Grid item>
-        <Button className={classes.button}>
+        <Button className={classes.button} onClick={clearFilters}>
           <Typography className={classes.label}>Clear Filters</Typography>
         </Button>
       </Grid>
