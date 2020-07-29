@@ -71,9 +71,6 @@ function App() {
     const allTabs = ['/', '/revise', '/saved'];
     const [anchorEl, setAnchorEl] = useState(null);
     const [darkMode, setDarkMode] = useState(false);
-    const isHome = () => {
-        return window.location.pathname === "/" ? "transparent" : theme.palette.background.paper
-    }
 
     const theme = createMuiTheme({
         palette: {
@@ -82,7 +79,7 @@ function App() {
                 light: '#21CE99',
                 main: '#21ce99',
                 dark: '#21CE99',
-                contrastText: darkMode ? '#fff' : '#000000'
+                contrastText: darkMode ? '#FFFFFF' : '#000000'
             },
             secondary: {
                 main: '#000000',
@@ -90,11 +87,15 @@ function App() {
                 dark: '#5F5F5F',
             },
             background: {
-                paper: darkMode ? '#313131' : '#fff',
+                paper: darkMode ? '#313131' : '#FFFFFF',
                 default: darkMode ? '#5F5F5F' : '#F5F5F5',
             },
         },
     })
+
+    const isHome = () => {
+        return window.location.pathname === "/" ? "transparent" : theme.palette.background.paper
+    }
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -125,7 +126,7 @@ function App() {
                                 path="/"
                                 render={({ location }) => (
                                     <Fragment>
-                                        <AppBar position={"fixed"} color={isHome()} style={{boxShadow: 'none', paddingTop: 10}}>
+                                        <AppBar position={"fixed"} style={{boxShadow: 'none', paddingTop: 10, backgroundColor: isHome()}}>
                                             <Toolbar>
                                                 <Logo/>
                                                 <div className={classes.nav} style={{backgroundColor: isHome()}}>
