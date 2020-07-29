@@ -198,6 +198,11 @@ function Flashcard() {
   }, [fullBank]);
 
   useEffect(() => {
+    console.log(fullBank.length);
+    setFlashcardsBank(fullBank);
+  }, [fullBank]);
+
+  useEffect(() => {
       setCurrentIndex(0);
       setFlashcardsBank(selectedIds.length === 0 ? fullBank : fullBank.filter(flashcard => selectedIds.includes(flashcard.id)));
   }, [selectedIds]);
@@ -207,7 +212,6 @@ function Flashcard() {
   }, [flashcardsBank]);
 
   useEffect(()=> {
-    console.log(currentFlashcard);
     if (currentFlashcard != null) {
       setCurrentIndex(flashcardsBank.findIndex(flashcard => flashcard.id === currentFlashcard.id))
     }
