@@ -198,7 +198,6 @@ function Flashcard() {
   }, [fullBank]);
 
   useEffect(() => {
-    console.log(fullBank.length);
     setFlashcardsBank(fullBank);
   }, [fullBank]);
 
