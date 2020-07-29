@@ -169,16 +169,12 @@ function isOverflown() {
 
 function Flashcard() {
   const classes = useStyles();
-  const status = useSelector(state => state.loading);
   const selectedIds = useSelector(state => state.displayedFlashcards);
   const [totalNum, setTotalNum] = useState(0);
-  const [fullBank, setFullBank] = useState(useSelector(getFlashcards));
-  const [flashcardsBank, setFlashcardsBank] = useState(
-    useSelector(getFlashcards)
-  );
+  const fullBank = useSelector(getFlashcards);
+  const [flashcardsBank, setFlashcardsBank] = useState(useSelector(getFlashcards));
   const [currentIndex, setCurrentIndex] = useState(1);
-
-  const [currentFlashcard, setCurrentFlashcard] = useState(flashcardsBank[0]);
+  const [currentFlashcard, setCurrentFlashcard] = useState(null);
 
   const previousFlashcard = () => {
     setCurrentFlashcard(
@@ -199,12 +195,13 @@ function Flashcard() {
   };
 
   useEffect(() => {
-    setCurrentIndex(0);
-    setFlashcardsBank(
-      selectedIds.length === 0
-        ? fullBank
-        : fullBank.filter((flashcard) => selectedIds.includes(flashcard.id))
-    );
+    console.log(fullBank.length);
+    setFlashcardsBank(fullBank);
+  }, [fullBank]);
+
+  useEffect(() => {
+      setCurrentIndex(0);
+      setFlashcardsBank(selectedIds.length === 0 ? fullBank : fullBank.filter(flashcard => selectedIds.includes(flashcard.id)));
   }, [selectedIds]);
 
   useEffect(() => {
@@ -214,12 +211,10 @@ function Flashcard() {
     );
   }, [flashcardsBank]);
 
-  useEffect(() => {
-    setCurrentIndex(
-      flashcardsBank.findIndex(
-        (flashcard) => flashcard.id === currentFlashcard.id
-      )
-    );
+  useEffect(()=> {
+    if (currentFlashcard != null) {
+      setCurrentIndex(flashcardsBank.findIndex(flashcard => flashcard.id === currentFlashcard.id))
+    }
   }, [currentFlashcard]);
 
   const [show, setShowAnswer] = useState(false);
@@ -279,7 +274,7 @@ function Flashcard() {
 
   return (
     <div style={{ height: "100%", maxWidth: 1150 }}>
-      {status ? (
+      {currentFlashcard === null ? (
         <Grid
           container
           justify="center"
