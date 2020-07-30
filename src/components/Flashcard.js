@@ -18,6 +18,8 @@ import { useSelector } from "react-redux";
 
 import CircularProgress from "@material-ui/core/CircularProgress";
 
+import { useHotkeys } from 'react-hotkeys-hook';
+
 const useStyles = makeStyles((theme) => ({
   page: {
     color: theme.palette.type === "dark" ? "#fff" : "#818181",
@@ -214,6 +216,7 @@ function Flashcard() {
 
   const [show, setShowAnswer] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [move, setMove] = useState("");
 
   const AnswerContent = withStyles({
     root: {
@@ -237,36 +240,24 @@ function Flashcard() {
     document.getElementById("answer-container").style.flex = "none";
   };
 
-  const hkFunction = useCallback(
-    (event) => {
-      if (event.keyCode === 32) {
-        show ? hideAnswer() : showAnswer();
-      }
-      if (event.keyCode === 39) {
-        nextFlashcard();
-      }
-      if (event.keyCode === 37) {
-        previousFlashcard();
-      }
-      if (event.keyCode === 83) {
-        setSaved(!saved);
-      }
-    },
-    [show, currentIndex, saved]
-  );
-
+  useHotkeys('s', () => setSaved(!saved), [saved]);
+  useHotkeys('left', () => setMove("left"), [move]);
+  useHotkeys('right', () => setMove("right"), [move]);
+  useHotkeys('space', () => show ? hideAnswer() : showAnswer(), [show]);
+  
   useEffect(() => {
-    document.addEventListener("keydown", hkFunction, false);
-    document.querySelectorAll("button").forEach(function (item) {
-      item.addEventListener("focus", function () {
-        this.blur();
-      });
-    });
-    return () => {
-      document.removeEventListener("keydown", hkFunction, false);
-    };
-  }, [hkFunction]);
+    console.log(move);
+    if (move === "left") {
+      previousFlashcard();
+    }
 
+    if (move === "right") {
+      nextFlashcard();
+    }
+    
+    setMove("");
+  }, [move]);
+  
   return (
     <div style={{ height: "100%", maxWidth: 1150 }}>
       {(currentFlashcard === undefined) ? (
