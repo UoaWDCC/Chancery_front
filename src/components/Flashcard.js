@@ -207,7 +207,7 @@ function Flashcard() {
   }, [flashcardsBank]);
 
   useEffect(()=> {
-    if (currentFlashcard != null) {
+    if (currentFlashcard != undefined) {
       setCurrentIndex(flashcardsBank.findIndex(flashcard => flashcard.id === currentFlashcard.id))
     }
   }, [currentFlashcard]);
