@@ -170,12 +170,10 @@ function isOverflown() {
 function Flashcard() {
   const classes = useStyles();
   const selectedIds = useSelector(getDisplayedFlashcards);
-  const [totalNum, setTotalNum] = useState(0);
   const fullBank = useSelector(getFlashcards);
-  const [isLoading, setIsLoading] = useState(true);
-  const [flashcardsBank, setFlashcardsBank] = useState(useSelector(getFlashcards));
-  const [currentIndex, setCurrentIndex] = useState(1);
-  const [currentFlashcard, setCurrentFlashcard] = useState(null);
+  const [flashcardsBank, setFlashcardsBank] = useState(fullBank);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentFlashcard, setCurrentFlashcard] = useState(flashcardsBank[0]);
 
   const previousFlashcard = () => {
     setCurrentFlashcard(
@@ -204,15 +202,12 @@ function Flashcard() {
       setFlashcardsBank(selectedIds.length === 0 ? fullBank : fullBank.filter(flashcard => selectedIds.includes(flashcard.id)));
   }, [selectedIds]);
 
-  useEffect(() => {
-    setCurrentFlashcard(flashcardsBank[0]);
-    setTotalNum(
-      selectedIds.length === 0 ? fullBank.length : selectedIds.length
-    );
+  useEffect(()=> {
+      setCurrentFlashcard(flashcardsBank[0]);
   }, [flashcardsBank]);
 
   useEffect(()=> {
-    setIsLoading(false);
+    console.log(currentFlashcard);
     if (currentFlashcard != null) {
       setCurrentIndex(flashcardsBank.findIndex(flashcard => flashcard.id === currentFlashcard.id))
     }
@@ -275,13 +270,11 @@ function Flashcard() {
 
   return (
     <div style={{ height: "100%", maxWidth: 1150 }}>
-      {isLoading ? (
+      {(currentFlashcard === undefined) ? (
         <Grid
           container
           justify="center"
           alignItems="center"
-          id="flashcard-box"
-          className={classes.flashcardBackground}
         >
           <CircularProgress />
         </Grid>
@@ -299,7 +292,7 @@ function Flashcard() {
               </Grid>
               <Grid item container xs={2} md={4} justify="center">
                 <Typography id="flashcard-id" className={classes.page}>
-                  {currentIndex + 1} &nbsp;/&nbsp; {totalNum}
+                  {currentIndex + 1} &nbsp;/&nbsp; {flashcardsBank.length}
                 </Typography>
               </Grid>
               <Grid item container xs={5} md={4} justify="flex-end">

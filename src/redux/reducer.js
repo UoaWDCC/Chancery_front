@@ -1,13 +1,7 @@
 import * as constants from './constants';
 
 export const initialState = {
-    flashcards: [{
-        question:"",
-        answer:"", 
-        difficulty:"",
-        topic:"", 
-        id:"",
-    }],
+    flashcards: [],
     displayedFlashcards: [],
 };
 
