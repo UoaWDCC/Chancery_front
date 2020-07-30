@@ -246,7 +246,6 @@ function Flashcard() {
   useHotkeys('space', () => show ? hideAnswer() : showAnswer(), [show]);
   
   useEffect(() => {
-    console.log(move);
     if (move === "left") {
       previousFlashcard();
     }
