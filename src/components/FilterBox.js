@@ -89,7 +89,7 @@ function FilterBox() {
 
   const topics = [
     constants.ACCOUNTING,
-    constants.EQUITY_VALUE,
+    constants.EV_EQUITY_VALUE,
     constants.VALUATION,
     constants.DISCOUNTED_CASH_FLOW,
     constants.MERGER_MODEL,

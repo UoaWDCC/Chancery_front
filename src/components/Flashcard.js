@@ -13,7 +13,7 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Tag from "./Tag";
 
-import { getFlashcards } from "../redux/selectors";
+import { getFlashcards, getDisplayedFlashcards } from "../redux/selectors";
 import { useSelector } from "react-redux";
 
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -169,15 +169,10 @@ function isOverflown() {
 
 function Flashcard() {
   const classes = useStyles();
-  const status = useSelector(state => state.loading);
-  const selectedIds = useSelector(state => state.displayedFlashcards);
-  const [totalNum, setTotalNum] = useState(0);
-  const [fullBank, setFullBank] = useState(useSelector(getFlashcards));
-  const [flashcardsBank, setFlashcardsBank] = useState(
-    useSelector(getFlashcards)
-  );
-  const [currentIndex, setCurrentIndex] = useState(1);
-
+  const selectedIds = useSelector(getDisplayedFlashcards);
+  const fullBank = useSelector(getFlashcards);
+  const [flashcardsBank, setFlashcardsBank] = useState(fullBank);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [currentFlashcard, setCurrentFlashcard] = useState(flashcardsBank[0]);
 
   const previousFlashcard = () => {
@@ -199,27 +194,22 @@ function Flashcard() {
   };
 
   useEffect(() => {
-    setCurrentIndex(0);
-    setFlashcardsBank(
-      selectedIds.length === 0
-        ? fullBank
-        : fullBank.filter((flashcard) => selectedIds.includes(flashcard.id))
-    );
+    setFlashcardsBank(fullBank);
+  }, [fullBank]);
+
+  useEffect(() => {
+      setCurrentIndex(0);
+      setFlashcardsBank(selectedIds.length === 0 ? fullBank : fullBank.filter(flashcard => selectedIds.includes(flashcard.id)));
   }, [selectedIds]);
 
-  useEffect(() => {
-    setCurrentFlashcard(flashcardsBank[0]);
-    setTotalNum(
-      selectedIds.length === 0 ? fullBank.length : selectedIds.length
-    );
+  useEffect(()=> {
+      setCurrentFlashcard(flashcardsBank[0]);
   }, [flashcardsBank]);
 
-  useEffect(() => {
-    setCurrentIndex(
-      flashcardsBank.findIndex(
-        (flashcard) => flashcard.id === currentFlashcard.id
-      )
-    );
+  useEffect(()=> {
+    if (currentFlashcard != undefined) {
+      setCurrentIndex(flashcardsBank.findIndex(flashcard => flashcard.id === currentFlashcard.id))
+    }
   }, [currentFlashcard]);
 
   const [show, setShowAnswer] = useState(false);
@@ -279,13 +269,11 @@ function Flashcard() {
 
   return (
     <div style={{ height: "100%", maxWidth: 1150 }}>
-      {status ? (
+      {(currentFlashcard === undefined) ? (
         <Grid
           container
           justify="center"
           alignItems="center"
-          id="flashcard-box"
-          className={classes.flashcardBackground}
         >
           <CircularProgress />
         </Grid>
@@ -303,7 +291,7 @@ function Flashcard() {
               </Grid>
               <Grid item container xs={2} md={4} justify="center">
                 <Typography id="flashcard-id" className={classes.page}>
-                  {currentIndex + 1} &nbsp;/&nbsp; {totalNum}
+                  {currentIndex + 1} &nbsp;/&nbsp; {flashcardsBank.length}
                 </Typography>
               </Grid>
               <Grid item container xs={5} md={4} justify="flex-end">

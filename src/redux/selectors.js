@@ -14,3 +14,7 @@ export const getFlashcards = state => {
 export const getSelectedTopics = state => {
     return state.selectedTopics;
 }
+
+export const getDisplayedFlashcards = state => {
+    return state.displayedFlashcards;
+}
