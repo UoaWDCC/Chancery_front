@@ -1,4 +1,3 @@
-
 import React, { useCallback, useEffect, useState } from "react";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
@@ -12,7 +11,7 @@ import SavedIcon from "../icons/SavedIcon";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import withStyles from "@material-ui/core/styles/withStyles";
-import Tag from "./Tag"
+import Tag from "./Tag";
 
 import { getFlashcards } from "../redux/selectors";
 import { useSelector } from "react-redux";
@@ -169,54 +168,69 @@ function isOverflown() {
 }
 
 function Flashcard() {
-
   const classes = useStyles();
   const status = useSelector(state => state.loading);
   const selectedIds = useSelector(state => state.displayedFlashcards);
   const [totalNum, setTotalNum] = useState(0);
   const [fullBank, setFullBank] = useState(useSelector(getFlashcards));
-  const [flashcardsBank, setFlashcardsBank] = useState(useSelector(getFlashcards));
+  const [flashcardsBank, setFlashcardsBank] = useState(
+    useSelector(getFlashcards)
+  );
   const [currentIndex, setCurrentIndex] = useState(1);
 
   const [currentFlashcard, setCurrentFlashcard] = useState(flashcardsBank[0]);
 
   const previousFlashcard = () => {
-      setCurrentFlashcard(currentIndex === 0 ? flashcardsBank[flashcardsBank.length - 1] : flashcardsBank[currentIndex - 1]);
-      hideAnswer();
-  }
+    setCurrentFlashcard(
+      currentIndex === 0
+        ? flashcardsBank[flashcardsBank.length - 1]
+        : flashcardsBank[currentIndex - 1]
+    );
+    hideAnswer();
+  };
 
   const nextFlashcard = () => {
-      setCurrentFlashcard(currentIndex === flashcardsBank.length - 1 ? flashcardsBank[0] : flashcardsBank[currentIndex + 1]);
-      hideAnswer();
-  }
+    setCurrentFlashcard(
+      currentIndex === flashcardsBank.length - 1
+        ? flashcardsBank[0]
+        : flashcardsBank[currentIndex + 1]
+    );
+    hideAnswer();
+  };
 
   useEffect(() => {
-      setCurrentIndex(0);
-      setFlashcardsBank(selectedIds.length === 0 ? fullBank : fullBank.filter(flashcard => selectedIds.includes(flashcard.id)));
+    setCurrentIndex(0);
+    setFlashcardsBank(
+      selectedIds.length === 0
+        ? fullBank
+        : fullBank.filter((flashcard) => selectedIds.includes(flashcard.id))
+    );
   }, [selectedIds]);
 
-  useEffect(()=> {
-      setCurrentFlashcard(flashcardsBank[0]);
-      setTotalNum(selectedIds.length === 0 ? fullBank.length : selectedIds.length);
+  useEffect(() => {
+    setCurrentFlashcard(flashcardsBank[0]);
+    setTotalNum(
+      selectedIds.length === 0 ? fullBank.length : selectedIds.length
+    );
   }, [flashcardsBank]);
 
-  useEffect(()=> {
-      setCurrentIndex(flashcardsBank.findIndex(flashcard => flashcard.id === currentFlashcard.id))
+  useEffect(() => {
+    setCurrentIndex(
+      flashcardsBank.findIndex(
+        (flashcard) => flashcard.id === currentFlashcard.id
+      )
+    );
   }, [currentFlashcard]);
 
   const [show, setShowAnswer] = useState(false);
   const [saved, setSaved] = useState(false);
 
   const AnswerContent = withStyles({
-      root: {
-          fontSize: '20px',
-          display: 'inline-block',
-          marginTop: '2.5px',
-          lineHeight: '40px',
-          visibility: show ? 'visible' : 'hidden',
-          opacity: show ? '1' : '0',
-          transition: 'visibility 0s, opacity 0.5s linear',
-      },
+    root: {
+      visibility: show ? "visible" : "hidden",
+      opacity: show ? "1" : "0",
+      transition: "visibility 0s, opacity 0.5s linear",
+    },
   })(Typography);
 
   const showAnswer = () => {
@@ -232,7 +246,7 @@ function Flashcard() {
     document.getElementById("answer-container").style.height = "200px";
     document.getElementById("answer-container").style.flex = "none";
   };
-      
+
   const hkFunction = useCallback(
     (event) => {
       if (event.keyCode === 32) {
@@ -284,8 +298,8 @@ function Flashcard() {
           <React.Fragment>
             <Grid container justify="center" alignItems="center">
               <Grid item container xs={5} md={4}>
-                <Tag text={currentFlashcard.topic}/>
-                <Tag text={currentFlashcard.difficulty}/>
+                <Tag text={currentFlashcard.topic} />
+                <Tag text={currentFlashcard.difficulty} />
               </Grid>
               <Grid item container xs={2} md={4} justify="center">
                 <Typography id="flashcard-id" className={classes.page}>
@@ -337,7 +351,7 @@ function Flashcard() {
                 A.&emsp;
               </Typography>
               <AnswerContent id="answer-content">
-                {currentFlashcard.answer}
+                <pre>{currentFlashcard.answer}</pre>
               </AnswerContent>
               {!show && (
                 <Button
