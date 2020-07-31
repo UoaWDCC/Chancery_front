@@ -8,11 +8,13 @@ import Home from './pages/home';
 import Revise from "./pages/revise";
 import Saved from "./pages/saved";
 import AccountMenu from "./components/AccountMenu";
+import SignUp from "./pages/signup";
 import Paper from "@material-ui/core/Paper";
 import {ThemeProvider} from "@material-ui/styles";
 import Logo from "./components/Logo";
 import { useDispatch } from 'react-redux';
 import { fetchQuestions } from './redux/actions';
+import Login from "./pages/login";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 
@@ -68,7 +70,7 @@ const StyledTab = withStyles((theme) => ({
 
 function App() {
     const classes = useStyles();
-    const allTabs = ['/', '/revise', '/saved'];
+    const allTabs = ['/', '/revise', '/saved', '/signup', '/login'];
     const [anchorEl, setAnchorEl] = useState(null);
     const [darkMode, setDarkMode] = useState(false);
 
@@ -143,6 +145,8 @@ function App() {
                                         </AppBar>
                                         <div>
                                             <Switch>
+                                                <Route path={allTabs[4]} render={() => <Login/>} />
+                                                <Route path={allTabs[3]} render={() => <SignUp/>} />
                                                 <Route path={allTabs[1]} render={() => <Revise/>} />
                                                 <Route path={allTabs[2]} render={() => <Saved/>} />
                                                 <Route path={allTabs[0]} render={() => <Home/>} />
