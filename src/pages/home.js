@@ -6,8 +6,6 @@ import { Link } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import Logo from "../icons/Chancery_logo.png";
 import ParticleComponent from "../components/ParticleComponent";
-import Login from "./login";
-import SignUp from "./signup";
 
 const useStyles = makeStyles((theme) => ({
   title: {

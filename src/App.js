@@ -118,6 +118,14 @@ function App() {
         }
     };
 
+    const getPathValue = (pathname) => {
+        if (pathname === "/login" || pathname === "/signup") {
+            return "/"
+        }
+
+        return pathname
+    }
+
     return (
         <React.StrictMode>
             <ThemeProvider theme={theme}>
@@ -132,7 +140,7 @@ function App() {
                                             <Toolbar>
                                                 <Logo/>
                                                 <div className={classes.nav} style={{backgroundColor: isHome()}}>
-                                                    <StyledTabs value={location.pathname} aria-label="styled tabs example">
+                                                    <StyledTabs value={getPathValue(location.pathname)} aria-label="styled tabs example">
                                                         <StyledTab label="Home" value="/" component={Link} to={allTabs[0]} />
                                                         <StyledTab label="Revise" value="/revise" component={Link} to={allTabs[1]} />
                                                         <StyledTab label="Saved" value="/saved" component={Link} to={allTabs[2]}/>
