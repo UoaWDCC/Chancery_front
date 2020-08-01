@@ -186,13 +186,37 @@ function Flashcard() {
     setShowAnswer(false);
   };
 
+  /**
+   * shuffle the order of the flashcards array
+   * @param {*} array 
+   * resource: https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+   */
+  function shuffle(array) {
+    let currentIndex = array.length, temporaryValue, randomIndex;
+  
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+  
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+  
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+  
+    return array;
+  }
+
   useEffect(() => {
-    setFlashcardsBank(fullBank);
+    setFlashcardsBank(shuffle(fullBank));
   }, [fullBank]);
 
   useEffect(() => {
       setCurrentIndex(0);
-      setFlashcardsBank(selectedIds.length === 0 ? fullBank : fullBank.filter(flashcard => selectedIds.includes(flashcard.id)));
+      setFlashcardsBank(shuffle(selectedIds.length === 0 ? fullBank : fullBank.filter(flashcard => selectedIds.includes(flashcard.id))));
   }, [selectedIds]);
 
   useEffect(()=> {
