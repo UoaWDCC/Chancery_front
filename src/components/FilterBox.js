@@ -118,6 +118,7 @@ function FilterBox() {
       : setSelectedTopics(
           selectedTopics.filter((selectedTopic) => selectedTopic !== topic)
         );
+    event.target.blur();
   };
 
   const applyDifficultyFilters = (event, difficulty) => {
@@ -129,6 +130,7 @@ function FilterBox() {
             (selectedDifficulty) => selectedDifficulty !== difficulty
           )
         );
+    event.target.blur();
   };
 
   const clearFilters = () => {
