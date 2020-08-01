@@ -306,7 +306,7 @@ function Flashcard() {
               >
                 A.&emsp;
               </Typography>
-              <AnswerContent id="answer-content">
+              <AnswerContent id="answer-content" component={'span'}>
                 <pre>{currentFlashcard.answer}</pre>
               </AnswerContent>
               {!show && (
