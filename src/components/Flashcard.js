@@ -160,15 +160,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// Detects if answer-content is too large for answer-container, https://stackoverflow.com/questions/9333379/check-if-an-elements-content-is-overflowing/34299947
-function isOverflown() {
-  const element = document.getElementById("answer-content");
-  return (
-    element.scrollHeight > element.clientHeight ||
-    element.scrollWidth > element.clientWidth
-  );
-}
-
 function Flashcard() {
   const classes = useStyles();
   const selectedIds = useSelector(getDisplayedFlashcards);
@@ -183,7 +174,7 @@ function Flashcard() {
         ? flashcardsBank[flashcardsBank.length - 1]
         : flashcardsBank[currentIndex - 1]
     );
-    hideAnswer();
+    setShowAnswer(false);
   };
 
   const nextFlashcard = () => {
@@ -192,7 +183,7 @@ function Flashcard() {
         ? flashcardsBank[0]
         : flashcardsBank[currentIndex + 1]
     );
-    hideAnswer();
+    setShowAnswer(false);
   };
 
   useEffect(() => {
@@ -226,24 +217,10 @@ function Flashcard() {
     },
   })(Typography);
 
-  const showAnswer = () => {
-    if (isOverflown()) {
-      document.getElementById("answer-container").style.flex = "1";
-      document.getElementById("answer-container").style.height = "100%";
-    }
-    setShowAnswer(true);
-  };
-
-  const hideAnswer = () => {
-    setShowAnswer(false);
-    document.getElementById("answer-container").style.height = "200px";
-    document.getElementById("answer-container").style.flex = "none";
-  };
-
   useHotkeys('s', () => setSaved(!saved), [saved]);
   useHotkeys('left', () => setMove("left"), [move]);
   useHotkeys('right', () => setMove("right"), [move]);
-  useHotkeys('space', () => show ? hideAnswer() : showAnswer(), [show]);
+  useHotkeys('space', () => setShowAnswer(!show), [show]);
   
   useEffect(() => {
     if (move === "left") {
@@ -320,6 +297,7 @@ function Flashcard() {
             <Container
               id="answer-container"
               className={classes.answerContainer}
+              style = {{ flex: show ? "1" : "none", height : show ? "100%" : "200px" }}
             >
               <Typography
                 id="answer-initial"
@@ -337,7 +315,7 @@ function Flashcard() {
                   className={classes.showButton}
                   color="primary"
                   variant={"contained"}
-                  onClick={showAnswer}
+                  onClick={() => setShowAnswer(!show)}
                 >
                   Show Answer
                 </Button>
@@ -350,7 +328,7 @@ function Flashcard() {
                 className={classes.hideButton}
                 color="primary"
                 variant={"contained"}
-                onClick={hideAnswer}
+                onClick={() => setShowAnswer(!show)}
               >
                 Hide Answer
               </Button>
