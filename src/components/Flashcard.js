@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
@@ -13,12 +13,13 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Tag from "./Tag";
 
-import { getFlashcards, getDisplayedFlashcards } from "../redux/selectors";
-import { useSelector } from "react-redux";
+import { getDisplayedFlashcards } from "../redux/selectors";
+import { useDispatch, useSelector } from "react-redux";
+import { updateCurrentIndex } from "../redux/actions";
 
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-import { useHotkeys } from 'react-hotkeys-hook';
+import { useHotkeys } from "react-hotkeys-hook";
 
 const useStyles = makeStyles((theme) => ({
   page: {
@@ -162,72 +163,31 @@ const useStyles = makeStyles((theme) => ({
 
 function Flashcard() {
   const classes = useStyles();
-  const selectedIds = useSelector(getDisplayedFlashcards);
-  const fullBank = useSelector(getFlashcards);
-  const [flashcardsBank, setFlashcardsBank] = useState(fullBank);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [currentFlashcard, setCurrentFlashcard] = useState(flashcardsBank[0]);
+  const dispatch = useDispatch();
+
+  const displayedFlashcards = useSelector(getDisplayedFlashcards);
+  const currentIndex = useSelector((state) => state.currentIndex);
+  const [currentFlashcard, setCurrentFlashcard] = useState(
+    displayedFlashcards[currentIndex]
+  );
 
   const previousFlashcard = () => {
-    setCurrentFlashcard(
-      currentIndex === 0
-        ? flashcardsBank[flashcardsBank.length - 1]
-        : flashcardsBank[currentIndex - 1]
-    );
+    dispatch(updateCurrentIndex(currentIndex - 1));
     setShowAnswer(false);
   };
 
   const nextFlashcard = () => {
-    setCurrentFlashcard(
-      currentIndex === flashcardsBank.length - 1
-        ? flashcardsBank[0]
-        : flashcardsBank[currentIndex + 1]
-    );
+    dispatch(updateCurrentIndex(currentIndex + 1));
     setShowAnswer(false);
   };
 
-  /**
-   * shuffle the order of the flashcards array
-   * @param {*} array 
-   * resource: https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
-   */
-  function shuffle(array) {
-    let currentIndex = array.length, temporaryValue, randomIndex;
-  
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-  
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-  
-      // And swap it with the current element.
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
-    }
-  
-    return array;
-  }
+  useEffect(() => {
+    setCurrentFlashcard(displayedFlashcards[currentIndex]);
+  }, [displayedFlashcards]);
 
   useEffect(() => {
-    setFlashcardsBank(shuffle(fullBank));
-  }, [fullBank]);
-
-  useEffect(() => {
-      setCurrentIndex(0);
-      setFlashcardsBank(shuffle(selectedIds.length === 0 ? fullBank : fullBank.filter(flashcard => selectedIds.includes(flashcard.id))));
-  }, [selectedIds]);
-
-  useEffect(()=> {
-      setCurrentFlashcard(flashcardsBank[0]);
-  }, [flashcardsBank]);
-
-  useEffect(()=> {
-    if (currentFlashcard != undefined) {
-      setCurrentIndex(flashcardsBank.findIndex(flashcard => flashcard.id === currentFlashcard.id))
-    }
-  }, [currentFlashcard]);
+    setCurrentFlashcard(displayedFlashcards[currentIndex]);
+  }, [currentIndex]);
 
   const [show, setShowAnswer] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -241,11 +201,11 @@ function Flashcard() {
     },
   })(Typography);
 
-  useHotkeys('s', () => setSaved(!saved), [saved]);
-  useHotkeys('left', () => setMove("left"), [move]);
-  useHotkeys('right', () => setMove("right"), [move]);
-  useHotkeys('space', () => setShowAnswer(!show), [show]);
-  
+  useHotkeys("s", () => setSaved(!saved), [saved]);
+  useHotkeys("left", () => setMove("left"), [move]);
+  useHotkeys("right", () => setMove("right"), [move]);
+  useHotkeys("space", () => setShowAnswer(!show), [show]);
+
   useEffect(() => {
     if (move === "left") {
       previousFlashcard();
@@ -254,18 +214,14 @@ function Flashcard() {
     if (move === "right") {
       nextFlashcard();
     }
-    
+
     setMove("");
   }, [move]);
-  
+
   return (
     <div style={{ height: "100%", maxWidth: 1150 }}>
-      {(currentFlashcard === undefined) ? (
-        <Grid
-          container
-          justify="center"
-          alignItems="center"
-        >
+      {currentFlashcard === undefined ? (
+        <Grid container justify="center" alignItems="center">
           <CircularProgress />
         </Grid>
       ) : (
@@ -282,7 +238,7 @@ function Flashcard() {
               </Grid>
               <Grid item container xs={2} md={4} justify="center">
                 <Typography id="flashcard-id" className={classes.page}>
-                  {currentIndex + 1} &nbsp;/&nbsp; {flashcardsBank.length}
+                  {currentIndex + 1} &nbsp;/&nbsp; {displayedFlashcards.length}
                 </Typography>
               </Grid>
               <Grid item container xs={5} md={4} justify="flex-end">
@@ -321,7 +277,10 @@ function Flashcard() {
             <Container
               id="answer-container"
               className={classes.answerContainer}
-              style = {{ flex: show ? "1" : "none", height : show ? "100%" : "200px" }}
+              style={{
+                flex: show ? "1" : "none",
+                height: show ? "100%" : "200px",
+              }}
             >
               <Typography
                 id="answer-initial"
@@ -330,7 +289,7 @@ function Flashcard() {
               >
                 A.&emsp;
               </Typography>
-              <AnswerContent id="answer-content" component={'span'}>
+              <AnswerContent id="answer-content" component={"span"}>
                 <pre>{currentFlashcard.answer}</pre>
               </AnswerContent>
               {!show && (
