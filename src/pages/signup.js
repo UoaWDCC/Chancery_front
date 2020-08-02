@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
     },
     loginButton: {
         borderRadius: "10px",
+        backgroundColor: theme.palette.primary.main,
         color: "white",
         fontSize: "24px",
         textAlign: "center",
@@ -44,10 +45,14 @@ const useStyles = makeStyles((theme) => ({
 
         "&:hover": {
             borderWidth: "3px",
-            backgroundColor: "#ffffff",
-            color: "#21CE99",
+            backgroundColor: "transparent",
+            color: theme.palette.primary.main,
             boxShadow: "none",
         },
+    },
+    rememberMe: {
+        fontSize: 18,
+        color: "#969696",
     },
     icon: {
         borderRadius: 3,
@@ -178,7 +183,7 @@ function SignUp() {
                         <FormControlLabel
                             style={{position: "relative"}}
                             control={<StyledCheckbox inputRef={register} name={"remember"} value={"remember"} defaultValue={false} color={"primary"}/>}
-                            label={<Typography style={{ fontSize: 18}}>Remember me</Typography>}
+                            label={<Typography className={classes.rememberMe}>Remember me</Typography>}
                         />
                     </Grid>
                     <Grid item>
@@ -186,14 +191,14 @@ function SignUp() {
                             className={classes.loginButton}
                             type={"submit"}
                             color="primary"
-                            variant={"contained"}
+                            variant={"outlined"}
                         >
                             Create Account
                         </Button>
                     </Grid>
                 </form>
                 <Grid item>
-                    <Typography style={{position: "relative", fontSize: "20px"}}>
+                    <Typography style={{position: "relative", fontSize: "20px", color: "#767676"}}>
                         Already have an account? <Link href="/login">Sign In</Link>
                     </Typography>
                 </Grid>

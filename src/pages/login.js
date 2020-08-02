@@ -41,7 +41,8 @@ const useStyles = makeStyles((theme) => ({
   },
   loginButton: {
     borderRadius: "10px",
-    color: "white",
+    backgroundColor: theme.palette.primary.main,
+    color: 'white',
     fontSize: "24px",
     textAlign: "center",
     textTransform: "uppercase",
@@ -53,10 +54,14 @@ const useStyles = makeStyles((theme) => ({
 
     "&:hover": {
       borderWidth: "3px",
-      backgroundColor: "#ffffff",
-      color: "#21CE99",
+      backgroundColor: "transparent",
+      color: theme.palette.primary.main,
       boxShadow: "none",
     },
+  },
+  rememberMe: {
+    fontSize: 18,
+    color: "#969696",
   },
 
   icon: {
@@ -151,12 +156,12 @@ function Login() {
                 <FormControlLabel
                     style={{position: "relative"}}
                     control={<StyledCheckbox inputRef={register} name={"remember"} value={"remember"} defaultValue={false} color={"primary"}/>}
-                    label={<Typography style={{ fontSize: 18}}>Remember me</Typography>}
+                    label={<Typography className={classes.rememberMe}>Remember me</Typography>}
                 />
               </Grid>
               <Grid container item xs={6} justify="flex-end">
                 <Typography style={{position: "relative", fontSize: "18px"}}>
-                  <Link href="#">Forgot Password?</Link>
+                  <Link href="#" style={{color: "#969696"}}>Forgot Password?</Link>
                 </Typography>
               </Grid>
             </Grid>
@@ -166,7 +171,7 @@ function Login() {
                   className={classes.loginButton}
                   type={"submit"}
                   color="primary"
-                  variant={"contained"}
+                  variant={"outlined"}
               >
                 Login
               </Button>
@@ -174,7 +179,7 @@ function Login() {
           </form>
           <br/>
           <Grid item>
-            <Typography style={{position: "relative", fontSize: "20px"}}>
+            <Typography style={{position: "relative", fontSize: "20px", color: "#767676"}}>
               Don't have an account yet? <Link href="/signup">Sign Up</Link>
             </Typography>
           </Grid>
