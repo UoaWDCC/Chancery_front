@@ -183,11 +183,7 @@ function Flashcard() {
 
   useEffect(() => {
     setCurrentFlashcard(displayedFlashcards[currentIndex]);
-  }, [displayedFlashcards]);
-
-  useEffect(() => {
-    setCurrentFlashcard(displayedFlashcards[currentIndex]);
-  }, [currentIndex]);
+  }, [displayedFlashcards, currentIndex]);
 
   const [show, setShowAnswer] = useState(false);
   const [saved, setSaved] = useState(false);
