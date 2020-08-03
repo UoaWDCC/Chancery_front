@@ -10,6 +10,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import ParticleComponent from "../components/ParticleComponent";
 import clsx from "clsx";
+import { CognitoUserPool, AmazonCognitoIdentity, CognitoUserAttribute } from 'amazon-cognito-identity-js';
 
 const useStyles = makeStyles((theme) => ({
     heading: {
@@ -89,14 +90,52 @@ function StyledCheckbox(props) {
     );
 }
 
+
 function SignUp() {
     const classes = useStyles();
     const [confirmError, setConfirmError] = useState(false);
     const {register, handleSubmit} = useForm()
 
+    const poolData = {
+        UserPoolId: 'ap-southeast-2_9C9cvyGnJ',
+	    ClientId: '7g9vkcv3jivobkb3rt7vo46jrp',
+    }
+    var userPool = new CognitoUserPool(poolData);
+
     const onSubmit = (data) => {
-        console.log(data)
-        data.password !== data.confirmPassword ? setConfirmError(true) : setConfirmError(false)
+        console.log(data);
+        data.password !== data.confirmPassword ? setConfirmError(true) : setConfirmError(false);
+
+        var attributeList = [];
+
+        var attributeEmail = new CognitoUserAttribute({
+            Name: 'email',
+            Value: data.email,
+        });
+
+        var attributeFName= new CognitoUserAttribute ({
+            Name: 'given_name',
+            Value: data.fname,
+        });
+        var attributeLName= new CognitoUserAttribute({
+            Name: 'family_name',
+            Value: data.lname,
+        });
+
+
+        attributeList.push(attributeEmail);
+        attributeList.push(attributeFName);
+        attributeList.push(attributeLName);
+
+        userPool.signUp(data.email, data.password, attributeList, null, function(err,result) {
+            if (err) {
+                console.log(err)
+                return;
+            } else {
+            var cognitoUser = result.user;
+            console.log('user name is ' + cognitoUser.getUsername());
+            }
+        });
     }
 
     return (
