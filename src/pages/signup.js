@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {useForm} from "react-hook-form"
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -91,10 +91,12 @@ function StyledCheckbox(props) {
 
 function SignUp() {
     const classes = useStyles();
+    const [confirmError, setConfirmError] = useState(false);
     const {register, handleSubmit} = useForm()
 
     const onSubmit = (data) => {
         console.log(data)
+        data.password !== data.confirmPassword ? setConfirmError(true) : setConfirmError(false)
     }
 
     return (
@@ -170,6 +172,8 @@ function SignUp() {
                         <Typography className={classes.label}>Confirm Password</Typography>
                         <TextField
                             className={classes.textBox}
+                            error={confirmError}
+                            helperText={confirmError && "passwords do not match"}
                             inputProps={{ style: { fontSize: 24 } }}
                             inputRef={register}
                             required
