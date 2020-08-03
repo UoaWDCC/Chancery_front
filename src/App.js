@@ -95,8 +95,11 @@ function App() {
         },
     })
 
-    const isHome = () => {
-        return window.location.pathname === "/" ? "transparent" : theme.palette.background.paper
+    const isHome = (pathname) => {
+        return pathname === "/" ||
+            pathname === "/login" ||
+            pathname === "/signup"
+            ? "transparent" : theme.palette.background.paper
     }
 
     const handleClick = (event) => {
@@ -119,11 +122,7 @@ function App() {
     };
 
     const getPathValue = (pathname) => {
-        if (pathname === "/login" || pathname === "/signup") {
-            return "/"
-        }
-
-        return pathname
+        return (pathname === "/login" || pathname === "/signup")
     }
 
     return (
@@ -136,18 +135,19 @@ function App() {
                                 path="/"
                                 render={({ location }) => (
                                     <Fragment>
-                                        <AppBar position={"fixed"} style={{boxShadow: 'none', paddingTop: 10, backgroundColor: isHome()}}>
+                                        <AppBar position={"fixed"} style={{boxShadow: 'none', paddingTop: 10, backgroundColor: isHome(location.pathname)}}>
                                             <Toolbar>
                                                 <Logo/>
-                                                <div className={classes.nav} style={{backgroundColor: isHome()}}>
-                                                    <StyledTabs value={getPathValue(location.pathname)} aria-label="styled tabs example">
+                                                {!getPathValue(location.pathname) &&
+                                                <div className={classes.nav} style={{backgroundColor: isHome(location.pathname)}}>
+                                                    <StyledTabs value={location.pathname} aria-label="styled tabs example">
                                                         <StyledTab label="Home" value="/" component={Link} to={allTabs[0]} />
                                                         <StyledTab label="Revise" value="/revise" component={Link} to={allTabs[1]} />
                                                         <StyledTab label="Saved" value="/saved" component={Link} to={allTabs[2]}/>
                                                         <StyledTab label="My Account" onClick={handleClick} style={{paddingLeft: 25}} />
                                                         <AccountMenu anchorEl={anchorEl} onClose={handleClose} setDarkMode={setDarkMode} darkMode={darkMode}/>
                                                     </StyledTabs>
-                                                </div>
+                                                </div>}
                                             </Toolbar>
 
                                         </AppBar>

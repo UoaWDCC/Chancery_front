@@ -115,7 +115,7 @@ function Login() {
           direction="column"
           alignItems="center"
           justify="center"
-          style={{ minHeight: "90vh" }}
+          style={{ minHeight: "100vh" }}
       >
         <ParticleComponent />
         <Grid container direction={"column"} justify={"center"} alignItems={"center"}>
