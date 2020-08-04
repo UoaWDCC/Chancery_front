@@ -69,7 +69,7 @@ function HotkeyBox() {
 
           <Typography className={classes.information}>
             <img src={Save} className={"hotkey-icon"} alt="Save Key"/>
-            <b>Save </b>- S key to save your questions for later
+            <b>Save </b>- Press the S key to save a question
           </Typography>
         </Grid>
       </Grid>
