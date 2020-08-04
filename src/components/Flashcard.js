@@ -230,7 +230,7 @@ function Flashcard() {
         >
           <React.Fragment>
             <Grid container justify="center">
-              <Grid item container xs={5}>
+              <Grid item container xs={5} style={{paddingRight: '40px'}}>
                 <Tag text={currentFlashcard.topic} />
                 <Tag text={currentFlashcard.difficulty} />
               </Grid>
