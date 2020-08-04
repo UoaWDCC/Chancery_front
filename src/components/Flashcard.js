@@ -229,20 +229,20 @@ function Flashcard() {
           className={classes.flashcardBackground}
         >
           <React.Fragment>
-            <Grid container justify="center" alignItems="center">
-              <Grid item container xs={5} md={4}>
+            <Grid container justify="center">
+              <Grid item container xs={5}>
                 <Tag text={currentFlashcard.topic} />
                 <Tag text={currentFlashcard.difficulty} />
               </Grid>
-              <Grid item container xs={2} md={4} justify="center">
+              <Grid item container xs={2} justify="center">
                 <Typography id="flashcard-id" className={classes.page}>
                   {currentIndex + 1} &nbsp;/&nbsp; {displayedFlashcards.length}
                 </Typography>
               </Grid>
-              <Grid item container xs={5} md={4} justify="flex-end">
+              <Grid item container xs={5} justify="flex-end" style={{ height: '40px' }}>
                 <Typography
                   className={classes.subheading}
-                  style={{ fontSize: 25, marginTop: 3 }}
+                  style={{ fontSize: 25, marginTop: 8 }}
                 >
                   Save&nbsp;
                 </Typography>
