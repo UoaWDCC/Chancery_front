@@ -236,7 +236,7 @@ function Flashcard() {
               </Grid>
               <Grid item container xs={2} justify="center">
                 <Typography id="flashcard-id" className={classes.page}>
-                  {currentIndex + 1} &nbsp;/&nbsp; {displayedFlashcards.length}
+                  {currentIndex + 1} / {displayedFlashcards.length}
                 </Typography>
               </Grid>
               <Grid item container xs={5} justify="flex-end" style={{ height: '40px' }}>
