@@ -24,12 +24,14 @@ import { useHotkeys } from "react-hotkeys-hook";
 const useStyles = makeStyles((theme) => ({
   page: {
     color: theme.palette.type === "dark" ? "#fff" : "#818181",
-    fontSize: "43px",
+    fontSize: "35px",
     display: "inline-block",
+    lineHeight: "40px",
+    marginTop: '5px',
   },
   save: {
     float: "right",
-    margin: "-5px -15px 0 -15px",
+    margin: "0px -15px 0 -15px",
     "&:hover": {
       background: "none",
       borderWidth: "3px",
@@ -49,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.default,
     borderRadius: "10px",
     textAlign: "center",
-    padding: "20px 30px 100px 30px",
+    padding: "20px 30px 100px 20px",
     position: "relative",
     boxShadow: theme.palette.type === "dark" ? "none" : "0 0 5px 0 grey",
     display: "flex",
@@ -139,7 +141,7 @@ const useStyles = makeStyles((theme) => ({
 
   leftButton: {
     position: "absolute",
-    left: "calc(5% - 15px)",
+    left: "calc(5% - 20px)",
     top: "calc(200px)",
 
     color: "#F5F5F5",
@@ -150,7 +152,7 @@ const useStyles = makeStyles((theme) => ({
   },
   rightButton: {
     position: "absolute",
-    right: "calc(5% - 15px)",
+    right: "calc(5% - 20px)",
     top: "calc(200px)",
 
     color: "#F5F5F5",
@@ -227,20 +229,20 @@ function Flashcard() {
           className={classes.flashcardBackground}
         >
           <React.Fragment>
-            <Grid container justify="center" alignItems="center">
-              <Grid item container xs={5} md={4}>
+            <Grid container justify="center">
+              <Grid item container xs={5} style={{paddingRight: '40px'}}>
                 <Tag text={currentFlashcard.topic} />
                 <Tag text={currentFlashcard.difficulty} />
               </Grid>
-              <Grid item container xs={2} md={4} justify="center">
+              <Grid item container xs={2} justify="center">
                 <Typography id="flashcard-id" className={classes.page}>
-                  {currentIndex + 1} &nbsp;/&nbsp; {displayedFlashcards.length}
+                  {currentIndex + 1} / {displayedFlashcards.length}
                 </Typography>
               </Grid>
-              <Grid item container xs={5} md={4} justify="flex-end">
+              <Grid item container xs={5} justify="flex-end" style={{ height: '40px' }}>
                 <Typography
                   className={classes.subheading}
-                  style={{ fontSize: 25, marginTop: 3 }}
+                  style={{ fontSize: 25, marginTop: 8 }}
                 >
                   Save&nbsp;
                 </Typography>
