@@ -7,10 +7,9 @@ import HotkeyBox from "../components/HotkeyBox";
 function Revise() {
 
     return (
-        <div style={{ position: "relative", paddingTop: '10vh' }}>
             <Grid
                 container
-                style={{ minHeight: '90vh', padding: '3em 7em 0em 7em'}}
+                style={{ minHeight: '100vh', padding: '15vh 7em 0em 7em'}}
                 justify={"center"}
             >
                 <Grid container item md={12} >
@@ -27,7 +26,6 @@ function Revise() {
                     </Grid>
                 </Grid>
             </Grid>
-        </div>
 
     )
 }
