@@ -217,7 +217,7 @@ function Flashcard() {
   }, [move]);
 
   return (
-    <div style={{ height: "100%", maxWidth: 1150 }}>
+    <div style={{ height: "100%" }}>
       {currentFlashcard === undefined ? (
         <Grid container justify="center" alignItems="center">
           <CircularProgress />
