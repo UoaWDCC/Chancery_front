@@ -3,22 +3,30 @@ import Grid from '@material-ui/core/Grid';
 import FilterBox from '../components/FilterBox';
 import Flashcard from '../components/Flashcard';
 import HotkeyBox from "../components/HotkeyBox";
+import {makeStyles} from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        minHeight: '100vh' - theme.spacing(5),
+        padding: '15vh 7em 0em 7em'
+    }
+}));
 
 function Revise() {
+    const classes = useStyles();
 
     return (
-        <div style={{ position: "relative", paddingTop: '10vh' }}>
             <Grid
                 container
-                style={{ minHeight: '90vh', padding: '3em 7em 0em 7em'}}
+                className={classes.root}
                 justify={"center"}
             >
-                <Grid container item md={12} >
+                <Grid container item md={12} spacing={5}>
                     <Grid container item lg={4} xl={3} justify={"center"}>
                         <FilterBox/>
                     </Grid>
                     <Grid container direction={"column"} item lg={8} xl={9} alignItems={"center"}>
-                        <Grid item>
+                        <Grid item style={{width: '100%'}}>
                             <Flashcard/>
                         </Grid>
                         <Grid item>
@@ -27,7 +35,6 @@ function Revise() {
                     </Grid>
                 </Grid>
             </Grid>
-        </div>
 
     )
 }

@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     padding: "15px 25px 15px 25px",
     marginTop: "30px",
-    height: "200px",
+    minHeight: "200px",
     width: "80%",
     display: "flex",
   },
@@ -217,7 +217,7 @@ function Flashcard() {
   }, [move]);
 
   return (
-    <div style={{ height: "100%", maxWidth: 1150 }}>
+    <div style={{ height: "100%" }}>
       {currentFlashcard === undefined ? (
         <Grid container justify="center" alignItems="center">
           <CircularProgress />
