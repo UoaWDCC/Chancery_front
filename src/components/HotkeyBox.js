@@ -56,20 +56,20 @@ function HotkeyBox() {
           </Typography>
 
           <Typography className={classes.information}>
-            <img src={Left} className={"hotkey-icon"} alt="Left Key"/>
-            <b>Left Arrow Key </b> - Press left arrow key to go to previous
+            <img src={Right} className={"hotkey-icon"} alt="Right Key"/>
+            <b>Next Question </b>- Press right arrow key to go to next
             question
           </Typography>
 
           <Typography className={classes.information}>
-            <img src={Right} className={"hotkey-icon"} alt="Right Key"/>
-            <b>Right Arrow Key </b>- Press right arrow key to go to next
+            <img src={Left} className={"hotkey-icon"} alt="Left Key"/>
+            <b>Previous Question </b> - Press left arrow key to go to previous
             question
           </Typography>
-
+          
           <Typography className={classes.information}>
             <img src={Save} className={"hotkey-icon"} alt="Save Key"/>
-            <b>Save </b>- S key to save your questions for later
+            <b>Save Question</b>- Press the S key to save the question
           </Typography>
         </Grid>
       </Grid>
