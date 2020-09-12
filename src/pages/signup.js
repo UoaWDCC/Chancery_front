@@ -1,16 +1,20 @@
-import React, {useState} from "react";
-import {useForm} from "react-hook-form"
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
-import {makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import ParticleComponent from "../components/ParticleComponent";
 import clsx from "clsx";
-import { CognitoUserPool, AmazonCognitoIdentity, CognitoUserAttribute } from 'amazon-cognito-identity-js';
+import {
+    CognitoUserPool,
+    AmazonCognitoIdentity,
+    CognitoUserAttribute,
+} from "amazon-cognito-identity-js";
 
 const useStyles = makeStyles((theme) => ({
     heading: {
@@ -62,7 +66,8 @@ const useStyles = makeStyles((theme) => ({
         height: 16,
         marginRight: "3px",
         "input:hover ~ &": {
-            backgroundColor: theme.palette.type === "dark" ? "#6f6f6f" : "#e8e8e8",
+            backgroundColor:
+                theme.palette.type === "dark" ? "#6f6f6f" : "#e8e8e8",
         },
     },
     checkedIcon: {
@@ -82,7 +87,9 @@ function StyledCheckbox(props) {
             className={classes.root}
             disableRipple
             color="primary"
-            checkedIcon={<span className={clsx(classes.icon, classes.checkedIcon)} />}
+            checkedIcon={
+                <span className={clsx(classes.icon, classes.checkedIcon)} />
+            }
             icon={<span className={classes.icon} />}
             inputProps={{ "aria-label": "decorative checkbox" }}
             {...props}
@@ -90,53 +97,60 @@ function StyledCheckbox(props) {
     );
 }
 
-
 function SignUp() {
     const classes = useStyles();
     const [confirmError, setConfirmError] = useState(false);
-    const {register, handleSubmit} = useForm()
+    const { register, handleSubmit } = useForm();
 
     const poolData = {
-        UserPoolId: 'ap-southeast-2_9C9cvyGnJ',
-	    ClientId: '7g9vkcv3jivobkb3rt7vo46jrp',
-    }
+        UserPoolId: "ap-southeast-2_CnQKHEWxJ",
+        ClientId: "ue97enfbb622bhgqf55fs2su2",
+    };
     var userPool = new CognitoUserPool(poolData);
 
     const onSubmit = (data) => {
         console.log(data);
-        data.password !== data.confirmPassword ? setConfirmError(true) : setConfirmError(false);
+        data.password !== data.confirmPassword
+            ? setConfirmError(true)
+            : setConfirmError(false);
 
         var attributeList = [];
 
         var attributeEmail = new CognitoUserAttribute({
-            Name: 'email',
+            Name: "email",
             Value: data.email,
         });
 
-        var attributeFName= new CognitoUserAttribute ({
-            Name: 'given_name',
+        var attributeFName = new CognitoUserAttribute({
+            Name: "given_name",
             Value: data.fname,
         });
-        var attributeLName= new CognitoUserAttribute({
-            Name: 'family_name',
+
+        var attributeLName = new CognitoUserAttribute({
+            Name: "family_name",
             Value: data.lname,
         });
-
 
         attributeList.push(attributeEmail);
         attributeList.push(attributeFName);
         attributeList.push(attributeLName);
 
-        userPool.signUp(data.email, data.password, attributeList, null, function(err,result) {
-            if (err) {
-                console.log(err)
-                return;
-            } else {
-            var cognitoUser = result.user;
-            console.log('user name is ' + cognitoUser.getUsername());
+        userPool.signUp(
+            data.email,
+            data.password,
+            attributeList,
+            null,
+            function (err, result) {
+                if (err) {
+                    console.log(err);
+                    return;
+                } else {
+                    var cognitoUser = result.user;
+                    console.log("user name is " + cognitoUser.getUsername());
+                }
             }
-        });
-    }
+        );
+    };
 
     return (
         <Grid
@@ -146,16 +160,25 @@ function SignUp() {
             direction="column"
             alignItems="center"
             justify="center"
-            style={{ minHeight: "100vh"}}
+            style={{ minHeight: "100vh" }}
         >
             <ParticleComponent />
-            <Grid container direction={"column"} justify={"center"} alignItems={"center"}>
-                <Typography variant={"h1"} className={classes.heading}>Get Started, Join Chancery!</Typography>
-                <br/>
+            <Grid
+                container
+                direction={"column"}
+                justify={"center"}
+                alignItems={"center"}
+            >
+                <Typography variant={"h1"} className={classes.heading}>
+                    Get Started, Join Chancery!
+                </Typography>
+                <br />
                 <form noValidate onSubmit={handleSubmit(onSubmit)}>
                     <Grid container spacing={5} item>
                         <Grid item xs={6}>
-                            <Typography className={classes.label}>First Name</Typography>
+                            <Typography className={classes.label}>
+                                First Name
+                            </Typography>
                             <TextField
                                 className={classes.textBox}
                                 inputProps={{ style: { fontSize: 24 } }}
@@ -168,7 +191,9 @@ function SignUp() {
                             />
                         </Grid>
                         <Grid item xs={6}>
-                            <Typography className={classes.label}>Last Name</Typography>
+                            <Typography className={classes.label}>
+                                Last Name
+                            </Typography>
                             <TextField
                                 className={classes.textBox}
                                 inputProps={{ style: { fontSize: 24 } }}
@@ -195,7 +220,9 @@ function SignUp() {
                         />
                     </Grid>
                     <Grid item>
-                        <Typography className={classes.label}>Password</Typography>
+                        <Typography className={classes.label}>
+                            Password
+                        </Typography>
                         <TextField
                             className={classes.textBox}
                             inputProps={{ style: { fontSize: 24 } }}
@@ -208,11 +235,15 @@ function SignUp() {
                         />
                     </Grid>
                     <Grid item>
-                        <Typography className={classes.label}>Confirm Password</Typography>
+                        <Typography className={classes.label}>
+                            Confirm Password
+                        </Typography>
                         <TextField
                             className={classes.textBox}
                             error={confirmError}
-                            helperText={confirmError && "passwords do not match"}
+                            helperText={
+                                confirmError && "passwords do not match"
+                            }
                             inputProps={{ style: { fontSize: 24 } }}
                             inputRef={register}
                             required
@@ -224,9 +255,21 @@ function SignUp() {
                     </Grid>
                     <Grid item>
                         <FormControlLabel
-                            style={{position: "relative"}}
-                            control={<StyledCheckbox inputRef={register} name={"remember"} value={"remember"} defaultValue={false} color={"primary"}/>}
-                            label={<Typography className={classes.rememberMe}>Remember me</Typography>}
+                            style={{ position: "relative" }}
+                            control={
+                                <StyledCheckbox
+                                    inputRef={register}
+                                    name={"remember"}
+                                    value={"remember"}
+                                    defaultValue={false}
+                                    color={"primary"}
+                                />
+                            }
+                            label={
+                                <Typography className={classes.rememberMe}>
+                                    Remember me
+                                </Typography>
+                            }
                         />
                     </Grid>
                     <Grid item>
@@ -241,13 +284,20 @@ function SignUp() {
                     </Grid>
                 </form>
                 <Grid item>
-                    <Typography style={{position: "relative", fontSize: "20px", color: "#767676"}}>
-                        Already have an account? <Link href="/login">Sign In</Link>
+                    <Typography
+                        style={{
+                            position: "relative",
+                            fontSize: "20px",
+                            color: "#767676",
+                        }}
+                    >
+                        Already have an account?{" "}
+                        <Link href="/login">Sign In</Link>
                     </Typography>
                 </Grid>
             </Grid>
         </Grid>
-    )
+    );
 }
 
 export default SignUp;
