@@ -108,7 +108,7 @@ function App() {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(fetchQuestions());
-    });
+    }, []);
 
     window.onkeydown = function (e) {
         if (document.URL.includes("revise")) {

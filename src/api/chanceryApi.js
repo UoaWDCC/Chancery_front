@@ -1,4 +1,5 @@
 const API_ROOT = `https://sggk01kerl.execute-api.ap-southeast-2.amazonaws.com/prod`;
+
 // const proxyurl = "https://cors-anywhere.herokuapp.com/";
 
 export const getFlashcards = () => {

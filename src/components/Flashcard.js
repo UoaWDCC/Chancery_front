@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
@@ -13,22 +13,25 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Tag from "./Tag";
 
-import { getFlashcards, getDisplayedFlashcards } from "../redux/selectors";
-import { useSelector } from "react-redux";
+import { getDisplayedFlashcards } from "../redux/selectors";
+import { useDispatch, useSelector } from "react-redux";
+import { updateCurrentIndex } from "../redux/actions";
 
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-import { useHotkeys } from 'react-hotkeys-hook';
+import { useHotkeys } from "react-hotkeys-hook";
 
 const useStyles = makeStyles((theme) => ({
   page: {
     color: theme.palette.type === "dark" ? "#fff" : "#818181",
-    fontSize: "43px",
+    fontSize: "35px",
     display: "inline-block",
+    lineHeight: "40px",
+    marginTop: '5px',
   },
   save: {
     float: "right",
-    margin: "-5px -15px 0 -15px",
+    margin: "0px -15px 0 -15px",
     "&:hover": {
       background: "none",
       borderWidth: "3px",
@@ -48,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.default,
     borderRadius: "10px",
     textAlign: "center",
-    padding: "20px 30px 100px 30px",
+    padding: "20px 30px 100px 20px",
     position: "relative",
     boxShadow: theme.palette.type === "dark" ? "none" : "0 0 5px 0 grey",
     display: "flex",
@@ -72,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     padding: "15px 25px 15px 25px",
     marginTop: "30px",
-    height: "200px",
+    minHeight: "200px",
     width: "80%",
     display: "flex",
   },
@@ -138,7 +141,7 @@ const useStyles = makeStyles((theme) => ({
 
   leftButton: {
     position: "absolute",
-    left: "calc(5% - 15px)",
+    left: "calc(5% - 20px)",
     top: "calc(200px)",
 
     color: "#F5F5F5",
@@ -149,7 +152,7 @@ const useStyles = makeStyles((theme) => ({
   },
   rightButton: {
     position: "absolute",
-    right: "calc(5% - 15px)",
+    right: "calc(5% - 20px)",
     top: "calc(200px)",
 
     color: "#F5F5F5",
@@ -160,59 +163,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// Detects if answer-content is too large for answer-container, https://stackoverflow.com/questions/9333379/check-if-an-elements-content-is-overflowing/34299947
-function isOverflown() {
-  const element = document.getElementById("answer-content");
-  return (
-    element.scrollHeight > element.clientHeight ||
-    element.scrollWidth > element.clientWidth
-  );
-}
-
 function Flashcard() {
   const classes = useStyles();
-  const selectedIds = useSelector(getDisplayedFlashcards);
-  const fullBank = useSelector(getFlashcards);
-  const [flashcardsBank, setFlashcardsBank] = useState(fullBank);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [currentFlashcard, setCurrentFlashcard] = useState(flashcardsBank[0]);
+  const dispatch = useDispatch();
+
+  const displayedFlashcards = useSelector(getDisplayedFlashcards);
+  const currentIndex = useSelector((state) => state.currentIndex);
+  const [currentFlashcard, setCurrentFlashcard] = useState(
+    displayedFlashcards[currentIndex]
+  );
 
   const previousFlashcard = () => {
-    setCurrentFlashcard(
-      currentIndex === 0
-        ? flashcardsBank[flashcardsBank.length - 1]
-        : flashcardsBank[currentIndex - 1]
-    );
-    hideAnswer();
+    dispatch(updateCurrentIndex(currentIndex - 1));
+    setShowAnswer(false);
   };
 
   const nextFlashcard = () => {
-    setCurrentFlashcard(
-      currentIndex === flashcardsBank.length - 1
-        ? flashcardsBank[0]
-        : flashcardsBank[currentIndex + 1]
-    );
-    hideAnswer();
+    dispatch(updateCurrentIndex(currentIndex + 1));
+    setShowAnswer(false);
   };
 
   useEffect(() => {
-    setFlashcardsBank(fullBank);
-  }, [fullBank]);
-
-  useEffect(() => {
-      setCurrentIndex(0);
-      setFlashcardsBank(selectedIds.length === 0 ? fullBank : fullBank.filter(flashcard => selectedIds.includes(flashcard.id)));
-  }, [selectedIds]);
-
-  useEffect(()=> {
-      setCurrentFlashcard(flashcardsBank[0]);
-  }, [flashcardsBank]);
-
-  useEffect(()=> {
-    if (currentFlashcard != undefined) {
-      setCurrentIndex(flashcardsBank.findIndex(flashcard => flashcard.id === currentFlashcard.id))
-    }
-  }, [currentFlashcard]);
+    setCurrentFlashcard(displayedFlashcards[currentIndex]);
+  }, [displayedFlashcards, currentIndex]);
 
   const [show, setShowAnswer] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -226,25 +199,11 @@ function Flashcard() {
     },
   })(Typography);
 
-  const showAnswer = () => {
-    if (isOverflown()) {
-      document.getElementById("answer-container").style.flex = "1";
-      document.getElementById("answer-container").style.height = "100%";
-    }
-    setShowAnswer(true);
-  };
+  useHotkeys("s", () => setSaved(!saved), [saved]);
+  useHotkeys("left", () => setMove("left"), [move]);
+  useHotkeys("right", () => setMove("right"), [move]);
+  useHotkeys("space", () => setShowAnswer(!show), [show]);
 
-  const hideAnswer = () => {
-    setShowAnswer(false);
-    document.getElementById("answer-container").style.height = "200px";
-    document.getElementById("answer-container").style.flex = "none";
-  };
-
-  useHotkeys('s', () => setSaved(!saved), [saved]);
-  useHotkeys('left', () => setMove("left"), [move]);
-  useHotkeys('right', () => setMove("right"), [move]);
-  useHotkeys('space', () => show ? hideAnswer() : showAnswer(), [show]);
-  
   useEffect(() => {
     if (move === "left") {
       previousFlashcard();
@@ -253,18 +212,14 @@ function Flashcard() {
     if (move === "right") {
       nextFlashcard();
     }
-    
+
     setMove("");
   }, [move]);
-  
+
   return (
-    <div style={{ height: "100%", maxWidth: 1150 }}>
-      {(currentFlashcard === undefined) ? (
-        <Grid
-          container
-          justify="center"
-          alignItems="center"
-        >
+    <div style={{ height: "100%" }}>
+      {currentFlashcard === undefined ? (
+        <Grid container justify="center" alignItems="center">
           <CircularProgress />
         </Grid>
       ) : (
@@ -274,20 +229,20 @@ function Flashcard() {
           className={classes.flashcardBackground}
         >
           <React.Fragment>
-            <Grid container justify="center" alignItems="center">
-              <Grid item container xs={5} md={4}>
+            <Grid container justify="center">
+              <Grid item container xs={5} style={{paddingRight: '40px'}}>
                 <Tag text={currentFlashcard.topic} />
                 <Tag text={currentFlashcard.difficulty} />
               </Grid>
-              <Grid item container xs={2} md={4} justify="center">
+              <Grid item container xs={2} justify="center">
                 <Typography id="flashcard-id" className={classes.page}>
-                  {currentIndex + 1} &nbsp;/&nbsp; {flashcardsBank.length}
+                  {currentIndex + 1} / {displayedFlashcards.length}
                 </Typography>
               </Grid>
-              <Grid item container xs={5} md={4} justify="flex-end">
+              <Grid item container xs={5} justify="flex-end" style={{ height: '40px' }}>
                 <Typography
                   className={classes.subheading}
-                  style={{ fontSize: 25, marginTop: 3 }}
+                  style={{ fontSize: 25, marginTop: 8 }}
                 >
                   Save&nbsp;
                 </Typography>
@@ -320,6 +275,10 @@ function Flashcard() {
             <Container
               id="answer-container"
               className={classes.answerContainer}
+              style={{
+                flex: show ? "1" : "none",
+                height: show ? "100%" : "200px",
+              }}
             >
               <Typography
                 id="answer-initial"
@@ -328,7 +287,7 @@ function Flashcard() {
               >
                 A.&emsp;
               </Typography>
-              <AnswerContent id="answer-content">
+              <AnswerContent id="answer-content" component={"span"}>
                 <pre>{currentFlashcard.answer}</pre>
               </AnswerContent>
               {!show && (
@@ -337,7 +296,7 @@ function Flashcard() {
                   className={classes.showButton}
                   color="primary"
                   variant={"contained"}
-                  onClick={showAnswer}
+                  onClick={() => setShowAnswer(!show)}
                 >
                   Show Answer
                 </Button>
@@ -350,7 +309,7 @@ function Flashcard() {
                 className={classes.hideButton}
                 color="primary"
                 variant={"contained"}
-                onClick={hideAnswer}
+                onClick={() => setShowAnswer(!show)}
               >
                 Hide Answer
               </Button>
