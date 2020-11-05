@@ -74,7 +74,6 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "left",
     position: "relative",
     padding: "15px 25px 15px 25px",
-    marginTop: "30px",
     minHeight: "200px",
     width: "80%",
     display: "flex",
@@ -167,6 +166,16 @@ const useStyles = makeStyles((theme) => ({
 	  backgroundColor: "#B1B1B1",
 	}
   },
+  '@media (max-width: 960px)': {
+	leftButton: {
+	  left: "0",
+	  marginLeft: "-14px",
+	},
+  	rightButton: {
+	  right: "0",
+	  marginRight: "-14px",
+	}
+  }
 }));
 
 function Flashcard() {
