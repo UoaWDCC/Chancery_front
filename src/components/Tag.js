@@ -12,6 +12,7 @@ const useStyles = makeStyles(() => ({
         padding: '5px 15px 5px 10px',
         margin: '5px',
         height: '30px',
+		maxWidth: '100%',
     },
     text: {
         color: "white",
