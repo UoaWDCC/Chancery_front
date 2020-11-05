@@ -8,7 +8,9 @@ import {makeStyles} from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
     root: {
         minHeight: '100vh' - theme.spacing(5),
-        padding: '15vh 7em 0em 7em'
+        padding: '15vh 7em 0em 7em',
+		maxWidth: '2560px',
+		margin: '0 auto',
     }
 }));
 
