@@ -24,7 +24,7 @@ function Revise() {
                 className={classes.root}
                 justify={"center"}
             >
-                <Grid container item md={12} spacing={5}>
+                <Grid container item md={12} spacing={4}>
                     <Grid container item lg={4} xl={3} justify={"center"} alignItems={"start"}>
 						<div>
                         	<FilterBox/>
