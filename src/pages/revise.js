@@ -4,6 +4,7 @@ import FilterBox from '../components/FilterBox';
 import Flashcard from '../components/Flashcard';
 import HotkeyBox from "../components/HotkeyBox";
 import {makeStyles} from "@material-ui/core/styles";
+import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -33,9 +34,11 @@ function Revise() {
                         <Grid item style={{width: '100%'}}>
                             <Flashcard/>
                         </Grid>
-                        <Grid item>
-                            <HotkeyBox/>
-                        </Grid>
+						<Grid item>
+                        	<Box display={{ xs: 'none', md: 'block' }}>
+                            	<HotkeyBox/>
+                        	</Box>
+						</Grid>
                     </Grid>
                 </Grid>
             </Grid>
