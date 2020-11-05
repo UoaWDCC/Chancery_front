@@ -149,6 +149,9 @@ const useStyles = makeStyles((theme) => ({
 
     height: "60px",
     width: "60px",
+	"&:hover": {
+      backgroundColor: "#B1B1B1",
+	}
   },
   rightButton: {
     position: "absolute",
@@ -160,6 +163,9 @@ const useStyles = makeStyles((theme) => ({
 
     height: "60px",
     width: "60px",
+	"&:hover": {
+	  backgroundColor: "#B1B1B1",
+	}
   },
 }));
 
