@@ -223,7 +223,7 @@ function Flashcard() {
   }, [move]);
 
   return (
-    <div style={{ height: "100%" }}>
+    <div style={{ height: "100%" }} id="top">
       {currentFlashcard === undefined ? (
         <Grid container justify="center" alignItems="center">
           <CircularProgress />
@@ -312,6 +312,7 @@ function Flashcard() {
             {show && (
               <Button
                 id="show-button"
+				href="#top"
                 className={classes.hideButton}
                 color="primary"
                 variant={"contained"}
