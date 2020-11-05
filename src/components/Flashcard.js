@@ -101,6 +101,7 @@ const useStyles = makeStyles((theme) => ({
     transform: "translate(-50%, -50%)",
 
     width: "210px",
+	maxWidth: "100%",
 
     "&:hover": {
       borderWidth: "3px",
@@ -127,6 +128,7 @@ const useStyles = makeStyles((theme) => ({
     left: "calc(50% - 105px)",
 
     width: "210px",
+	maxWidth: "100%",
 
     "&:hover": {
       borderStyle: "solid",
