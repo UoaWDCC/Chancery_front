@@ -21,6 +21,9 @@ const useStyles = makeStyles(() => ({
         lineHeight: '30px',
         textAlign: 'left',
         marginLeft: '25px',
+		overflow: 'hidden',
+		textOverflow: 'ellipsis',
+		whiteSpace: 'nowrap',
     },
     icon: {
         position: 'absolute',
