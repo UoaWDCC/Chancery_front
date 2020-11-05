@@ -24,8 +24,10 @@ function Revise() {
                 justify={"center"}
             >
                 <Grid container item md={12} spacing={5}>
-                    <Grid container item lg={4} xl={3} justify={"center"}>
-                        <FilterBox/>
+                    <Grid container item lg={4} xl={3} justify={"center"} alignItems={"start"}>
+						<div>
+                        	<FilterBox/>
+						</div>
                     </Grid>
                     <Grid container direction={"column"} item lg={8} xl={9} alignItems={"center"}>
                         <Grid item style={{width: '100%'}}>
