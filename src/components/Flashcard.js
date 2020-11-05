@@ -174,6 +174,15 @@ const useStyles = makeStyles((theme) => ({
   	rightButton: {
 	  right: "0",
 	  marginRight: "-14px",
+	},
+	questionContainer: {
+	  width: "100%",
+	},
+	questionContent: {
+	  fontSize: "20px",
+	},
+	answerContainer: {
+	  width: "100%",
 	}
   }
 }));
