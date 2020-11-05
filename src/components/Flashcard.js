@@ -236,16 +236,16 @@ function Flashcard() {
         >
           <React.Fragment>
             <Grid container justify="center">
-              <Grid item container xs={5} style={{paddingRight: '40px'}}>
+              <Grid item container xs={12} md={5} style={{paddingRight: '40px'}}>
                 <Tag text={currentFlashcard.topic} />
                 <Tag text={currentFlashcard.difficulty} />
               </Grid>
-              <Grid item container xs={2} justify="center">
+              <Grid item container xs={12} md={2} justify="center">
                 <Typography id="flashcard-id" className={classes.page}>
                   {currentIndex + 1} / {displayedFlashcards.length}
                 </Typography>
               </Grid>
-              <Grid item container xs={5} justify="flex-end" style={{ height: '40px' }}>
+              <Grid item container xs={12} md={5} justify="flex-end" style={{ height: '40px' }}>
                 <Typography
                   className={classes.subheading}
                   style={{ fontSize: 25, marginTop: 8 }}
