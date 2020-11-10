@@ -11,7 +11,8 @@ const useStyles = makeStyles(() => ({
         borderRadius: 5,
         padding: '5px 15px 5px 10px',
         margin: '5px',
-        minHeight: '30px',
+        height: '30px',
+		maxWidth: '100%',
     },
     text: {
         color: "white",
@@ -20,6 +21,9 @@ const useStyles = makeStyles(() => ({
         lineHeight: '30px',
         textAlign: 'left',
         marginLeft: '25px',
+		overflow: 'hidden',
+		textOverflow: 'ellipsis',
+		whiteSpace: 'nowrap',
     },
     icon: {
         position: 'absolute',
@@ -28,7 +32,7 @@ const useStyles = makeStyles(() => ({
         color: "white",
         paddingRight: 5,
     }
-}))
+}));
 
 function Tag(props) {
     const classes = useStyles();

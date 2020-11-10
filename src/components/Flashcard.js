@@ -74,7 +74,6 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "left",
     position: "relative",
     padding: "15px 25px 15px 25px",
-    marginTop: "30px",
     minHeight: "200px",
     width: "80%",
     display: "flex",
@@ -102,6 +101,7 @@ const useStyles = makeStyles((theme) => ({
     transform: "translate(-50%, -50%)",
 
     width: "210px",
+	maxWidth: "100%",
 
     "&:hover": {
       borderWidth: "3px",
@@ -128,6 +128,7 @@ const useStyles = makeStyles((theme) => ({
     left: "calc(50% - 105px)",
 
     width: "210px",
+	maxWidth: "100%",
 
     "&:hover": {
       borderStyle: "solid",
@@ -149,6 +150,9 @@ const useStyles = makeStyles((theme) => ({
 
     height: "60px",
     width: "60px",
+	"&:hover": {
+      backgroundColor: "#B1B1B1",
+	}
   },
   rightButton: {
     position: "absolute",
@@ -160,7 +164,29 @@ const useStyles = makeStyles((theme) => ({
 
     height: "60px",
     width: "60px",
+	"&:hover": {
+	  backgroundColor: "#B1B1B1",
+	}
   },
+  '@media (max-width: 960px)': {
+	leftButton: {
+	  left: "0",
+	  marginLeft: "-14px",
+	},
+  	rightButton: {
+	  right: "0",
+	  marginRight: "-14px",
+	},
+	questionContainer: {
+	  width: "100%",
+	},
+	questionContent: {
+	  fontSize: "20px",
+	},
+	answerContainer: {
+	  width: "100%",
+	}
+  }
 }));
 
 function Flashcard() {
@@ -217,7 +243,7 @@ function Flashcard() {
   }, [move]);
 
   return (
-    <div style={{ height: "100%" }}>
+    <div style={{ height: "100%" }} id="top">
       {currentFlashcard === undefined ? (
         <Grid container justify="center" alignItems="center">
           <CircularProgress />
@@ -230,16 +256,16 @@ function Flashcard() {
         >
           <React.Fragment>
             <Grid container justify="center">
-              <Grid item container xs={5} style={{paddingRight: '40px'}}>
+              <Grid item container xs={12} md={5} style={{paddingRight: '40px'}}>
                 <Tag text={currentFlashcard.topic} />
                 <Tag text={currentFlashcard.difficulty} />
               </Grid>
-              <Grid item container xs={2} justify="center">
+              <Grid item container xs={12} md={2} justify="center">
                 <Typography id="flashcard-id" className={classes.page}>
                   {currentIndex + 1} / {displayedFlashcards.length}
                 </Typography>
               </Grid>
-              <Grid item container xs={5} justify="flex-end" style={{ height: '40px' }}>
+              <Grid item container xs={12} md={5} justify="flex-end" style={{ height: '40px' }}>
                 <Typography
                   className={classes.subheading}
                   style={{ fontSize: 25, marginTop: 8 }}
@@ -306,6 +332,7 @@ function Flashcard() {
             {show && (
               <Button
                 id="show-button"
+				href="#top"
                 className={classes.hideButton}
                 color="primary"
                 variant={"contained"}

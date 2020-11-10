@@ -52,8 +52,7 @@ const useStyles = makeStyles((theme) => ({
   filterBox: {
     backgroundColor: theme.palette.background.default,
     borderRadius: "10px",
-    height: "760px",
-    width: "365px",
+	padding: "20px",
     boxShadow: theme.palette.type === "dark" ? "none" : "0 0 5px 0 grey",
   },
   button: {
@@ -112,7 +111,7 @@ function FilterBox() {
   useEffect(() => {
     setCheckedStates({...savedTopics, ...savedDifficulties});
   }, [savedTopics, savedDifficulties]);
-  
+
   const topicCheckBoxes = topics.map((topic) => (
     <FormControlLabel
       style={{ padding: "6px" }}
@@ -142,7 +141,7 @@ function FilterBox() {
       className={classes.filterBox}
       container
       direction="column"
-      justify="center"
+      justify="start"
       alignItems="center"
     >
       <Grid item style={{ paddingLeft: 20 }}>
