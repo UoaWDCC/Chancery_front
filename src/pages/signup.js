@@ -98,13 +98,14 @@ function StyledCheckbox(props) {
 }
 
 function SignUp() {
+
     const classes = useStyles();
     const [confirmError, setConfirmError] = useState(false);
     const { register, handleSubmit } = useForm();
 
     const poolData = {
-        UserPoolId: "ap-southeast-2_CnQKHEWxJ",
-        ClientId: "ue97enfbb622bhgqf55fs2su2",
+        UserPoolId: "ap-southeast-2_9hmZTBuah",
+        ClientId: "3u8dhsro0i2igvhuvbl461eenv",
     };
     var userPool = new CognitoUserPool(poolData);
 
