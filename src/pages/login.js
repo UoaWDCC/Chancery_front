@@ -113,59 +113,61 @@ function Login() {
   const onSubmit = (data) => {
     console.log(data)
 
-    var authenticationData = {
+    var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails({
       Username: data.email,
       Password: data.password,
-  };
-  var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(
-      authenticationData
-  );
-  var poolData = {
-      UserPoolId: 'ap-southeast-2_CnQKHEWxJ', // Your user pool id here
-      ClientId: 'ue97enfbb622bhgqf55fs2su2', // Your client id here
-  };
-  var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+    });
+    var poolData = {
+        UserPoolId: 'ap-southeast-2_9hmZTBuah', // Your user pool id here
+        ClientId: '3u8dhsro0i2igvhuvbl461eenv', // Your client id here
+    };
+    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
 
-  var userData = {
-      Username: data.email,
-      Pool: userPool,
-  };
-
-  var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
-  cognitoUser.authenticateUser(authenticationDetails, {
-      onSuccess: function(result) {
-        console.log("Token : " + result.getAccessToken().getJwtToken());
-          var accessToken = result.getAccessToken().getJwtToken();
-   
-          // //POTENTIAL: Region needs to be set if not already set previously elsewhere.
-          // AWS.config.region = 'ap-southeast-2';
-   
-          // AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-          //     IdentityPoolId: 'ap-southeast-2:9cfbdd89-5ce7-4835-9bff-e96a14f70a9e', // your identity pool id here
-          //     Logins: {
-          //         // Change the key below according to the specific region your user pool is in.
-          //         'cognito-idp.ap-southeast-2.amazonaws.com/ap-southeast-2_CnQKHEWxJ': result
-          //             .getIdToken()
-          //             .getJwtToken(),
-          //     },
-          // });
-   
-          // //refreshes credentials using AWS.CognitoIdentity.getCredentialsForIdentity()
-          // AWS.config.credentials.refresh(error => {
-          //     if (error) {
-          //         console.error(error);
-          //     } else {
-          //         // Instantiate aws sdk service objects now that the credentials have been updated.
-          //         // example: var s3 = new AWS.S3();
-          //         console.log('Successfully logged!');
-          //     }
-          // });
-      },
-   
-      onFailure: function (err) {
-          alert(err.message || JSON.stringify(err));
-      },
+    var user = new AmazonCognitoIdentity.CognitoUser({
+        Username: data.email,
+        Pool: userPool,
   });
+
+  
+  
+  user.authenticateUser(authenticationDetails, {
+    onSuccess: function(result) {
+      console.log("Token : " + result.getAccessToken().getJwtToken());
+        var accessToken = result.getAccessToken().getJwtToken();
+ 
+        // //POTENTIAL: Region needs to be set if not already set previously elsewhere.
+        //   AWS.config.region = 'ap-southeast-2';
+
+        // AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+        //     IdentityPoolId: 'ap-southeast-2:9cfbdd89-5ce7-4835-9bff-e96a14f70a9e', // your identity pool id here
+        //     Logins: {
+        //         // Change the key below according to the specific region your user pool is in.
+        //         'cognito-idp.ap-southeast-2.amazonaws.com/ap-southeast-2_CnQKHEWxJ': result
+        //             .getIdToken()
+        //             .getJwtToken(),
+        //     },
+        // });
+ 
+        // //refreshes credentials using AWS.CognitoIdentity.getCredentialsForIdentity()
+        // AWS.config.credentials.refresh(error => {
+        //     if (error) {
+        //         console.error(error);
+        //     } else {
+        //         // Instantiate aws sdk service objects now that the credentials have been updated.
+        //         // example: var s3 = new AWS.S3();
+        //         console.log('Successfully logged!');
+        //     }
+        // });
+    },
+ 
+    onFailure: function (err) {
+        alert(err.message || JSON.stringify(err));
+    },
+
+    newPasswordRequired: function (data) {
+      console.log(data);
+    }
+});
   }
 
   return (
@@ -222,7 +224,7 @@ function Login() {
               </Grid>
               <Grid container item xs={6} justify="flex-end">
                 <Typography style={{position: "relative", fontSize: "18px"}}>
-                  <Link href="#" style={{color: "#969696"}}>Forgot Password?</Link>
+                  <Link href={"/password"} style={{color: "#969696"}}>Forgot Password?</Link>
                 </Typography>
               </Grid>
             </Grid>
