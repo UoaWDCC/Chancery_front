@@ -17,6 +17,7 @@ import { fetchQuestions } from './redux/actions';
 import Login from "./pages/login";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
+import Password from "./pages/password"
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -70,7 +71,7 @@ const StyledTab = withStyles((theme) => ({
 
 function App() {
     const classes = useStyles();
-    const allTabs = ['/', '/revise', '/saved', '/signup', '/login'];
+    const allTabs = ['/', '/revise', '/saved', '/signup', '/login', '/password'];
     const [anchorEl, setAnchorEl] = useState(null);
     const [darkMode, setDarkMode] = useState(false);
 
@@ -153,6 +154,7 @@ function App() {
                                         </AppBar>
                                         <div>
                                             <Switch>
+                                                <Route path={allTabs[5]} render={() => <Password/>} />
                                                 <Route path={allTabs[4]} render={() => <Login/>} />
                                                 <Route path={allTabs[3]} render={() => <SignUp/>} />
                                                 <Route path={allTabs[1]} render={() => <Revise/>} />
