@@ -12,7 +12,10 @@ import TextField from "@material-ui/core/TextField";
 import ParticleComponent from "../components/ParticleComponent";
 import {useForm} from "react-hook-form";
 import * as AWS from 'aws-sdk/global';
- 
+
+// AWS Config
+AWS.config.region = 'ap-southeast-2';
+
 // Modules, e.g. Webpack:
 var AmazonCognitoIdentity = require('amazon-cognito-identity-js');
 var CognitoUserPool = AmazonCognitoIdentity.CognitoUserPool;
@@ -128,15 +131,31 @@ function Login() {
         Pool: userPool,
   });
 
+  // TODO: Add user to Group (Basic Auth user)
+
   
   
   user.authenticateUser(authenticationDetails, {
     onSuccess: function(result) {
-      console.log("Token : " + result.getAccessToken().getJwtToken());
-        var accessToken = result.getAccessToken().getJwtToken();
- 
-        // //POTENTIAL: Region needs to be set if not already set previously elsewhere.
-        //   AWS.config.region = 'ap-southeast-2';
+      console.log(result)
+      console.log("Token : " + result.getIdToken().getJwtToken());
+      var accessToken = result.getIdToken().getJwtToken();
+      
+      // Use Access token to init user with AWS Creds
+      AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+        IdentityPoolId: 'ap-southeast-2:90f238b4-e089-4270-bd29-f156984112cd',
+        Logins: {
+            'cognito-idp.ap-southeast-2.amazonaws.com/ap-southeast-2_9hmZTBuah': accessToken
+        }
+      });
+    
+      AWS.config.credentials.get(function(err){
+        if (err) {
+            alert(err);
+        }
+      });  
+
+      console.log(AWS.config.credentials);
 
         // AWS.config.credentials = new AWS.CognitoIdentityCredentials({
         //     IdentityPoolId: 'ap-southeast-2:9cfbdd89-5ce7-4835-9bff-e96a14f70a9e', // your identity pool id here
