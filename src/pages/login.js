@@ -12,6 +12,7 @@ import TextField from "@material-ui/core/TextField";
 import ParticleComponent from "../components/ParticleComponent";
 import {useForm} from "react-hook-form";
 import * as AWS from 'aws-sdk/global';
+import { useHistory } from "react-router-dom";
 
 // AWS Config
 AWS.config.region = 'ap-southeast-2';
@@ -19,8 +20,6 @@ AWS.config.region = 'ap-southeast-2';
 // Modules, e.g. Webpack:
 var AmazonCognitoIdentity = require('amazon-cognito-identity-js');
 var CognitoUserPool = AmazonCognitoIdentity.CognitoUserPool;
-
-
 
 
 const useStyles = makeStyles((theme) => ({
@@ -112,6 +111,7 @@ function StyledCheckbox(props) {
 function Login() {
   const classes = useStyles();
   const {register, handleSubmit} = useForm()
+  let history = useHistory();
 
   const onSubmit = (data) => {
     console.log(data)
@@ -129,7 +129,10 @@ function Login() {
     var user = new AmazonCognitoIdentity.CognitoUser({
         Username: data.email,
         Pool: userPool,
+
   });
+
+  // History to redirect to revise page
 
   // TODO: Add user to Group (Basic Auth user)
 
@@ -156,6 +159,10 @@ function Login() {
       });  
 
       console.log(AWS.config.credentials);
+
+      history.push("/revise");
+
+      
 
         // AWS.config.credentials = new AWS.CognitoIdentityCredentials({
         //     IdentityPoolId: 'ap-southeast-2:9cfbdd89-5ce7-4835-9bff-e96a14f70a9e', // your identity pool id here

@@ -86,31 +86,40 @@ const useStyles = makeStyles((theme) => ({
 function Password() {
     const classes = useStyles();
 
+    const [success, handleSuccess] = useState(false);
+    const [userEmail, handleEmail] = useState("");
+
     const {register, handleSubmit} = useForm();
 
-    
+    var poolData = {
+      UserPoolId: "ap-southeast-2_9hmZTBuah",
+      ClientId: "3u8dhsro0i2igvhuvbl461eenv",
+    };
+
+    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+
+
+    var user;
 
     const onSubmit = (data) => {
-      var poolData = {
-        UserPoolId: "ap-southeast-2_9hmZTBuah",
-        ClientId: "3u8dhsro0i2igvhuvbl461eenv",
-      };
-      var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
-
-      var user = new AmazonCognitoIdentity.CognitoUser({
+      user = new AmazonCognitoIdentity.CognitoUser({
         Username: data.email,
         Pool: userPool,
       });
+
+      handleEmail(data.email)
 
       if(user){
         user.forgotPassword({
           onSuccess: function(data){
             console.log(data);
+            handleSuccess(true);
           },
           onFailure: function(err) {
             alert(err.message || JSON.stringify(err));
           },
           inputVerificationCode: function(data) {
+            handleSuccess(true);
             console.log("Input code: ", data);
           }
         })
@@ -118,6 +127,26 @@ function Password() {
 
       
     };
+
+    const passwordConfirming = (data) => {
+
+      var code = data.code;
+      var newPassword = data.confirmPassword;
+
+      user = new AmazonCognitoIdentity.CognitoUser({
+        Username: userEmail,
+        Pool: userPool,
+      });
+
+      user.confirmPassword(code, newPassword, {
+        onSuccess() {
+          console.log("Yes");
+        },
+        onFailure(err) {  
+          console.log(err)
+        }
+      })
+    }
 
     return (
         <Grid
@@ -132,32 +161,86 @@ function Password() {
           <ParticleComponent />
           <Grid container direction={"column"} justify={"center"} alignItems={"center"}>
               <form style={{width: '100%', maxWidth: '400px'}} noValidate onSubmit={handleSubmit(onSubmit)}>
-                  <Grid item>
-                  <Typography className={classes.label}>Please fill in your email</Typography>
-                  <br/>
-                  <TextField 
-                      className={classes.textBox}
-                      inputProps={{ style: { fontSize: 24 } }}
-                      inputRef={register}
-                      required
-                      fullWidth
-                      type={"email"}
-                      id="email"
-                      name="email"
-                  />
-                  </Grid>
-                  <br/>
-                  <Grid item>
-                  <Button
-                      className={classes.loginButton}
-                      type={"submit"}
-                      color="primary"
-                      variant={"outlined"}
-                  >
-                      Submit
-                  </Button>
-                  </Grid>
+                {!success && (
+                  <div>
+                    <Grid item>
+                    <Typography className={classes.label}>Please fill in your email</Typography>
+                    <br/>
+                    <TextField 
+                        className={classes.textBox}
+                        inputProps={{ style: { fontSize: 24 } }}
+                        inputRef={register}
+                        required
+                        fullWidth
+                        type={"email"}
+                        id="email"
+                        name="email"
+                    />
+                    </Grid>
+                    <br/>
+                    
+                      <Grid item>
+                      <Button
+                          className={classes.loginButton}
+                          type={"submit"}
+                          color="primary"
+                          variant={"outlined"}
+                      >
+                          Submit
+                      </Button>
+                      </Grid>
+                    </div>
+                  )}
               </form>
+
+              <form style={{width: '100%', maxWidth: '400px'}} noValidate onSubmit={handleSubmit(passwordConfirming)}>
+                  {success && (
+                    <div>
+                    <Grid item>
+                      <Typography className={classes.label}>Please fill in your verification code</Typography>
+                      <br/>
+                      <TextField 
+                          className={classes.textBox}
+                          inputProps={{ style: { fontSize: 24 } }}
+                          inputRef={register}
+                          required
+                          fullWidth
+                          type={"code"}
+                          id="code"
+                          name="code"
+                      />
+                    </Grid>
+                    <br/>
+                    <Grid item>
+                      <Typography className={classes.label}>Confirm new Password</Typography>
+                      <br/>
+                      <TextField 
+                          className={classes.textBox}
+                          inputProps={{ style: { fontSize: 24 } }}
+                          inputRef={register}
+                          required
+                          fullWidth
+                          type={"confirmPassword"}
+                          id="confirmPassword"
+                          name="confirmPassword"
+                      />
+                    </Grid>
+                    <br/>
+                    <Grid item>
+                      <Button
+                          className={classes.loginButton}
+                          type="submit"
+                          color="primary"
+                          variant={"outlined"}
+                      >
+                          Submit
+                      </Button>
+                      </Grid>
+                    </div>
+                  )}
+          </form>
+
+              
           </Grid>
       </Grid>
     )
