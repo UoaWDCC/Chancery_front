@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "35px",
     display: "inline-block",
     lineHeight: "40px",
-    marginTop: '5px',
+    marginTop: "5px",
   },
   save: {
     float: "right",
@@ -101,7 +101,7 @@ const useStyles = makeStyles((theme) => ({
     transform: "translate(-50%, -50%)",
 
     width: "210px",
-	maxWidth: "100%",
+    maxWidth: "100%",
 
     "&:hover": {
       borderWidth: "3px",
@@ -128,7 +128,7 @@ const useStyles = makeStyles((theme) => ({
     left: "calc(50% - 105px)",
 
     width: "210px",
-	maxWidth: "100%",
+    maxWidth: "100%",
 
     "&:hover": {
       borderStyle: "solid",
@@ -150,9 +150,9 @@ const useStyles = makeStyles((theme) => ({
 
     height: "60px",
     width: "60px",
-	"&:hover": {
+    "&:hover": {
       backgroundColor: "#B1B1B1",
-	}
+    },
   },
   rightButton: {
     position: "absolute",
@@ -164,29 +164,29 @@ const useStyles = makeStyles((theme) => ({
 
     height: "60px",
     width: "60px",
-	"&:hover": {
-	  backgroundColor: "#B1B1B1",
-	}
+    "&:hover": {
+      backgroundColor: "#B1B1B1",
+    },
   },
-  '@media (max-width: 960px)': {
-	leftButton: {
-	  left: "0",
-	  marginLeft: "-14px",
-	},
-  	rightButton: {
-	  right: "0",
-	  marginRight: "-14px",
-	},
-	questionContainer: {
-	  width: "100%",
-	},
-	questionContent: {
-	  fontSize: "20px",
-	},
-	answerContainer: {
-	  width: "100%",
-	}
-  }
+  "@media (max-width: 960px)": {
+    leftButton: {
+      left: "0",
+      marginLeft: "-14px",
+    },
+    rightButton: {
+      right: "0",
+      marginRight: "-14px",
+    },
+    questionContainer: {
+      width: "100%",
+    },
+    questionContent: {
+      fontSize: "20px",
+    },
+    answerContainer: {
+      width: "100%",
+    },
+  },
 }));
 
 function Flashcard() {
@@ -256,7 +256,13 @@ function Flashcard() {
         >
           <React.Fragment>
             <Grid container justify="center">
-              <Grid item container xs={12} md={5} style={{paddingRight: '40px'}}>
+              <Grid
+                item
+                container
+                xs={12}
+                md={5}
+                style={{ paddingRight: "40px" }}
+              >
                 <Tag text={currentFlashcard.topic} />
                 <Tag text={currentFlashcard.difficulty} />
               </Grid>
@@ -265,7 +271,14 @@ function Flashcard() {
                   {currentIndex + 1} / {displayedFlashcards.length}
                 </Typography>
               </Grid>
-              <Grid item container xs={12} md={5} justify="flex-end" style={{ height: '40px' }}>
+              <Grid
+                item
+                container
+                xs={12}
+                md={5}
+                justify="flex-end"
+                style={{ height: "40px" }}
+              >
                 <Typography
                   className={classes.subheading}
                   style={{ fontSize: 25, marginTop: 8 }}
@@ -332,7 +345,7 @@ function Flashcard() {
             {show && (
               <Button
                 id="show-button"
-				href="#top"
+                href="#top"
                 className={classes.hideButton}
                 color="primary"
                 variant={"contained"}
