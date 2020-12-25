@@ -21,6 +21,8 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { useHotkeys } from "react-hotkeys-hook";
 
+import topicFormat from "../helperFunctions/topicFormat";
+
 const useStyles = makeStyles((theme) => ({
   page: {
     color: theme.palette.type === "dark" ? "#fff" : "#818181",
@@ -263,7 +265,7 @@ function Flashcard() {
                 md={5}
                 style={{ paddingRight: "40px" }}
               >
-                <Tag text={currentFlashcard.topic} />
+                <Tag text={topicFormat(currentFlashcard.topic)} />
                 <Tag text={currentFlashcard.difficulty} />
               </Grid>
               <Grid item container xs={12} md={2} justify="center">
