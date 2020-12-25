@@ -5,6 +5,8 @@ import Flashcard from "../components/Flashcard";
 import HotkeyBox from "../components/HotkeyBox";
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
+import "bootstrap/dist/css/bootstrap.css";
+var classNames = require("classnames");
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,9 +31,9 @@ function Revise() {
           justify={"center"}
           alignItems={"flex-start"}
         >
-          <div>
+          <Box display={{ xs: "none", md: "block" }}>
             <FilterBox />
-          </div>
+          </Box>
         </Grid>
         <Grid
           container
@@ -47,6 +49,11 @@ function Revise() {
           <Grid item>
             <Box display={{ xs: "none", md: "block" }}>
               <HotkeyBox />
+            </Box>
+          </Grid>
+          <Grid item className={classNames("w-100", "pt-5")}>
+            <Box display={{ xs: "block", md: "none" }}>
+              <FilterBox />
             </Box>
           </Grid>
         </Grid>

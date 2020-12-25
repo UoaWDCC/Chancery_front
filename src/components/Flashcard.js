@@ -4,6 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
+import Hidden from "@material-ui/core/Hidden";
 
 import IconButton from "@material-ui/core/IconButton";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
@@ -174,10 +175,20 @@ const useStyles = makeStyles((theme) => ({
     leftButton: {
       left: "0",
       marginLeft: "-14px",
+      backgroundColor: "transparent",
+      color: "#B1B1B1",
+      "&:hover": {
+        backgroundColor: "transparent",
+      },
     },
     rightButton: {
       right: "0",
       marginRight: "-14px",
+      backgroundColor: "transparent",
+      color: "#B1B1B1",
+      "&:hover": {
+        backgroundColor: "transparent",
+      },
     },
     questionContainer: {
       width: "100%",
@@ -263,7 +274,7 @@ function Flashcard() {
                 container
                 xs={12}
                 md={5}
-                style={{ paddingRight: "40px" }}
+                style={{ paddingRight: "0px" }}
               >
                 <Tag text={topicFormat(currentFlashcard.topic)} />
                 <Tag text={currentFlashcard.difficulty} />
@@ -281,12 +292,14 @@ function Flashcard() {
                 justify="flex-end"
                 style={{ height: "40px" }}
               >
-                <Typography
-                  className={classes.subheading}
-                  style={{ fontSize: 25, marginTop: 8 }}
-                >
-                  Save&nbsp;
-                </Typography>
+                <Hidden smDown>
+                  <Typography
+                    className={classes.subheading}
+                    style={{ fontSize: 25, marginTop: 8 }}
+                  >
+                    Save&nbsp;
+                  </Typography>
+                </Hidden>
                 <Button
                   className={classes.save}
                   disableRipple
@@ -302,9 +315,11 @@ function Flashcard() {
             </Grid>
 
             <Container className={classes.questionContainer}>
-              <Typography className={classes.subheading} variant={"h4"}>
-                Q.&emsp;
-              </Typography>
+              <Hidden smDown>
+                <Typography className={classes.subheading} variant={"h4"}>
+                  Q.&emsp;
+                </Typography>
+              </Hidden>
               <Typography
                 id="question-content"
                 className={classes.questionContent}
@@ -321,13 +336,15 @@ function Flashcard() {
                 height: show ? "100%" : "200px",
               }}
             >
-              <Typography
-                id="answer-initial"
-                className={classes.subheading}
-                style={{ color: show ? "#21CE99" : "#818181" }}
-              >
-                A.&emsp;
-              </Typography>
+              <Hidden smDown>
+                <Typography
+                  id="answer-initial"
+                  className={classes.subheading}
+                  style={{ color: show ? "#21CE99" : "#818181" }}
+                >
+                  A.&emsp;
+                </Typography>
+              </Hidden>
               <AnswerContent id="answer-content" component={"span"}>
                 <pre>{currentFlashcard.answer}</pre>
               </AnswerContent>
