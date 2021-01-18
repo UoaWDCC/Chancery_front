@@ -13,8 +13,6 @@ import {ThemeProvider} from "@material-ui/styles";
 import Logo from "./components/Logo";
 import { useDispatch } from 'react-redux';
 import { fetchQuestions } from './redux/actions';
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -35,34 +33,20 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const StyledTabs = withStyles((theme) => ({
-    indicator: {
-        display: 'flex',
-        justifyContent: 'center',
-        backgroundColor: 'transparent',
-        '& > span': {
-            maxWidth: 85,
-            width: '100%',
-            backgroundColor: theme.palette.primary.contrastText,
-        },
-        height: '4px',
-    },
-    root: {
-        float: 'right',
-        paddingRight: '20px',
-    }
-}))((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
-
 const StyledTab = withStyles((theme) => ({
     root: {
         textTransform: 'uppercase',
         fontWeight: 'bold',
-        fontSize: '25px',
+        fontSize: '1.6vw',
         color: theme.color,
         marginRight: theme.spacing(1),
+        
         '&:focus': {
             opacity: 1,
         },
+        '&:hover': {
+            textDecoration: 'none',
+        }
     },
 }))((props) => <Tab disableRipple {...props} />);
 
@@ -126,7 +110,7 @@ function App() {
                                 path="/"
                                 render={({ location }) => (
                                     <Fragment>
-                                        <AppBar position={"fixed"} style={{boxShadow: 'none', paddingTop: 10, backgroundColor: isHome()}}>
+                                        {/* <AppBar position={"fixed"} style={{boxShadow: 'none', paddingTop: 10, backgroundColor: isHome()}}>
                                             <Toolbar>
                                                 <Logo/>
                                                 <div className={classes.nav} style={{backgroundColor: isHome()}}>
@@ -139,8 +123,34 @@ function App() {
                                                     </StyledTabs>
                                                 </div>
                                             </Toolbar>
-
                                         </AppBar>
+ */}
+                                        <nav class="navbar navbar-expand-lg navbar-light" style={{boxShadow: 'none', paddingTop: '10', backgroundColor: isHome()}}>
+                                            <a class="navbar-brand" href="#"><Logo/></a>
+                                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                                                <span class="navbar-toggler-icon"></span>
+                                            </button>
+                                            <div class="collapse navbar-collapse" id="navbarNav">
+                                                <ul class="navbar-nav ml-auto" style={{display: 'flex', alignItems: 'center'}}>
+                                                    <li class="nav-item active">
+                                                        <StyledTab label="Home" value="/" component={Link} to={allTabs[0]} />
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <StyledTab label="Revise" value="/revise" component={Link} to={allTabs[1]} />
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <StyledTab label="Saved" value="/saved" component={Link} to={allTabs[2]}/>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <StyledTab label="My Account" onClick={handleClick} style={{paddingLeft: 25}} />
+                                                    </li>
+                                                    <li class="nav-item">
+                                                    <AccountMenu anchorEl={anchorEl} onClose={handleClose} setDarkMode={setDarkMode} darkMode={darkMode}/>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </nav>
+
                                         <div>
                                             <Switch>
                                                 <Route path={allTabs[1]} render={() => <Revise/>} />
