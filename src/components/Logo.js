@@ -7,8 +7,8 @@ import {Link} from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
     logo: {
-        height: 60,
-        width: 60,
+        width: '5vw',
+        maxWidth: '60px',
         borderRadius: 7,
     },
     logoDiv: {
@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
     },
     logoText: {
         textTransform: "uppercase",
-        fontSize: 35,
+        fontSize: '3vw',
         fontWeight: 'bold',
     }, 
     

@@ -27,9 +27,7 @@ const useStyles = makeStyles(() => ({
     },
     logo: {
         height: 60,
-        width: 60,
-        marginTop: 10,
-        marginLeft: 10,
+        width: 60
     },
 }));
 
@@ -126,7 +124,7 @@ function App() {
                                         </AppBar>
  */}
                                         <nav class="navbar navbar-expand-lg navbar-light" style={{boxShadow: 'none', paddingTop: '10', backgroundColor: isHome()}}>
-                                            <a class="navbar-brand" href="#"><Logo/></a>
+                                            <a class="navbar-brand" href="#" style={{marginTop: '10px', marginLeft: '10px'}}><Logo/></a>
                                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                                                 <span class="navbar-toggler-icon"></span>
                                             </button>
