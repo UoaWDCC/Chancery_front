@@ -108,21 +108,10 @@ function App() {
                                 path="/"
                                 render={({ location }) => (
                                     <Fragment>
-                                        {/* <AppBar position={"fixed"} style={{boxShadow: 'none', paddingTop: 10, backgroundColor: isHome()}}>
-                                            <Toolbar>
-                                                <Logo/>
-                                                <div className={classes.nav} style={{backgroundColor: isHome()}}>
-                                                    <StyledTabs value={location.pathname} aria-label="styled tabs example">
-                                                        <StyledTab label="Home" value="/" component={Link} to={allTabs[0]} />
-                                                        <StyledTab label="Revise" value="/revise" component={Link} to={allTabs[1]} />
-                                                        <StyledTab label="Saved" value="/saved" component={Link} to={allTabs[2]}/>
-                                                        <StyledTab label="My Account" onClick={handleClick} style={{paddingLeft: 25}} />
-                                                        <AccountMenu anchorEl={anchorEl} onClose={handleClose} setDarkMode={setDarkMode} darkMode={darkMode}/>
-                                                    </StyledTabs>
-                                                </div>
-                                            </Toolbar>
-                                        </AppBar>
- */}
+                                        
+                                        {
+                                            // This block is navbar at the top of the page
+                                        }
                                         <nav class="navbar navbar-expand-lg navbar-light" style={{boxShadow: 'none', paddingTop: '10', backgroundColor: isHome()}}>
                                             <a class="navbar-brand" href="#" style={{marginTop: '10px', marginLeft: '10px'}}><Logo/></a>
                                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
