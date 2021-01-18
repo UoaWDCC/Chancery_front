@@ -15,7 +15,10 @@ function ParticleComponent() {
             }}
         >
             <Particles
+                width='100vw'
+                height='100vh'
                 params={{
+                    
                     particles: {
                         color: {
                             value: theme.palette.primary.main
