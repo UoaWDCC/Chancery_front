@@ -10,9 +10,12 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import ParticleComponent from "../components/ParticleComponent";
 import clsx from "clsx";
+import { postUserInfo } from '../api/userApi';
+import { useHistory } from "react-router-dom";
+
+
 import {
     CognitoUserPool,
-    AmazonCognitoIdentity,
     CognitoUserAttribute,
 } from "amazon-cognito-identity-js";
 
@@ -98,10 +101,12 @@ function StyledCheckbox(props) {
 }
 
 function SignUp() {
-
+    
     const classes = useStyles();
     const [confirmError, setConfirmError] = useState(false);
     const { register, handleSubmit } = useForm();
+
+    let history = useHistory();
 
     const poolData = {
         UserPoolId: "ap-southeast-2_9hmZTBuah",
@@ -109,11 +114,12 @@ function SignUp() {
     };
     var userPool = new CognitoUserPool(poolData);
 
-    const onSubmit = (data) => {
-        console.log(data);
+    const onSubmit = async (data) => {
         data.password !== data.confirmPassword
             ? setConfirmError(true)
             : setConfirmError(false);
+
+        
 
         var attributeList = [];
 
@@ -143,14 +149,32 @@ function SignUp() {
             null,
             function (err, result) {
                 if (err) {
-                    console.log(err);
+                    alert(err.message);
                     return;
                 } else {
                     var cognitoUser = result.user;
                     console.log("user name is " + cognitoUser.getUsername());
+
+                    let param = {
+                        "emailAddress": data.email,
+                        "firstName": data.fname,
+                        "lastName": data.lname
+                    }
+                    try{
+                        postUserInfo(param);
+                    }catch(err){
+                        return;
+                    }
+                    
+
+                    history.push("/login");
                 }
             }
         );
+
+        
+
+        
     };
 
     return (

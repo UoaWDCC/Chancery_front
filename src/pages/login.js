@@ -19,7 +19,6 @@ AWS.config.region = 'ap-southeast-2';
 
 // Modules, e.g. Webpack:
 var AmazonCognitoIdentity = require('amazon-cognito-identity-js');
-var CognitoUserPool = AmazonCognitoIdentity.CognitoUserPool;
 
 
 const useStyles = makeStyles((theme) => ({
@@ -108,14 +107,12 @@ function StyledCheckbox(props) {
   );
 }
 
-function Login() {
+function Login(props) {
   const classes = useStyles();
   const {register, handleSubmit} = useForm()
   let history = useHistory();
 
   const onSubmit = (data) => {
-    console.log(data)
-
     var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails({
       Username: data.email,
       Password: data.password,
@@ -129,8 +126,7 @@ function Login() {
     var user = new AmazonCognitoIdentity.CognitoUser({
         Username: data.email,
         Pool: userPool,
-
-  });
+    });
 
   // History to redirect to revise page
 
@@ -146,19 +142,16 @@ function Login() {
       
       // Use Access token to init user with AWS Creds
       AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-        IdentityPoolId: 'ap-southeast-2:90f238b4-e089-4270-bd29-f156984112cd',
+        IdentityPoolId: 'ap-southeast-2:4ca5f7a7-14e9-411d-b0f0-0c40fd8c67b2',
         Logins: {
             'cognito-idp.ap-southeast-2.amazonaws.com/ap-southeast-2_9hmZTBuah': accessToken
         }
       });
-    
       AWS.config.credentials.get(function(err){
         if (err) {
             alert(err);
         }
       });  
-
-      console.log(AWS.config.credentials);
 
       history.push("/revise");
 

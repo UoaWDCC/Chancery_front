@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import ParticleComponent from "../components/ParticleComponent";
@@ -10,7 +9,6 @@ import {useForm} from "react-hook-form";
 
 // Modules, e.g. Webpack:
 var AmazonCognitoIdentity = require('amazon-cognito-identity-js');
-var CognitoUserPool = AmazonCognitoIdentity.CognitoUserPool;
 
 const useStyles = makeStyles((theme) => ({
     label: {

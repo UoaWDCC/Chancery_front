@@ -168,23 +168,23 @@ function Flashcard() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentFlashcard, setCurrentFlashcard] = useState(flashcardsBank[0]);
 
-  const previousFlashcard = () => {
+  const previousFlashcard = useCallback(() => {
     setCurrentFlashcard(
       currentIndex === 0
         ? flashcardsBank[flashcardsBank.length - 1]
         : flashcardsBank[currentIndex - 1]
     );
     setShowAnswer(false);
-  };
+  }, [currentIndex, flashcardsBank]);
 
-  const nextFlashcard = () => {
+  const nextFlashcard = useCallback(() => {
     setCurrentFlashcard(
       currentIndex === flashcardsBank.length - 1
         ? flashcardsBank[0]
         : flashcardsBank[currentIndex + 1]
     );
     setShowAnswer(false);
-  };
+  },[currentIndex, flashcardsBank]);
 
   /**
    * shuffle the order of the flashcards array
@@ -217,17 +217,17 @@ function Flashcard() {
   useEffect(() => {
       setCurrentIndex(0);
       setFlashcardsBank(shuffle(selectedIds.length === 0 ? fullBank : fullBank.filter(flashcard => selectedIds.includes(flashcard.id))));
-  }, [selectedIds]);
+  }, [selectedIds, fullBank]);
 
   useEffect(()=> {
       setCurrentFlashcard(flashcardsBank[0]);
   }, [flashcardsBank]);
 
   useEffect(()=> {
-    if (currentFlashcard != undefined) {
+    if (currentFlashcard !== undefined) {
       setCurrentIndex(flashcardsBank.findIndex(flashcard => flashcard.id === currentFlashcard.id))
     }
-  }, [currentFlashcard]);
+  }, [currentFlashcard, flashcardsBank]);
 
   const [show, setShowAnswer] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -256,7 +256,7 @@ function Flashcard() {
     }
     
     setMove("");
-  }, [move]);
+  }, [move, nextFlashcard, previousFlashcard]);
   
   return (
     <div style={{ height: "100%", maxWidth: 1150 }}>

@@ -145,7 +145,7 @@ function FilterBox() {
     } else {
       loaded.current = true;
     }
-  }, [selectedTopics, selectedDifficulties]);
+  }, [selectedTopics, selectedDifficulties, dispatch]);
   
   const topicCheckBoxes = topics.map((topic) => (
     <FormControlLabel

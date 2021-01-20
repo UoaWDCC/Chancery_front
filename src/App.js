@@ -145,7 +145,7 @@ function App() {
                                                         <StyledTab label="Home" value="/" component={Link} to={allTabs[0]} />
                                                         <StyledTab label="Revise" value="/revise" component={Link} to={allTabs[1]} />
                                                         <StyledTab label="Saved" value="/saved" component={Link} to={allTabs[2]}/>
-                                                        <StyledTab label="My Account" onClick={handleClick} style={{paddingLeft: 25}} />
+                                                        <StyledTab label="My Account" onClick={handleClick} style={{paddingLeft: 25}}/>
                                                         <AccountMenu anchorEl={anchorEl} onClose={handleClose} setDarkMode={setDarkMode} darkMode={darkMode}/>
                                                     </StyledTabs>
                                                 </div>}
@@ -155,7 +155,7 @@ function App() {
                                         <div>
                                             <Switch>
                                                 <Route path={allTabs[5]} render={() => <Password/>} />
-                                                <Route path={allTabs[4]} render={() => <Login/>} />
+                                                <Route path={allTabs[4]} component={() => <Login/>} />
                                                 <Route path={allTabs[3]} render={() => <SignUp/>} />
                                                 <Route path={allTabs[1]} render={() => <Revise/>} />
                                                 <Route path={allTabs[2]} render={() => <Saved/>} />
