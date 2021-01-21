@@ -110,7 +110,6 @@ function Password() {
       if(user){
         user.forgotPassword({
           onSuccess: function(data){
-            console.log(data);
             handleSuccess(true);
           },
           onFailure: function(err) {
@@ -138,7 +137,6 @@ function Password() {
 
       user.confirmPassword(code, newPassword, {
         onSuccess() {
-          console.log("Yes");
         },
         onFailure(err) {  
           console.log(err)

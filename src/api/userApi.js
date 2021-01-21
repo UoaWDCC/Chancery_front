@@ -15,8 +15,7 @@ export const postUserInfo = async (user) => {
         await fetch(`${API_ROOT}/users/post/`, {
             method: 'POST',
             body: JSON.stringify(user)
-        }).then(result => result.json())
-          .then(result => console.log(result));
+        }).then(result => result.json());
     } catch (error) {
         console.log(error);
     }

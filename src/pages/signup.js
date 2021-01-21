@@ -153,7 +153,6 @@ function SignUp() {
                     return;
                 } else {
                     var cognitoUser = result.user;
-                    console.log("user name is " + cognitoUser.getUsername());
 
                     let param = {
                         "emailAddress": data.email,

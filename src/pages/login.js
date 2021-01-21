@@ -136,8 +136,6 @@ function Login(props) {
   
   user.authenticateUser(authenticationDetails, {
     onSuccess: function(result) {
-      console.log(result)
-      console.log("Token : " + result.getIdToken().getJwtToken());
       var accessToken = result.getIdToken().getJwtToken();
       
       // Use Access token to init user with AWS Creds
@@ -184,7 +182,6 @@ function Login(props) {
     },
 
     newPasswordRequired: function (data) {
-      console.log(data);
     }
 });
   }
