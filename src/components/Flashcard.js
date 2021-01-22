@@ -4,6 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
+import Hidden from "@material-ui/core/Hidden";
 
 import IconButton from "@material-ui/core/IconButton";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
@@ -21,13 +22,15 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { useHotkeys } from "react-hotkeys-hook";
 
+import topicFormat from "../helperFunctions/topicFormat";
+
 const useStyles = makeStyles((theme) => ({
   page: {
     color: theme.palette.type === "dark" ? "#fff" : "#818181",
     fontSize: "35px",
     display: "inline-block",
     lineHeight: "40px",
-    marginTop: '5px',
+    marginTop: "5px",
   },
   save: {
     float: "right",
@@ -101,7 +104,7 @@ const useStyles = makeStyles((theme) => ({
     transform: "translate(-50%, -50%)",
 
     width: "210px",
-	maxWidth: "100%",
+    maxWidth: "100%",
 
     "&:hover": {
       borderWidth: "3px",
@@ -128,7 +131,7 @@ const useStyles = makeStyles((theme) => ({
     left: "calc(50% - 105px)",
 
     width: "210px",
-	maxWidth: "100%",
+    maxWidth: "100%",
 
     "&:hover": {
       borderStyle: "solid",
@@ -150,9 +153,9 @@ const useStyles = makeStyles((theme) => ({
 
     height: "60px",
     width: "60px",
-	"&:hover": {
+    "&:hover": {
       backgroundColor: "#B1B1B1",
-	}
+    },
   },
   rightButton: {
     position: "absolute",
@@ -164,29 +167,39 @@ const useStyles = makeStyles((theme) => ({
 
     height: "60px",
     width: "60px",
-	"&:hover": {
-	  backgroundColor: "#B1B1B1",
-	}
+    "&:hover": {
+      backgroundColor: "#B1B1B1",
+    },
   },
-  '@media (max-width: 960px)': {
-	leftButton: {
-	  left: "0",
-	  marginLeft: "-14px",
-	},
-  	rightButton: {
-	  right: "0",
-	  marginRight: "-14px",
-	},
-	questionContainer: {
-	  width: "100%",
-	},
-	questionContent: {
-	  fontSize: "20px",
-	},
-	answerContainer: {
-	  width: "100%",
-	}
-  }
+  "@media (max-width: 960px)": {
+    leftButton: {
+      left: "0",
+      marginLeft: "-14px",
+      backgroundColor: "transparent",
+      color: "#B1B1B1",
+      "&:hover": {
+        backgroundColor: "transparent",
+      },
+    },
+    rightButton: {
+      right: "0",
+      marginRight: "-14px",
+      backgroundColor: "transparent",
+      color: "#B1B1B1",
+      "&:hover": {
+        backgroundColor: "transparent",
+      },
+    },
+    questionContainer: {
+      width: "100%",
+    },
+    questionContent: {
+      fontSize: "20px",
+    },
+    answerContainer: {
+      width: "100%",
+    },
+  },
 }));
 
 function Flashcard() {
@@ -256,8 +269,14 @@ function Flashcard() {
         >
           <React.Fragment>
             <Grid container justify="center">
-              <Grid item container xs={12} md={5} style={{paddingRight: '40px'}}>
-                <Tag text={currentFlashcard.topic} />
+              <Grid
+                item
+                container
+                xs={12}
+                md={5}
+                style={{ paddingRight: "0px" }}
+              >
+                <Tag text={topicFormat(currentFlashcard.topic)} />
                 <Tag text={currentFlashcard.difficulty} />
               </Grid>
               <Grid item container xs={12} md={2} justify="center">
@@ -265,13 +284,22 @@ function Flashcard() {
                   {currentIndex + 1} / {displayedFlashcards.length}
                 </Typography>
               </Grid>
-              <Grid item container xs={12} md={5} justify="flex-end" style={{ height: '40px' }}>
-                <Typography
-                  className={classes.subheading}
-                  style={{ fontSize: 25, marginTop: 8 }}
-                >
-                  Save&nbsp;
-                </Typography>
+              <Grid
+                item
+                container
+                xs={12}
+                md={5}
+                justify="flex-end"
+                style={{ height: "40px" }}
+              >
+                <Hidden smDown>
+                  <Typography
+                    className={classes.subheading}
+                    style={{ fontSize: 25, marginTop: 8 }}
+                  >
+                    Save&nbsp;
+                  </Typography>
+                </Hidden>
                 <Button
                   className={classes.save}
                   disableRipple
@@ -287,9 +315,11 @@ function Flashcard() {
             </Grid>
 
             <Container className={classes.questionContainer}>
-              <Typography className={classes.subheading} variant={"h4"}>
-                Q.&emsp;
-              </Typography>
+              <Hidden smDown>
+                <Typography className={classes.subheading} variant={"h4"}>
+                  Q.&emsp;
+                </Typography>
+              </Hidden>
               <Typography
                 id="question-content"
                 className={classes.questionContent}
@@ -306,13 +336,15 @@ function Flashcard() {
                 height: show ? "100%" : "200px",
               }}
             >
-              <Typography
-                id="answer-initial"
-                className={classes.subheading}
-                style={{ color: show ? "#21CE99" : "#818181" }}
-              >
-                A.&emsp;
-              </Typography>
+              <Hidden smDown>
+                <Typography
+                  id="answer-initial"
+                  className={classes.subheading}
+                  style={{ color: show ? "#21CE99" : "#818181" }}
+                >
+                  A.&emsp;
+                </Typography>
+              </Hidden>
               <AnswerContent id="answer-content" component={"span"}>
                 <pre>{currentFlashcard.answer}</pre>
               </AnswerContent>
@@ -332,7 +364,7 @@ function Flashcard() {
             {show && (
               <Button
                 id="show-button"
-				href="#top"
+                href="#top"
                 className={classes.hideButton}
                 color="primary"
                 variant={"contained"}
