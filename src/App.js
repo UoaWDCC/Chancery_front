@@ -114,11 +114,7 @@ function App() {
 											class="navbar navbar-expand-lg navbar-light"
 											style={{ boxShadow: 'none', paddingTop: '10', backgroundColor: isHome() }}
 										>
-											<a
-												class="navbar-brand"
-												href="#!"
-												style={{ marginTop: '10px', marginLeft: '10px' }}
-											>
+											<a class="navbar-brand" href="#!" style={{ marginTop: '10px', marginLeft: '10px' }}>
 												<Logo />
 											</a>
 											<button
@@ -133,40 +129,18 @@ function App() {
 												<span class="navbar-toggler-icon"></span>
 											</button>
 											<div class="collapse navbar-collapse" id="navbarNav">
-												<ul
-													class="navbar-nav ml-auto"
-													style={{ display: 'flex', alignItems: 'center' }}
-												>
+												<ul class="navbar-nav ml-auto" style={{ display: 'flex', alignItems: 'center' }}>
 													<li class="nav-item active">
-														<StyledTab
-															label="Home"
-															value="/"
-															component={Link}
-															to={allTabs[0]}
-														/>
+														<StyledTab label="Home" value="/" component={Link} to={allTabs[0]} />
 													</li>
 													<li class="nav-item">
-														<StyledTab
-															label="Revise"
-															value="/revise"
-															component={Link}
-															to={allTabs[1]}
-														/>
+														<StyledTab label="Revise" value="/revise" component={Link} to={allTabs[1]} />
 													</li>
 													<li class="nav-item">
-														<StyledTab
-															label="Saved"
-															value="/saved"
-															component={Link}
-															to={allTabs[2]}
-														/>
+														<StyledTab label="Saved" value="/saved" component={Link} to={allTabs[2]} />
 													</li>
 													<li class="nav-item">
-														<StyledTab
-															label="My Account"
-															onClick={handleClick}
-															style={{ paddingLeft: 25 }}
-														/>
+														<StyledTab label="My Account" onClick={handleClick} style={{ paddingLeft: 25 }} />
 													</li>
 													<li class="nav-item">
 														<AccountMenu
@@ -179,7 +153,6 @@ function App() {
 												</ul>
 											</div>
 										</nav>
-
 										<div>
 											<Switch>
 												<Route path={allTabs[1]} render={() => <Revise />} />
