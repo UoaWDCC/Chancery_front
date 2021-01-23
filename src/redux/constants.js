@@ -34,7 +34,7 @@ export const DISCOUNTED_CASH_FLOW = 'Discounted Cash Flow';
 
 export const MERGER_MODEL = 'Merger Model';
 
-export const LEVERAGED_BUY_OUT = 'Leveraged Buyout';
+export const LEVERAGED_BUY_OUT = 'LBO';
 
 export const topics = [
     ACCOUNTING,
