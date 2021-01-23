@@ -117,7 +117,7 @@ function FilterBox() {
       style={{ padding: "6px" }}
       value={topic}
       control={<StyledCheckbox checked={checkedStates[topic]}/>}
-      label={<Typography className={classes.label}>{topic}</Typography>}
+      label={<Typography className={classes.label}>{topic === "LBO" ? "Leveraged Buyout" : topic}</Typography>}
       labelPlacement="end"
       key={topic}
       onChange={(event) => applyTopicFilters(event, topic)}
