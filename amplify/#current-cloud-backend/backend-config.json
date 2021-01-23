@@ -1,0 +1,10 @@
+{
+  "auth": {
+    "chanceryfront31dda214": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}

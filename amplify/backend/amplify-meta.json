@@ -1,0 +1,38 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-chanceryfront-dev-121255-authRole",
+      "UnauthRoleArn": "arn:aws:iam::752922342352:role/amplify-chanceryfront-dev-121255-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::752922342352:role/amplify-chanceryfront-dev-121255-authRole",
+      "Region": "ap-southeast-2",
+      "DeploymentBucketName": "amplify-chanceryfront-dev-121255-deployment",
+      "UnauthRoleName": "amplify-chanceryfront-dev-121255-unauthRole",
+      "StackName": "amplify-chanceryfront-dev-121255",
+      "StackId": "arn:aws:cloudformation:ap-southeast-2:752922342352:stack/amplify-chanceryfront-dev-121255/633c9100-5d07-11eb-99d4-061661297ac6",
+      "AmplifyAppId": "d1uv8tj9wupsmu"
+    }
+  },
+  "auth": {
+    "chanceryfront31dda214": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-chanceryfront-dev-121255-deployment/amplify-cfn-templates/auth/chanceryfront31dda214-cloudformation-template.yml",
+        "logicalId": "authchanceryfront31dda214"
+      },
+      "lastPushTimeStamp": "2021-01-22T23:19:54.379Z",
+      "output": {
+        "AppClientSecret": "15c0h1lpi8khnoihoihlhc92tithuip4se1r2ijqkd3b8ee8mtpo",
+        "UserPoolId": "ap-southeast-2_Pmbx3i3bl",
+        "AppClientIDWeb": "2j2p8vkbtphpbo5k0499iqra82",
+        "AppClientID": "2ptuv217c2hnj9aul0dc63r2vo",
+        "IdentityPoolId": "ap-southeast-2:39b32cc8-cb59-4672-95b7-19c6e3cc5529",
+        "IdentityPoolName": "chanceryfront31dda214_identitypool_31dda214__dev",
+        "UserPoolName": "chanceryfront31dda214_userpool_31dda214"
+      },
+      "lastPushDirHash": "dtn5UqD7EBr1ZZuVYEBcZ99jDqs="
+    }
+  }
+}
