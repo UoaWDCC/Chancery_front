@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
@@ -46,29 +46,41 @@ function Home() {
   const classes = useStyles();
 
   return (
+    <Grid
+      className={"welcome-page"}
+      container
+      spacing={0}
+      direction="column"
+      alignItems="center"
+      justify="center"
+      style={{ minHeight: "100vh" }}
+    >
+      <ParticleComponent />
       <Grid
-          className={"welcome-page"}
-          container
-          spacing={0}
-          direction="column"
-          alignItems="center"
-          justify="center"
-          style={{ minHeight: "100vh" }}
+        className={"welcome-container"}
+        item
+        container
+        direction="column"
+        alignItems="center"
       >
-        <ParticleComponent />
-        <Grid className={"welcome-container"} item container direction="column" alignItems="center">
-          <img src={Logo} className={classes.logo} alt="Logo"/>
-          <Typography className={classes.title} variant={"h1"} color={"primary"}>
-            Chancery
-          </Typography>
-          <Typography className={classes.subheading} variant={"h2"}>
-            Prepare for your next investment banking interview
-          </Typography>
-          <Link to={"/login"} style={{textDecoration: "none"}}>
-            <Button variant={"outlined"} className={classes.button} color={"primary"}>Start Revising</Button>
-          </Link>
-        </Grid>
+        <img src={Logo} className={classes.logo} alt="Logo" />
+        <Typography className={classes.title} variant={"h1"} color={"primary"}>
+          Chancery
+        </Typography>
+        <Typography className={classes.subheading} variant={"h2"}>
+          Prepare for your next investment banking interview
+        </Typography>
+        <Link to={"/login"} style={{ textDecoration: "none" }}>
+          <Button
+            variant={"outlined"}
+            className={classes.button}
+            color={"primary"}
+          >
+            Start Revising
+          </Button>
+        </Link>
       </Grid>
+    </Grid>
   );
 }
 
