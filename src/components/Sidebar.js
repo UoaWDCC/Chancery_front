@@ -3,35 +3,33 @@ import { stack as Menu } from "react-burger-menu";
 import "./Sidebar.css";
 import AccountMenu from "../components/AccountMenu";
 import { Link } from "react-router-dom";
+import { Button } from "@material-ui/core";
 
 function Sidebar(props) {
   const { darkMode, setDarkMode, handleClick, handleClose, anchorEl } = props;
   return (
     <Menu {...props}>
       <Link className="menu-item" to="/">
-        Home
+        <Button style={{ width: "100%", textAlign: "left", outline: "none" }}>
+          Home
+        </Button>
       </Link>
 
       <Link className="menu-item" to="/revise">
-        Revise
+        <Button style={{ width: "100%" }}>Revise</Button>
       </Link>
 
       <Link className="menu-item" to="/saved">
-        Saved
+        <Button style={{ width: "100%" }}>Saved</Button>
       </Link>
 
-      <button
+      <Button
+        style={{ width: "100%", textAlign: "center" }}
         className="menu-item"
         onClick={handleClick}
-        style={{
-          fontSize: "23px",
-          background: "transparent",
-          border: "none",
-          textAlign: "left",
-        }}
       >
         My Account
-      </button>
+      </Button>
 
       <AccountMenu
         anchorEl={anchorEl}
