@@ -59,7 +59,7 @@ const StyledTabs = withStyles((theme) => ({
     },
   },
 }))((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
-
+    
 const StyledTab = withStyles((theme) => ({
   root: {
     textTransform: "uppercase",
