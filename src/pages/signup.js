@@ -5,17 +5,11 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import ParticleComponent from "../components/ParticleComponent";
-import clsx from "clsx";
+import { Redirect, useHistory } from "react-router-dom";
+import { Auth } from "aws-amplify";
 import { postUserInfo } from "../api/userApi";
-import { useHistory } from "react-router-dom";
-import Amplify, { Auth } from "aws-amplify";
-import awsconfig from "../aws-exports";
-
-Amplify.configure(awsconfig);
 
 const useStyles = makeStyles((theme) => ({
   heading: {
@@ -80,36 +74,49 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function StyledCheckbox(props) {
+function SignUp(props) {
   const classes = useStyles();
-  return (
-    <Checkbox
-      className={classes.root}
-      disableRipple
-      color="primary"
-      checkedIcon={<span className={clsx(classes.icon, classes.checkedIcon)} />}
-      icon={<span className={classes.icon} />}
-      inputProps={{ "aria-label": "decorative checkbox" }}
-      {...props}
-    />
-  );
-}
-
-function SignUp() {
-  const classes = useStyles();
-  const [confirmError, setConfirmError] = useState(false);
+  const [confirmPasswordError, setPasswordConfirmError] = useState(false);
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
+  const [emailErrorMessage, setEmailErrorMessage] = useState("");
+  const [emailError, setEmailError] = useState(false);
   const { register, handleSubmit } = useForm();
 
   let history = useHistory();
 
   const onSubmit = async (data) => {
-    data.password !== data.confirmPassword
-      ? setConfirmError(true)
-      : setConfirmError(false);
+    if (data.password !== data.confirmPassword) {
+      setPasswordConfirmError(true);
+      setPasswordErrorMessage("passwords do not match");
+    } else {
+      setPasswordConfirmError(false);
+    }
 
-    let username = data.email;
+    let username = data.email.toLowerCase();
     let password = data.password;
-    let email = data.email;
+    let email = data.email.toLowerCase();
+    let firstName = data.fname;
+    let lastName = data.lname;
+
+    console.log(firstName);
+
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (re.test(email.toLowerCase())) {
+      setEmailError(false);
+    } else {
+      setEmailError(true);
+      setEmailErrorMessage("This email address is not in the correct format");
+    }
+
+    const pe = /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)(?=.*[ !'{}@#;`$.%"\\,()/:<>[\]_|~+^&\-+?*]).{8,128}$/;
+    if (pe.test(password)) {
+      setPasswordConfirmError(false);
+    } else {
+      setPasswordConfirmError(true);
+      setPasswordErrorMessage(
+        "passwords needs to be longer than 8, and contains at least one large case, lower case, and special symbol"
+      );
+    }
 
     try {
       await Auth.signUp({
@@ -117,10 +124,26 @@ function SignUp() {
         password,
         attributes: { email },
       });
+      setEmailError(false);
+      let param = {
+        emailAddress: username,
+        firstName: firstName,
+        lastName: lastName,
+      };
+
+      postUserInfo(param);
+
+      history.push("/login");
     } catch (err) {
       console.log(err);
+      setEmailErrorMessage("This email address is taken");
+      setEmailError(true);
     }
   };
+
+  if (props.isUserLoggedIn === "loggedIn") {
+    return <Redirect to="/revise" />;
+  }
 
   return (
     <Grid
@@ -178,6 +201,8 @@ function SignUp() {
               inputProps={{ style: { fontSize: 24 } }}
               inputRef={register}
               required
+              error={emailError}
+              helperText={emailError && emailErrorMessage}
               fullWidth
               type={"email"}
               id="email"
@@ -192,6 +217,8 @@ function SignUp() {
               inputProps={{ style: { fontSize: 24 } }}
               inputRef={register}
               required
+              error={confirmPasswordError}
+              helperText={confirmPasswordError && passwordErrorMessage}
               fullWidth
               type={"password"}
               id="password"
@@ -202,8 +229,8 @@ function SignUp() {
             <Typography className={classes.label}>Confirm Password</Typography>
             <TextField
               className={classes.textBox}
-              error={confirmError}
-              helperText={confirmError && "passwords do not match"}
+              error={confirmPasswordError}
+              helperText={confirmPasswordError && passwordErrorMessage}
               inputProps={{ style: { fontSize: 24 } }}
               inputRef={register}
               required
@@ -213,25 +240,7 @@ function SignUp() {
               name="confirmPassword"
             />
           </Grid>
-          <Grid item>
-            <FormControlLabel
-              style={{ position: "relative" }}
-              control={
-                <StyledCheckbox
-                  inputRef={register}
-                  name={"remember"}
-                  value={"remember"}
-                  defaultValue={false}
-                  color={"primary"}
-                />
-              }
-              label={
-                <Typography className={classes.rememberMe}>
-                  Remember me
-                </Typography>
-              }
-            />
-          </Grid>
+
           <Grid item>
             <Button
               className={classes.loginButton}

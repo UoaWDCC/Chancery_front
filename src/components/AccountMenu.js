@@ -8,9 +8,8 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import SettingsIcon from "@material-ui/icons/Settings";
 import ToggleOffIcon from "@material-ui/icons/ToggleOff";
 import ToggleOnIcon from "@material-ui/icons/ToggleOn";
-import Amplify, { Auth } from "aws-amplify";
-import awsconfig from "../aws-exports";
-Amplify.configure(awsconfig);
+import { Auth } from "aws-amplify";
+import { useHistory } from "react-router-dom";
 
 const StyledMenu = withStyles((theme) => ({
   paper: {
@@ -49,11 +48,15 @@ function AccountMenu(props) {
   const darkMode = props.darkMode;
   const anchorEl = props.anchorEl;
 
+  let history = useHistory();
+
   const logout = async () => {
     try {
-      await Auth.currentAuthenticatedUser();
       await Auth.signOut();
       console.log("logged out");
+      props.updateAuthState("loggedOut");
+
+      history.push("/");
     } catch (err) {
       console.log(err);
     }

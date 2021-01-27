@@ -22,6 +22,10 @@ import Login from "./pages/login";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Password from "./pages/password";
+import { Hub } from "aws-amplify";
+import Amplify, { Auth } from "aws-amplify";
+import awsconfig from "./aws-exports";
+Amplify.configure(awsconfig);
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -78,6 +82,49 @@ function App() {
   const allTabs = ["/", "/revise", "/saved", "/signup", "/login", "/password"];
   const [anchorEl, setAnchorEl] = useState(null);
   const [darkMode, setDarkMode] = useState(false);
+  const [user, setUser] = useState(null);
+  const [isUserLoggedIn, setUserLoggedIn] = useState("initializing");
+
+  useEffect(() => {
+    Hub.listen("auth", ({ payload: { event, data } }) => {
+      switch (event) {
+        case "signIn":
+          getUser().then((userData) => setUser(userData));
+          break;
+        case "signOut":
+          setUser(null);
+          break;
+        case "signIn_failure":
+          console.log("Sign in failure", data);
+          break;
+        default:
+          break;
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    checkAuthState();
+  }, []);
+
+  async function checkAuthState() {
+    try {
+      await Auth.currentAuthenticatedUser();
+      setUserLoggedIn("loggedIn");
+    } catch (err) {
+      setUserLoggedIn("loggedOut");
+    }
+  }
+
+  const updateAuthState = (isUserLoggedIn) => {
+    setUserLoggedIn(isUserLoggedIn);
+  };
+
+  function getUser() {
+    return Auth.currentAuthenticatedUser()
+      .then((userData) => userData)
+      .catch(() => console.log("Not signed in"));
+  }
 
   const theme = createMuiTheme({
     palette: {
@@ -126,7 +173,12 @@ function App() {
   };
 
   const getPathValue = (pathname) => {
-    return pathname === "/login" || pathname === "/signup" || pathname === "/";
+    return (
+      pathname === "/login" ||
+      pathname === "/signup" ||
+      pathname === "/" ||
+      pathname === "/password"
+    );
   };
 
   return (
@@ -161,12 +213,6 @@ function App() {
                               aria-label="styled tabs example"
                             >
                               <StyledTab
-                                label="Home"
-                                value="/"
-                                component={Link}
-                                to={allTabs[0]}
-                              />
-                              <StyledTab
                                 label="Revise"
                                 value="/revise"
                                 component={Link}
@@ -188,6 +234,8 @@ function App() {
                                 onClose={handleClose}
                                 setDarkMode={setDarkMode}
                                 darkMode={darkMode}
+                                updateAuthState={updateAuthState}
+                                isUserLoggedIn={isUserLoggedIn}
                               />
                             </StyledTabs>
                           </div>
@@ -196,12 +244,35 @@ function App() {
                     </AppBar>
                     <div>
                       <Switch>
-                        <Route path={allTabs[5]} render={() => <Password />} />
-                        <Route path={allTabs[4]} component={() => <Login />} />
-                        <Route path={allTabs[3]} render={() => <SignUp />} />
+                        <Route
+                          path={allTabs[5]}
+                          render={() => (
+                            <Password isUserLoggedIn={isUserLoggedIn} />
+                          )}
+                        />
+                        <Route
+                          path={allTabs[4]}
+                          component={() => (
+                            <Login
+                              updateAuthState={updateAuthState}
+                              isUserLoggedIn={isUserLoggedIn}
+                            />
+                          )}
+                        />
+                        <Route
+                          path={allTabs[3]}
+                          render={() => (
+                            <SignUp isUserLoggedIn={isUserLoggedIn} />
+                          )}
+                        />
                         <Route path={allTabs[1]} render={() => <Revise />} />
                         <Route path={allTabs[2]} render={() => <Saved />} />
-                        <Route path={allTabs[0]} render={() => <Home />} />
+                        <Route
+                          path={allTabs[0]}
+                          render={() => (
+                            <Home name={user && user.attributes.email} />
+                          )}
+                        />
                       </Switch>
                     </div>
                   </Fragment>

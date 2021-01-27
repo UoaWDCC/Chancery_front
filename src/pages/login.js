@@ -1,21 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Logo from "../icons/Chancery_logo.png";
-import clsx from "clsx";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import TextField from "@material-ui/core/TextField";
 import ParticleComponent from "../components/ParticleComponent";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
-import Amplify, { Auth } from "aws-amplify";
-import awsconfig from "../aws-exports";
-
-Amplify.configure(awsconfig);
+import { Auth } from "aws-amplify";
 
 const useStyles = makeStyles((theme) => ({
   label: {
@@ -88,24 +82,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function StyledCheckbox(props) {
-  const classes = useStyles();
-  return (
-    <Checkbox
-      className={classes.root}
-      disableRipple
-      color="primary"
-      checkedIcon={<span className={clsx(classes.icon, classes.checkedIcon)} />}
-      icon={<span className={classes.icon} />}
-      inputProps={{ "aria-label": "decorative checkbox" }}
-      {...props}
-    />
-  );
-}
-
 function Login(props) {
   const classes = useStyles();
   const { register, handleSubmit } = useForm();
+  const [error, setError] = useState(false);
   let history = useHistory();
 
   const onSubmit = async (data) => {
@@ -113,11 +93,17 @@ function Login(props) {
     let password = data.password;
     try {
       await Auth.signIn(username, password);
+      setError(false);
+      props.updateAuthState("loggedOut");
       history.push("/revise");
     } catch (err) {
-      console.log(err);
+      setError(true);
     }
   };
+
+  if (props.isUserLoggedIn === "loggedIn") {
+    history.push("/revise");
+  }
 
   return (
     <Grid
@@ -150,6 +136,8 @@ function Login(props) {
               inputProps={{ style: { fontSize: 24 } }}
               inputRef={register}
               required
+              error={error}
+              helperText={error && "Wrong username or password"}
               fullWidth
               type={"email"}
               id="email"
@@ -173,26 +161,7 @@ function Login(props) {
           </Grid>
           <br />
           <Grid container item alignItems={"center"}>
-            <Grid item xs={6}>
-              <FormControlLabel
-                style={{ position: "relative" }}
-                control={
-                  <StyledCheckbox
-                    inputRef={register}
-                    name={"remember"}
-                    value={"remember"}
-                    defaultValue={false}
-                    color={"primary"}
-                  />
-                }
-                label={
-                  <Typography className={classes.rememberMe}>
-                    Remember me
-                  </Typography>
-                }
-              />
-            </Grid>
-            <Grid container item xs={6} justify="flex-end">
+            <Grid container item xs={6} justify="flex-start">
               <Typography style={{ position: "relative", fontSize: "18px" }}>
                 <Link href={"/password"} style={{ color: "#969696" }}>
                   Forgot Password?

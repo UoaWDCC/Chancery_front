@@ -88,19 +88,43 @@ function Password() {
 
   const [success, handleSuccess] = useState(false);
   const [userEmail, handleEmail] = useState("");
+  const [emailError, setEmailError] = useState(false);
+  const [confirmPasswordError, setPasswordConfirmError] = useState(false);
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
+  const [codeError, setCodeError] = useState(false);
 
   const { register, handleSubmit } = useForm();
   const onSubmit = async (data) => {
     try {
       handleEmail(data.email);
+      setEmailError(false);
       await Auth.forgotPassword(data.email);
       handleSuccess(true);
     } catch (err) {
-      console.log(err);
+      setEmailError(true);
     }
   };
 
   const passwordConfirming = async (data) => {
+    if (data.password !== data.confirmPassword) {
+      setPasswordConfirmError(true);
+      setPasswordErrorMessage("passwords do not match");
+      return;
+    } else {
+      setPasswordConfirmError(false);
+    }
+
+    const pe = /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)(?=.*[ !'{}@#;`$.%"\\,()/:<>[\]_|~+^&\-+?*]).{8,128}$/;
+    if (pe.test(data.password)) {
+      setPasswordConfirmError(false);
+    } else {
+      setPasswordConfirmError(true);
+      setPasswordErrorMessage(
+        "passwords needs to be longer than 8, and contains at least one large case, lower case, and special symbol"
+      );
+      return;
+    }
+
     try {
       await Auth.forgotPasswordSubmit(
         userEmail,
@@ -109,7 +133,7 @@ function Password() {
       );
       history.push("/login");
     } catch (err) {
-      console.log(err);
+      setCodeError(true);
     }
   };
 
@@ -148,6 +172,10 @@ function Password() {
                   inputRef={register}
                   required
                   fullWidth
+                  error={emailError}
+                  helperText={
+                    emailError && "This email has not been registered"
+                  }
                   type={"email"}
                   id="email"
                   name="email"
@@ -186,6 +214,8 @@ function Password() {
                   inputProps={{ style: { fontSize: 24 } }}
                   inputRef={register}
                   required
+                  error={codeError}
+                  helperText={codeError && "Wrong Code !"}
                   fullWidth
                   type={"code"}
                   id="code"
@@ -197,6 +227,19 @@ function Password() {
                 <Typography className={classes.label}>
                   Confirm new Password
                 </Typography>
+                <br />
+                <TextField
+                  className={classes.textBox}
+                  inputProps={{ style: { fontSize: 24 } }}
+                  inputRef={register}
+                  required
+                  error={confirmPasswordError}
+                  helperText={confirmPasswordError && passwordErrorMessage}
+                  fullWidth
+                  type={"password"}
+                  id="password"
+                  name="password"
+                />
                 <br />
                 <TextField
                   className={classes.textBox}
