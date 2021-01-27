@@ -19,7 +19,11 @@ import { useDispatch } from "react-redux";
 import { fetchQuestions } from "./redux/actions";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
 import Sidebar from "./components/Sidebar";
+import clsx from "clsx";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -36,6 +40,14 @@ const useStyles = makeStyles((theme) => ({
     width: 60,
     marginTop: 10,
     marginLeft: 10,
+  },
+  hide: {
+    display: "none",
+  },
+  sideBar: {
+    [theme.breakpoints.up("lg")]: {
+      display: "none",
+    },
   },
 }));
 
@@ -70,6 +82,9 @@ const StyledTab = withStyles((theme) => ({
     "&:focus": {
       opacity: 1,
     },
+    "&:hover": {
+      textDecoration: "none",
+    },
   },
 }))((props) => <Tab disableRipple {...props} />);
 
@@ -78,6 +93,7 @@ function App() {
   const allTabs = ["/", "/revise", "/saved"];
   const [anchorEl, setAnchorEl] = useState(null);
   const [darkMode, setDarkMode] = useState(false);
+  const [open, setOpen] = React.useState(false);
 
   const theme = createMuiTheme({
     palette: {
@@ -104,6 +120,18 @@ function App() {
     return window.location.pathname === "/"
       ? "transparent"
       : theme.palette.background.paper;
+  };
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
+  const handleDarkMode = () => {
+    setDarkMode(!darkMode);
   };
 
   const handleClick = (event) => {
@@ -134,13 +162,13 @@ function App() {
               <Sidebar
                 animation="bubble"
                 right
-                handleClick={handleClick}
-                handleClock={handleClose}
                 StyleTabs={StyledTabs}
                 StyleTab={StyledTab}
-                darkMode={darkMode}
-                setDarkMode={setDarkMode}
+                setDarkMode={handleDarkMode}
                 anchorEl={anchorEl}
+                open={open}
+                darkMode={darkMode}
+                handleDrawerClose={handleDrawerClose}
               />
               <Route
                 path="/"
@@ -150,7 +178,7 @@ function App() {
                       position={"fixed"}
                       style={{
                         boxShadow: "none",
-                        paddingTop: 10,
+                        height: "100px",
                         backgroundColor: isHome(),
                         zIndex: 1,
                       }}
@@ -161,6 +189,20 @@ function App() {
                           className={classes.nav}
                           style={{ backgroundColor: isHome() }}
                         >
+                          <IconButton
+                            style={{
+                              float: "right",
+                            }}
+                            color="inherit"
+                            aria-label="open drawer"
+                            edge="end"
+                            onClick={handleDrawerOpen}
+                            className={clsx(
+                              open ? classes.hide : classes.sideBar
+                            )}
+                          >
+                            <MenuIcon />
+                          </IconButton>
                           <StyledTabs
                             value={location.pathname}
                             aria-label="styled tabs example"

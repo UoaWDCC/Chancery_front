@@ -9,8 +9,7 @@ import Box from "@material-ui/core/Box";
 const useStyles = makeStyles((theme) => ({
   root: {
     minHeight: "100vh",
-    padding: "102px 1em 0em",
-    maxWidth: "2560px",
+    padding: "100px 1em 0em",
     margin: "0 auto",
   },
 }));
@@ -19,8 +18,14 @@ function Revise() {
   const classes = useStyles();
 
   return (
-    <Grid container className={classes.root} justify={"center"}>
-      <Grid container item md={12} spacing={4}>
+    <Grid
+      container
+      className={classes.root}
+      justify={"center"}
+      md={12}
+      spacing={4}
+    >
+      <Grid container item>
         <Grid
           container
           item
