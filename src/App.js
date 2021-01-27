@@ -71,7 +71,7 @@ const StyledTabs = withStyles((theme) => ({
     },
   },
 }))((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
-    
+
 const StyledTab = withStyles((theme) => ({
   root: {
     textTransform: "uppercase",
@@ -84,6 +84,7 @@ const StyledTab = withStyles((theme) => ({
     },
     "&:hover": {
       textDecoration: "none",
+      color: "inherit",
     },
   },
 }))((props) => <Tab disableRipple {...props} />);
