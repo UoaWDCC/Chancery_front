@@ -138,7 +138,7 @@ function Sidebar(props) {
             <ListItemIcon>
               <Brightness3Icon />
             </ListItemIcon>
-            <ListItemText primary="Starred" />
+            <ListItemText primary="DarkMode" />
           </ListItem>
 
           <ListItem button className={classes.nested}>
