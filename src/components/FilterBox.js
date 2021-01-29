@@ -52,8 +52,10 @@ const useStyles = makeStyles((theme) => ({
   filterBox: {
     backgroundColor: theme.palette.background.default,
     borderRadius: "10px",
-	padding: "20px",
-    boxShadow: theme.palette.type === "dark" ? "none" : "0 0 5px 0 grey",
+    padding: "20px",
+    height: "fit-content",
+    width: "fit-content",
+    boxShadow: theme.palette.type === "dark" ? "none" : theme.boxShadow,
   },
   button: {
     width: 310,

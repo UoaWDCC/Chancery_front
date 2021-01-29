@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
 		textAlign: 'center',
 		padding: '20px 30px 100px 20px',
 		position: 'relative',
-		boxShadow: theme.palette.type === 'dark' ? 'none' : '0 0 5px 0 grey',
+		boxShadow: theme.palette.type === 'dark' ? 'none' : theme.boxShadow,
 		display: 'flex',
 		flexFlow: 'column'
 	},

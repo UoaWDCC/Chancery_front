@@ -4,13 +4,13 @@ import FilterBox from "../components/FilterBox";
 import Flashcard from "../components/Flashcard";
 import HotkeyBox from "../components/HotkeyBox";
 import { makeStyles } from "@material-ui/core/styles";
-import Box from "@material-ui/core/Box";
+import Hidden from "@material-ui/core/Hidden";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     minHeight: "100vh",
-    padding: "100px 1em 0em",
-    margin: "0 auto",
+    padding: "calc(10vh + 3em) 5em 0em",
+    // margin: "0 auto",
   },
 }));
 
@@ -18,42 +18,28 @@ function Revise() {
   const classes = useStyles();
 
   return (
-    <Grid
-      container
-      className={classes.root}
-      justify={"center"}
-      md={12}
-      spacing={4}
-    >
-      <Grid container item>
-        <Grid
-          container
-          item
-          lg={4}
-          xl={3}
-          justify={"center"}
-          alignItems={"start"}
-        >
-          <div>
+    <Grid container className={classes.root} justify={"center"}>
+      <Grid container style={{ height: "100%" }} item spacing={10}>
+        <Hidden mdDown>
+          <Grid item>
             <FilterBox />
-          </div>
-        </Grid>
+          </Grid>
+        </Hidden>
         <Grid
           container
-          direction={"column"}
           item
-          lg={8}
-          xl={9}
+          direction={"column"}
           alignItems={"center"}
+          style={{ flex: 1 }}
         >
           <Grid item style={{ width: "100%" }}>
             <Flashcard />
           </Grid>
-          <Grid item>
-            <Box display={{ xs: "none", md: "block" }}>
+          <Hidden xsDown>
+            <Grid item>
               <HotkeyBox />
-            </Box>
-          </Grid>
+            </Grid>
+          </Hidden>
         </Grid>
       </Grid>
     </Grid>
