@@ -143,7 +143,7 @@ function FilterBox() {
       className={classes.filterBox}
       container
       direction="column"
-      justify="start"
+      justify="flex-start"
       alignItems="center"
     >
       <Grid item style={{ paddingLeft: 20 }}>

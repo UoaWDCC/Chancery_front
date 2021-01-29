@@ -9,8 +9,7 @@ import Hidden from "@material-ui/core/Hidden";
 const useStyles = makeStyles((theme) => ({
   root: {
     minHeight: "100vh",
-    padding: "calc(10vh + 3em) 5em 0em",
-    // margin: "0 auto",
+    padding: "calc(10vh + 3em) 10vw 0em",
   },
 }));
 
