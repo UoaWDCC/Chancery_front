@@ -5,6 +5,7 @@ import {
   makeStyles,
   withStyles,
 } from "@material-ui/core/styles";
+import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import { Switch, Route, Link, BrowserRouter } from "react-router-dom";
 import Home from "./pages/home";
@@ -16,8 +17,14 @@ import { ThemeProvider } from "@material-ui/styles";
 import Logo from "./components/Logo";
 import { useDispatch } from "react-redux";
 import { fetchQuestions } from "./redux/actions";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import Sidebar from "./components/Sidebar";
+import clsx from "clsx";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
@@ -31,22 +38,53 @@ const useStyles = makeStyles(() => ({
   logo: {
     height: 60,
     width: 60,
+    marginTop: 10,
+    marginLeft: 10,
+  },
+  hide: {
+    display: "none",
+  },
+  sideBar: {
+    [theme.breakpoints.up("lg")]: {
+      display: "none",
+    },
   },
 }));
+
+const StyledTabs = withStyles((theme) => ({
+  indicator: {
+    display: "flex",
+    justifyContent: "center",
+    backgroundColor: "transparent",
+    "& > span": {
+      maxWidth: 85,
+      width: "100%",
+      backgroundColor: theme.palette.primary.contrastText,
+    },
+    height: "4px",
+  },
+  root: {
+    float: "right",
+    paddingRight: "20px",
+    [theme.breakpoints.down("md")]: {
+      display: "none",
+    },
+  },
+}))((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
 
 const StyledTab = withStyles((theme) => ({
   root: {
     textTransform: "uppercase",
     fontWeight: "bold",
-    fontSize: "1.6vw",
+    fontSize: "25px",
     color: theme.color,
     marginRight: theme.spacing(1),
-
     "&:focus": {
       opacity: 1,
     },
     "&:hover": {
       textDecoration: "none",
+      color: "inherit",
     },
   },
 }))((props) => <Tab disableRipple {...props} />);
@@ -56,6 +94,7 @@ function App() {
   const allTabs = ["/", "/revise", "/saved"];
   const [anchorEl, setAnchorEl] = useState(null);
   const [darkMode, setDarkMode] = useState(false);
+  const [open, setOpen] = React.useState(false);
 
   const theme = createMuiTheme({
     palette: {
@@ -84,6 +123,18 @@ function App() {
       : theme.palette.background.paper;
   };
 
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
+  const handleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -109,86 +160,87 @@ function App() {
         <Paper elevation={0} square>
           <BrowserRouter>
             <div className={classes.root}>
+              <Sidebar
+                animation="bubble"
+                right
+                StyleTabs={StyledTabs}
+                StyleTab={StyledTab}
+                setDarkMode={handleDarkMode}
+                anchorEl={anchorEl}
+                open={open}
+                darkMode={darkMode}
+                handleDrawerClose={handleDrawerClose}
+              />
               <Route
                 path="/"
                 render={({ location }) => (
                   <Fragment>
-                    {
-                      // This block is navbar at the top of the page
-                    }
-                    <nav
-                      class="navbar navbar-expand-lg navbar-light"
+                    <AppBar
+                      position={"fixed"}
                       style={{
                         boxShadow: "none",
-                        paddingTop: "10",
+                        height: "100px",
                         backgroundColor: isHome(),
+                        zIndex: 1,
                       }}
                     >
-                      <a
-                        class="navbar-brand"
-                        href="#!"
-                        style={{ marginTop: "10px", marginLeft: "10px" }}
-                      >
+                      <Toolbar>
                         <Logo />
-                      </a>
-                      <button
-                        class="navbar-toggler"
-                        type="button"
-                        data-toggle="collapse"
-                        data-target="#navbarNav"
-                        aria-controls="navbarNav"
-                        aria-expanded="false"
-                        aria-label="Toggle navigation"
-                      >
-                        <span class="navbar-toggler-icon"></span>
-                      </button>
-                      <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul
-                          class="navbar-nav ml-auto"
-                          style={{ display: "flex", alignItems: "center" }}
+                        <div
+                          className={classes.nav}
+                          style={{ backgroundColor: isHome() }}
                         >
-                          <li class="nav-item active">
+                          <IconButton
+                            style={{
+                              float: "right",
+                            }}
+                            color="inherit"
+                            aria-label="open drawer"
+                            edge="end"
+                            onClick={handleDrawerOpen}
+                            className={clsx(
+                              open ? classes.hide : classes.sideBar
+                            )}
+                          >
+                            <MenuIcon />
+                          </IconButton>
+                          <StyledTabs
+                            value={location.pathname}
+                            aria-label="styled tabs example"
+                          >
                             <StyledTab
                               label="Home"
                               value="/"
                               component={Link}
                               to={allTabs[0]}
                             />
-                          </li>
-                          <li class="nav-item">
                             <StyledTab
                               label="Revise"
                               value="/revise"
                               component={Link}
                               to={allTabs[1]}
                             />
-                          </li>
-                          <li class="nav-item">
                             <StyledTab
                               label="Saved"
                               value="/saved"
                               component={Link}
                               to={allTabs[2]}
                             />
-                          </li>
-                          <li class="nav-item">
                             <StyledTab
                               label="My Account"
                               onClick={handleClick}
                               style={{ paddingLeft: 25 }}
                             />
-                          </li>
-                          <li class="nav-item">
                             <AccountMenu
                               anchorEl={anchorEl}
                               onClose={handleClose}
                               setDarkMode={setDarkMode}
                               darkMode={darkMode}
                             />
-                          </li>
-                        </ul>
-                      </div>
-                    </nav>
+                          </StyledTabs>
+                        </div>
+                      </Toolbar>
+                    </AppBar>
                     <div>
                       <Switch>
                         <Route path={allTabs[1]} render={() => <Revise />} />
