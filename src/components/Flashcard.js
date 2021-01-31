@@ -267,7 +267,7 @@ function Flashcard() {
         >
           <React.Fragment>
             <Hidden mdUp>
-              <Grid container xs={12} justify="center" alignItems="center">
+              <Grid container justify="center" alignItems="center">
                 <Button
                   className={classes.save}
                   disableRipple
