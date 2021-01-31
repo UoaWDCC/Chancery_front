@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.palette.type === "dark" ? "none" : theme.boxShadow,
   },
   button: {
-    width: 310,
+    width: 250,
     borderRadius: 7,
     padding: "20px 40px 20px 40px",
     backgroundColor: theme.palette.type === "dark" ? "#818181" : "#FFFFFF",

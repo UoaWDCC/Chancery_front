@@ -5,7 +5,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Hidden from "@material-ui/core/Hidden";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 import IconButton from "@material-ui/core/IconButton";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
@@ -167,7 +166,7 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "#B1B1B1",
     },
   },
-  "@media (max-width: 960px)": {
+  [theme.breakpoints.down('sm')]: {
     leftButton: {
       left: "0",
       marginLeft: "-14px",
@@ -176,22 +175,32 @@ const useStyles = makeStyles((theme) => ({
       right: "0",
       marginRight: "-14px",
     },
+    showButton: {
+      fontSize: "15px",
+    },
     questionContainer: {
       width: "100%",
+      display: "block",
     },
     questionContent: {
       fontSize: "20px",
     },
     answerContainer: {
       width: "100%",
+      display: "block",
     },
+    subheading: {
+      fontSize: "30px",
+    },
+    page: {
+      fontSize: "30px",
+    }
   },
 }));
 
 function Flashcard() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const matches = useMediaQuery((theme) => theme.breakpoints.up("md"));
 
   const displayedFlashcards = useSelector(getDisplayedFlashcards);
   const currentIndex = useSelector((state) => state.currentIndex);
@@ -344,7 +353,6 @@ function Flashcard() {
 
             <Container
               className={classes.questionContainer}
-              style={{ display: matches ? "flex" : "block" }}
             >
               <Typography className={classes.subheading} variant={"h4"}>
                 Q.&emsp;
@@ -363,7 +371,6 @@ function Flashcard() {
               style={{
                 flex: show ? "1" : "none",
                 height: show ? "100%" : "200px",
-                display: matches ? "flex" : "block",
               }}
             >
               <Typography
