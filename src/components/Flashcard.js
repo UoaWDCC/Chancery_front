@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
     display: "inline-block",
     lineHeight: "40px",
     marginTop: "5px",
+    whiteSpace: "nowrap",
   },
   save: {
     alignItems: "flex-start",
@@ -256,18 +257,70 @@ function Flashcard() {
           alignItems="center"
         >
           <React.Fragment>
-            <Grid container justify="space-between">
+            <Hidden mdUp>
+              <Grid container xs={12} justify="center" alignItems="center">
+                <Button
+                  className={classes.save}
+                  disableRipple
+                  onClick={() => setSaved(!saved)}
+                >
+                  {saved ? (
+                    <SavedIcon style={{ fontSize: 40 }} />
+                  ) : (
+                    <BookmarkBorderIcon style={{ fontSize: 40 }} />
+                  )}
+                </Button>
+              </Grid>
+              <Grid container>
+                <Grid item xs={3}>
+                  <IconButton onClick={previousFlashcard}>
+                    <ArrowBackIcon style={{ fontSize: 40 }} />
+                  </IconButton>
+                </Grid>
+                <Grid
+                  item
+                  container
+                  justify="center"
+                  alignItems="center"
+                  xs={6}
+                >
+                  <Typography id="flashcard-id" className={classes.page}>
+                    {currentIndex + 1} / {displayedFlashcards.length}
+                  </Typography>
+                </Grid>
+                <Grid item xs={3}>
+                  <IconButton onClick={nextFlashcard}>
+                    <ArrowForwardIcon style={{ fontSize: 40 }} />
+                  </IconButton>
+                </Grid>
+              </Grid>
+            </Hidden>
+            <Grid
+              container
+              justify="space-between"
+              style={{ flexWrap: "wrap-reverse" }}
+            >
               <Grid item container justify="flex-start" xs={12} md={5}>
                 <Tag text={currentFlashcard.topic} />
                 <Tag text={currentFlashcard.difficulty} />
               </Grid>
-              <Grid item container justify="center" xs={12} md={2}>
+              <Hidden smDown>
+                <Grid item container justify="center" xs={12} md={2}>
                 <Typography id="flashcard-id" className={classes.page}>
                   {currentIndex + 1} / {displayedFlashcards.length}
                 </Typography>
               </Grid>
+              </Hidden>
+
               <Hidden smDown>
-                <Grid item container justify="flex-end" xs={12} md={5}>
+                <Grid
+                  item
+                  container
+                  justify="flex-end"
+                  xs={12}
+                  md={5}
+                  style={{ paddingTop: 5 }}
+                >
                   <Typography
                     className={classes.subheading}
                     style={{ fontSize: 25 }}
@@ -365,46 +418,6 @@ function Flashcard() {
               >
                 <ArrowForwardIcon style={{ fontSize: 40 }} />
               </IconButton>
-            </Hidden>
-
-            <Hidden mdUp>
-              <Grid container style={{ marginTop: "30px" }}>
-                <Grid item xs={4}>
-                  <IconButton
-                    // className={classes.leftButton}
-                    onClick={previousFlashcard}
-                  >
-                    <ArrowBackIcon style={{ fontSize: 40 }} />
-                  </IconButton>
-                </Grid>
-                <Grid
-                  container
-                  item
-                  xs={4}
-                  justify="center"
-                  alignItems="center"
-                >
-                  <Button
-                    className={classes.save}
-                    disableRipple
-                    onClick={() => setSaved(!saved)}
-                  >
-                    {saved ? (
-                      <SavedIcon style={{ fontSize: 40 }} />
-                    ) : (
-                      <BookmarkBorderIcon style={{ fontSize: 40 }} />
-                    )}
-                  </Button>
-                </Grid>
-                <Grid item xs={4}>
-                  <IconButton
-                    // className={classes.rightButton}
-                    onClick={nextFlashcard}
-                  >
-                    <ArrowForwardIcon style={{ fontSize: 40 }} />
-                  </IconButton>
-                </Grid>
-              </Grid>
             </Hidden>
           </React.Fragment>
         </Grid>

@@ -20,17 +20,14 @@ const useStyles = makeStyles(() => ({
         textTransform: "uppercase",
         lineHeight: '30px',
         textAlign: 'left',
-        marginLeft: '25px',
+        marginLeft: '10px',
 		overflow: 'hidden',
 		textOverflow: 'ellipsis',
 		whiteSpace: 'nowrap',
     },
     icon: {
-        position: 'absolute',
-        top: '9px',
         fontSize: 20,
         color: "white",
-        paddingRight: 5,
     }
 }));
 
@@ -39,7 +36,7 @@ function Tag(props) {
 
     return (
         <div className={classes.container}>
-            <Grid container>
+            <Grid container alignItems="center" style={{flexWrap: "nowrap"}}>
                 <LocalOfferIcon className={classes.icon} />
                 <Typography id="topic" className={classes.text}>
                     {props.text}
