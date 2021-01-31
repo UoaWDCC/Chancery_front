@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateFilters, resetFilters } from "../redux/actions";
 import Grid from "@material-ui/core/Grid";
 import * as constants from "../redux/constants";
-import allFalse from '../helperFunctions/allFalse';
+import allFalse from "../helperFunctions/allFalse";
 
 const useStyles = makeStyles((theme) => ({
   heading: {
@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.palette.type === "dark" ? "none" : theme.boxShadow,
   },
   button: {
-    width: 250,
+    width: 310,
     borderRadius: 7,
     padding: "20px 40px 20px 40px",
     backgroundColor: theme.palette.type === "dark" ? "#818181" : "#FFFFFF",
@@ -66,6 +66,11 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       boxShadow: "none",
     },
+  },
+  [theme.breakpoints.down("sm")]: {
+    button: {
+      width: "100%",
+    }
   },
 }));
 
@@ -90,17 +95,30 @@ function FilterBox() {
 
   const topics = constants.topics;
   const difficulties = constants.difficulties;
-  const savedTopics = useSelector(state => state.topics);
-  const savedDifficulties = useSelector(state => state.difficulties);
-  const [checkedStates, setCheckedStates] = useState({...savedTopics, ...savedDifficulties});
+  const savedTopics = useSelector((state) => state.topics);
+  const savedDifficulties = useSelector((state) => state.difficulties);
+  const [checkedStates, setCheckedStates] = useState({
+    ...savedTopics,
+    ...savedDifficulties,
+  });
 
   const applyTopicFilters = (event, topic) => {
-    dispatch(updateFilters({...savedTopics, [topic]: event.target.checked}, savedDifficulties));
+    dispatch(
+      updateFilters(
+        { ...savedTopics, [topic]: event.target.checked },
+        savedDifficulties
+      )
+    );
     event.target.blur();
   };
 
   const applyDifficultyFilters = (event, difficulty) => {
-    dispatch(updateFilters(savedTopics, {...savedDifficulties, [difficulty]: event.target.checked}));
+    dispatch(
+      updateFilters(savedTopics, {
+        ...savedDifficulties,
+        [difficulty]: event.target.checked,
+      })
+    );
     event.target.blur();
   };
 
@@ -111,15 +129,19 @@ function FilterBox() {
   };
 
   useEffect(() => {
-    setCheckedStates({...savedTopics, ...savedDifficulties});
+    setCheckedStates({ ...savedTopics, ...savedDifficulties });
   }, [savedTopics, savedDifficulties]);
 
   const topicCheckBoxes = topics.map((topic) => (
     <FormControlLabel
       style={{ padding: "6px" }}
       value={topic}
-      control={<StyledCheckbox checked={checkedStates[topic]}/>}
-      label={<Typography className={classes.label}>{topic === "LBO" ? "Leveraged Buyout" : topic}</Typography>}
+      control={<StyledCheckbox checked={checkedStates[topic]} />}
+      label={
+        <Typography className={classes.label}>
+          {topic === "LBO" ? "Leveraged Buyout" : topic}
+        </Typography>
+      }
       labelPlacement="end"
       key={topic}
       onChange={(event) => applyTopicFilters(event, topic)}
@@ -130,7 +152,7 @@ function FilterBox() {
     <FormControlLabel
       style={{ padding: "6px" }}
       value={difficulty}
-      control={<StyledCheckbox checked={checkedStates[difficulty]}/>}
+      control={<StyledCheckbox checked={checkedStates[difficulty]} />}
       label={<Typography className={classes.label}>{difficulty}</Typography>}
       labelPlacement="end"
       key={difficulty}
