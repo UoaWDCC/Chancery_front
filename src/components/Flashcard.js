@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Hidden from "@material-ui/core/Hidden";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 import IconButton from "@material-ui/core/IconButton";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
@@ -31,8 +32,8 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "5px",
   },
   save: {
-    // float: "right",
-    // margin: "0px -15px 0 -15px",
+    alignItems: "flex-start",
+    padding: 0,
     "&:hover": {
       background: "none",
       borderWidth: "3px",
@@ -189,6 +190,7 @@ const useStyles = makeStyles((theme) => ({
 function Flashcard() {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const matches = useMediaQuery((theme) => theme.breakpoints.up("md"));
 
   const displayedFlashcards = useSelector(getDisplayedFlashcards);
   const currentIndex = useSelector((state) => state.currentIndex);
@@ -268,9 +270,9 @@ function Flashcard() {
                 <Grid item container justify="flex-end" xs={12} md={5}>
                   <Typography
                     className={classes.subheading}
-                    style={{ fontSize: 25, marginTop: 8 }}
+                    style={{ fontSize: 25 }}
                   >
-                    Save&nbsp;
+                    Save
                   </Typography>
                   <Button
                     className={classes.save}
@@ -287,7 +289,10 @@ function Flashcard() {
               </Hidden>
             </Grid>
 
-            <Container className={classes.questionContainer}>
+            <Container
+              className={classes.questionContainer}
+              style={{ display: matches ? "flex" : "block" }}
+            >
               <Typography className={classes.subheading} variant={"h4"}>
                 Q.&emsp;
               </Typography>
@@ -305,6 +310,7 @@ function Flashcard() {
               style={{
                 flex: show ? "1" : "none",
                 height: show ? "100%" : "200px",
+                display: matches ? "flex" : "block",
               }}
             >
               <Typography
@@ -314,9 +320,11 @@ function Flashcard() {
               >
                 A.&emsp;
               </Typography>
-              <AnswerContent id="answer-content" component={"span"}>
-                <pre>{currentFlashcard.answer}</pre>
-              </AnswerContent>
+              {show && (
+                <AnswerContent id="answer-content" component={"span"}>
+                  <pre>{currentFlashcard.answer}</pre>
+                </AnswerContent>
+              )}
               {!show && (
                 <Button
                   id="show-button"
@@ -360,7 +368,7 @@ function Flashcard() {
             </Hidden>
 
             <Hidden mdUp>
-              <Grid container style={{marginTop: "30px"}}>
+              <Grid container style={{ marginTop: "30px" }}>
                 <Grid item xs={4}>
                   <IconButton
                     // className={classes.leftButton}
@@ -369,7 +377,13 @@ function Flashcard() {
                     <ArrowBackIcon style={{ fontSize: 40 }} />
                   </IconButton>
                 </Grid>
-                <Grid container item xs={4} justify="center" alignItems="center">
+                <Grid
+                  container
+                  item
+                  xs={4}
+                  justify="center"
+                  alignItems="center"
+                >
                   <Button
                     className={classes.save}
                     disableRipple
