@@ -7,10 +7,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import Hidden from "@material-ui/core/Hidden";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     minHeight: "100vh",
-    padding: "calc(10vh + 3em) 10vw 0em",
+    paddingTop: "calc(10vh + 3em)",
   },
 }));
 
@@ -23,17 +23,15 @@ function Revise() {
       <Grid
         container
         style={{
-          height: "100%",
+          margin: "0 5vw",
           flexDirection: matches ? "row" : "column-reverse",
         }}
         item
         spacing={10}
       >
-        {/* <Hidden mdDown> */}
         <Grid item>
           <FilterBox />
         </Grid>
-        {/* </Hidden> */}
         <Grid
           container
           item
