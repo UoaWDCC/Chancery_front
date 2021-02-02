@@ -4,56 +4,49 @@ import FilterBox from "../components/FilterBox";
 import Flashcard from "../components/Flashcard";
 import HotkeyBox from "../components/HotkeyBox";
 import { makeStyles } from "@material-ui/core/styles";
-import Box from "@material-ui/core/Box";
+import Hidden from "@material-ui/core/Hidden";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     minHeight: "100vh",
-    padding: "100px 1em 0em",
-    margin: "0 auto",
+    paddingTop: "calc(10vh + 3em)",
   },
 }));
 
 function Revise() {
   const classes = useStyles();
+  const matches = useMediaQuery((theme) => theme.breakpoints.up("lg"));
 
   return (
-    <Grid
-      container
-      className={classes.root}
-      justify={"center"}
-      md={12}
-      spacing={4}
-    >
-      <Grid container item>
-        <Grid
-          container
-          item
-          lg={4}
-          xl={3}
-          justify={"center"}
-          alignItems={"start"}
-        >
-          <div>
-            <FilterBox />
-          </div>
+    <Grid container className={classes.root} justify={"center"}>
+      <Grid
+        container
+        style={{
+          margin: "0 5vw",
+          flexDirection: matches ? "row" : "column-reverse",
+        }}
+        item
+        spacing={10}
+      >
+        <Grid item>
+          <FilterBox />
         </Grid>
         <Grid
           container
-          direction={"column"}
           item
-          lg={8}
-          xl={9}
+          direction={"column"}
           alignItems={"center"}
+          style={{ flex: 1 }}
         >
           <Grid item style={{ width: "100%" }}>
             <Flashcard />
           </Grid>
-          <Grid item>
-            <Box display={{ xs: "none", md: "block" }}>
+          <Hidden xsDown>
+            <Grid item>
               <HotkeyBox />
-            </Box>
-          </Grid>
+            </Grid>
+          </Hidden>
         </Grid>
       </Grid>
     </Grid>
