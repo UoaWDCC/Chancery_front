@@ -10,6 +10,10 @@ import Grid from "@material-ui/core/Grid";
 import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
+  root: {
+	maxWidth: '2560px',
+	margin: '0 auto',
+  },
   title: {
     fontSize: "40px",
     fontWeight: "bold",
@@ -80,7 +84,7 @@ function detectScrollDown() {
 }
 
 function Saved() {
-    
+
   const classes = useStyles();
 
   detectScrollDown();

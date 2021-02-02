@@ -25,9 +25,13 @@ import Password from "./pages/password";
 import { Hub } from "aws-amplify";
 import Amplify, { Auth } from "aws-amplify";
 import awsconfig from "./aws-exports";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import Sidebar from "./components/Sidebar";
+import clsx from "clsx";
 Amplify.configure(awsconfig);
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
@@ -43,6 +47,14 @@ const useStyles = makeStyles(() => ({
     width: 60,
     marginTop: 10,
     marginLeft: 10,
+  },
+  hide: {
+    display: "none",
+  },
+  sideBar: {
+    [theme.breakpoints.up("lg")]: {
+      display: "none",
+    },
   },
 }));
 
@@ -61,6 +73,9 @@ const StyledTabs = withStyles((theme) => ({
   root: {
     float: "right",
     paddingRight: "20px",
+    [theme.breakpoints.down("md")]: {
+      display: "none",
+    },
   },
 }))((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
 
@@ -74,6 +89,10 @@ const StyledTab = withStyles((theme) => ({
     "&:focus": {
       opacity: 1,
     },
+    "&:hover": {
+      textDecoration: "none",
+      color: "inherit",
+    },
   },
 }))((props) => <Tab disableRipple {...props} />);
 
@@ -84,6 +103,30 @@ function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [user, setUser] = useState(null);
   const [isUserLoggedIn, setUserLoggedIn] = useState("initializing");
+  const [open, setOpen] = React.useState(false);
+
+  const theme = createMuiTheme({
+    palette: {
+      type: darkMode ? "dark" : "light",
+      primary: {
+        light: "#21CE99",
+        main: "#21ce99",
+        dark: "#21CE99",
+        contrastText: darkMode ? "#FFFFFF" : "#000000",
+      },
+      secondary: {
+        main: "#000000",
+        light: "#F5F5F5",
+        dark: "#5F5F5F",
+      },
+      background: {
+        paper: darkMode ? "#313131" : "#FFFFFF",
+        default: darkMode ? "#5F5F5F" : "#F5F5F5",
+      },
+    },
+    boxShadow:
+      "rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px",
+  });
 
   useEffect(() => {
     Hub.listen("auth", ({ payload: { event, data } }) => {
@@ -116,7 +159,7 @@ function App() {
     }
   }
 
-  const updateAuthState = (isUserLoggedIn) => {
+  const updateAuthState = () => {
     setUserLoggedIn(isUserLoggedIn);
   };
 
@@ -125,27 +168,6 @@ function App() {
       .then((userData) => userData)
       .catch(() => console.log("Not signed in"));
   }
-
-  const theme = createMuiTheme({
-    palette: {
-      type: darkMode ? "dark" : "light",
-      primary: {
-        light: "#21CE99",
-        main: "#21ce99",
-        dark: "#21CE99",
-        contrastText: darkMode ? "#FFFFFF" : "#000000",
-      },
-      secondary: {
-        main: "#000000",
-        light: "#F5F5F5",
-        dark: "#5F5F5F",
-      },
-      background: {
-        paper: darkMode ? "#313131" : "#FFFFFF",
-        default: darkMode ? "#5F5F5F" : "#F5F5F5",
-      },
-    },
-  });
 
   const isHome = (pathname) => {
     return pathname === "/" || pathname === "/login" || pathname === "/signup"
@@ -164,11 +186,23 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchQuestions());
-  });
+  }, [dispatch]);
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
+  const handleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
 
   window.onkeydown = function (e) {
     if (document.URL.includes("revise")) {
-      return !(e.keyCode === 32);
+      return (e.keyCode !== 32);
     }
   };
 
@@ -187,6 +221,17 @@ function App() {
         <Paper elevation={0} square>
           <BrowserRouter>
             <div className={classes.root}>
+              <Sidebar
+                animation="bubble"
+                right
+                StyleTabs={StyledTabs}
+                StyleTab={StyledTab}
+                setDarkMode={handleDarkMode}
+                anchorEl={anchorEl}
+                open={open}
+                darkMode={darkMode}
+                handleDrawerClose={handleDrawerClose}
+              />
               <Route
                 path="/"
                 render={({ location }) => (
@@ -197,6 +242,9 @@ function App() {
                         boxShadow: "none",
                         paddingTop: 10,
                         backgroundColor: isHome(location.pathname),
+                        justifyContent: "center",
+                        height: "100px",
+                        zIndex: 1,
                       }}
                     >
                       <Toolbar>
@@ -204,14 +252,32 @@ function App() {
                         {!getPathValue(location.pathname) && (
                           <div
                             className={classes.nav}
-                            style={{
-                              backgroundColor: isHome(location.pathname),
-                            }}
+                            style={{ backgroundColor: isHome(location.pathname) }}
                           >
+                            <IconButton
+                              style={{
+                                float: "right",
+                              }}
+                              color="inherit"
+                              aria-label="open drawer"
+                              edge="end"
+                              onClick={handleDrawerOpen}
+                              className={clsx(
+                                open ? classes.hide : classes.sideBar
+                              )}
+                            >
+                              <MenuIcon />
+                            </IconButton>
                             <StyledTabs
                               value={location.pathname}
                               aria-label="styled tabs example"
                             >
+                              <StyledTab
+                                label="Home"
+                                value="/"
+                                component={Link}
+                                to={allTabs[0]}
+                              />
                               <StyledTab
                                 label="Revise"
                                 value="/revise"
@@ -234,8 +300,6 @@ function App() {
                                 onClose={handleClose}
                                 setDarkMode={setDarkMode}
                                 darkMode={darkMode}
-                                updateAuthState={updateAuthState}
-                                isUserLoggedIn={isUserLoggedIn}
                               />
                             </StyledTabs>
                           </div>

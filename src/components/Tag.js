@@ -1,43 +1,60 @@
-import React from "react"
+import React from "react";
 import Grid from "@material-ui/core/Grid";
 import LocalOfferIcon from "@material-ui/icons/LocalOffer";
-import {makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
+  container: {
+    position: "relative",
+    backgroundColor: "#21CE99",
+    borderRadius: 5,
+    padding: "5px 15px 5px 10px",
+    margin: "5px",
+    height: "30px",
+    maxWidth: "100%",
+  },
+  text: {
+    color: "white",
+    fontSize: "18px",
+    textTransform: "uppercase",
+    lineHeight: "30px",
+    textAlign: "left",
+    marginLeft: "10px",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
+  },
+  icon: {
+    fontSize: 20,
+    color: "white",
+  },
+  [theme.breakpoints.down("sm")]: {
     container: {
-        backgroundColor: "#21CE99",
-        borderRadius: 5,
-        padding: '4px 15px 4px 10px',
-        margin: 5,
-    },
-    text: {
-        color: "white",
-        fontSize: "18px",
-        textTransform: "uppercase",
-        float: "left",
+      padding: "0 8px",
     },
     icon: {
-        fontSize: 18,
-        color: "white",
-        paddingRight: 5,
-    }
-}))
+      fontSize: "15px",
+    },
+    text: {
+      fontSize: "15px",
+    },
+  },
+}));
 
 function Tag(props) {
-    const classes = useStyles();
+  const classes = useStyles();
 
-    return (
-        <div className={classes.container}>
-            <Grid container alignItems={"center"}>
-                <LocalOfferIcon className={classes.icon} />
-                <Typography id="topic" className={classes.text}>
-                    {props.text}
-                </Typography>
-            </Grid>
-        </div>
-
-    )
+  return (
+    <div className={classes.container}>
+      <Grid container alignItems="center" style={{ flexWrap: "nowrap" }}>
+        <LocalOfferIcon className={classes.icon} />
+        <Typography id="topic" className={classes.text}>
+          {props.text}
+        </Typography>
+      </Grid>
+    </div>
+  );
 }
 
-export default Tag
+export default Tag;
