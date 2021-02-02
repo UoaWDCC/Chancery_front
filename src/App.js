@@ -12,17 +12,24 @@ import Home from "./pages/home";
 import Revise from "./pages/revise";
 import Saved from "./pages/saved";
 import AccountMenu from "./components/AccountMenu";
+import SignUp from "./pages/signup";
 import Paper from "@material-ui/core/Paper";
 import { ThemeProvider } from "@material-ui/styles";
 import Logo from "./components/Logo";
 import { useDispatch } from "react-redux";
 import { fetchQuestions } from "./redux/actions";
+import Login from "./pages/login";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
+import Password from "./pages/password";
+import { Hub } from "aws-amplify";
+import Amplify, { Auth } from "aws-amplify";
+import awsconfig from "./aws-exports";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Sidebar from "./components/Sidebar";
 import clsx from "clsx";
+Amplify.configure(awsconfig);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -91,9 +98,11 @@ const StyledTab = withStyles((theme) => ({
 
 function App() {
   const classes = useStyles();
-  const allTabs = ["/", "/revise", "/saved"];
+  const allTabs = ["/", "/revise", "/saved", "/signup", "/login", "/password"];
   const [anchorEl, setAnchorEl] = useState(null);
   const [darkMode, setDarkMode] = useState(false);
+  const [user, setUser] = useState(null);
+  const [isUserLoggedIn, setUserLoggedIn] = useState("initializing");
   const [open, setOpen] = React.useState(false);
 
   const theme = createMuiTheme({
@@ -119,22 +128,51 @@ function App() {
       "rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px",
   });
 
-  const isHome = () => {
-    return window.location.pathname === "/"
+  useEffect(() => {
+    Hub.listen("auth", ({ payload: { event, data } }) => {
+      switch (event) {
+        case "signIn":
+          getUser().then((userData) => setUser(userData));
+          break;
+        case "signOut":
+          setUser(null);
+          break;
+        case "signIn_failure":
+          console.log("Sign in failure", data);
+          break;
+        default:
+          break;
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    checkAuthState();
+  }, []);
+
+  async function checkAuthState() {
+    try {
+      await Auth.currentAuthenticatedUser();
+      setUserLoggedIn("loggedIn");
+    } catch (err) {
+      setUserLoggedIn("loggedOut");
+    }
+  }
+
+  const updateAuthState = () => {
+    setUserLoggedIn(isUserLoggedIn);
+  };
+
+  function getUser() {
+    return Auth.currentAuthenticatedUser()
+      .then((userData) => userData)
+      .catch(() => console.log("Not signed in"));
+  }
+
+  const isHome = (pathname) => {
+    return pathname === "/" || pathname === "/login" || pathname === "/signup"
       ? "transparent"
       : theme.palette.background.paper;
-  };
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
-  const handleDarkMode = () => {
-    setDarkMode(!darkMode);
   };
 
   const handleClick = (event) => {
@@ -150,10 +188,31 @@ function App() {
     dispatch(fetchQuestions());
   }, [dispatch]);
 
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
+  const handleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
   window.onkeydown = function (e) {
     if (document.URL.includes("revise")) {
-      return !(e.keyCode === 32);
+      return (e.keyCode !== 32);
     }
+  };
+
+  const getPathValue = (pathname) => {
+    return (
+      pathname === "/login" ||
+      pathname === "/signup" ||
+      pathname === "/" ||
+      pathname === "/password"
+    );
   };
 
   return (
@@ -181,74 +240,103 @@ function App() {
                       position={"fixed"}
                       style={{
                         boxShadow: "none",
+                        paddingTop: 10,
+                        backgroundColor: isHome(location.pathname),
                         justifyContent: "center",
                         height: "100px",
-                        backgroundColor: isHome(),
                         zIndex: 1,
                       }}
                     >
                       <Toolbar>
                         <Logo />
-                        <div
-                          className={classes.nav}
-                          style={{ backgroundColor: isHome() }}
-                        >
-                          <IconButton
-                            style={{
-                              float: "right",
-                            }}
-                            color="inherit"
-                            aria-label="open drawer"
-                            edge="end"
-                            onClick={handleDrawerOpen}
-                            className={clsx(
-                              open ? classes.hide : classes.sideBar
-                            )}
+                        {!getPathValue(location.pathname) && (
+                          <div
+                            className={classes.nav}
+                            style={{ backgroundColor: isHome(location.pathname) }}
                           >
-                            <MenuIcon />
-                          </IconButton>
-                          <StyledTabs
-                            value={location.pathname}
-                            aria-label="styled tabs example"
-                          >
-                            <StyledTab
-                              label="Home"
-                              value="/"
-                              component={Link}
-                              to={allTabs[0]}
-                            />
-                            <StyledTab
-                              label="Revise"
-                              value="/revise"
-                              component={Link}
-                              to={allTabs[1]}
-                            />
-                            <StyledTab
-                              label="Saved"
-                              value="/saved"
-                              component={Link}
-                              to={allTabs[2]}
-                            />
-                            <StyledTab
-                              label="My Account"
-                              onClick={handleClick}
-                              style={{ paddingLeft: 25 }}
-                            />
-                            <AccountMenu
-                              anchorEl={anchorEl}
-                              onClose={handleClose}
-                              setDarkMode={setDarkMode}
-                              darkMode={darkMode}
-                            />
-                          </StyledTabs>
-                        </div>
+                            <IconButton
+                              style={{
+                                float: "right",
+                              }}
+                              color="inherit"
+                              aria-label="open drawer"
+                              edge="end"
+                              onClick={handleDrawerOpen}
+                              className={clsx(
+                                open ? classes.hide : classes.sideBar
+                              )}
+                            >
+                              <MenuIcon />
+                            </IconButton>
+                            <StyledTabs
+                              value={location.pathname}
+                              aria-label="styled tabs example"
+                            >
+                              <StyledTab
+                                label="Home"
+                                value="/"
+                                component={Link}
+                                to={allTabs[0]}
+                              />
+                              <StyledTab
+                                label="Revise"
+                                value="/revise"
+                                component={Link}
+                                to={allTabs[1]}
+                              />
+                              <StyledTab
+                                label="Saved"
+                                value="/saved"
+                                component={Link}
+                                to={allTabs[2]}
+                              />
+                              <StyledTab
+                                label="My Account"
+                                onClick={handleClick}
+                                style={{ paddingLeft: 25 }}
+                              />
+                              <AccountMenu
+                                anchorEl={anchorEl}
+                                onClose={handleClose}
+                                setDarkMode={setDarkMode}
+                                darkMode={darkMode}
+                              />
+                            </StyledTabs>
+                          </div>
+                        )}
                       </Toolbar>
                     </AppBar>
                     <div>
                       <Switch>
+                        <Route
+                          path={allTabs[5]}
+                          render={() => (
+                            <Password isUserLoggedIn={isUserLoggedIn} />
+                          )}
+                        />
+                        <Route
+                          path={allTabs[4]}
+                          component={() => (
+                            <Login
+                              updateAuthState={updateAuthState}
+                              isUserLoggedIn={isUserLoggedIn}
+                            />
+                          )}
+                        />
+                        <Route
+                          path={allTabs[3]}
+                          render={() => (
+                            <SignUp isUserLoggedIn={isUserLoggedIn} />
+                          )}
+                        />
                         <Route path={allTabs[1]} render={() => <Revise />} />
                         <Route path={allTabs[2]} render={() => <Saved />} />
-                        <Route path={allTabs[0]} render={() => <Home />} />
+                        <Route
+                          path={allTabs[0]}
+                          render={() => (
+                            <Home name={user && user.attributes.email} />
+                          )}
+                        />
                       </Switch>
                     </div>
                   </Fragment>

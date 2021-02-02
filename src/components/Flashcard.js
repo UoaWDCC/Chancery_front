@@ -166,7 +166,7 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "#B1B1B1",
     },
   },
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down("sm")]: {
     leftButton: {
       left: "0",
       marginLeft: "-14px",
@@ -194,7 +194,7 @@ const useStyles = makeStyles((theme) => ({
     },
     page: {
       fontSize: "30px",
-    }
+    },
   },
 }));
 
@@ -315,10 +315,10 @@ function Flashcard() {
               </Grid>
               <Hidden smDown>
                 <Grid item container justify="center" xs={12} md={2}>
-                <Typography id="flashcard-id" className={classes.page}>
-                  {currentIndex + 1} / {displayedFlashcards.length}
-                </Typography>
-              </Grid>
+                  <Typography id="flashcard-id" className={classes.page}>
+                    {currentIndex + 1} / {displayedFlashcards.length}
+                  </Typography>
+                </Grid>
               </Hidden>
 
               <Hidden smDown>
@@ -351,9 +351,7 @@ function Flashcard() {
               </Hidden>
             </Grid>
 
-            <Container
-              className={classes.questionContainer}
-            >
+            <Container className={classes.questionContainer}>
               <Typography className={classes.subheading} variant={"h4"}>
                 Q.&emsp;
               </Typography>

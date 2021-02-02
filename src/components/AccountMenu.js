@@ -8,6 +8,8 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import SettingsIcon from "@material-ui/icons/Settings";
 import ToggleOffIcon from "@material-ui/icons/ToggleOff";
 import ToggleOnIcon from "@material-ui/icons/ToggleOn";
+import { Auth } from "aws-amplify";
+import { useHistory } from "react-router-dom";
 
 const StyledMenu = withStyles((theme) => ({
   paper: {
@@ -46,6 +48,20 @@ function AccountMenu(props) {
   const darkMode = props.darkMode;
   const anchorEl = props.anchorEl;
 
+  let history = useHistory();
+
+  const logout = async () => {
+    try {
+      await Auth.signOut();
+      console.log("logged out");
+      props.updateAuthState("loggedOut");
+
+      history.push("/");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <StyledMenu
       id="customized-menu"
@@ -54,7 +70,6 @@ function AccountMenu(props) {
       disableAutoFocusItem
       open={Boolean(anchorEl)}
       onClose={props.onClose}
-      style={{ padding: 0 }}
     >
       <StyledMenuItem onClick={() => props.setDarkMode(!darkMode)}>
         <ListItemIcon>
@@ -64,11 +79,7 @@ function AccountMenu(props) {
             <ToggleOffIcon fontSize="small" />
           )}
         </ListItemIcon>
-        {darkMode ? (
-          <ListItemText primary="Light Mode" />
-        ) : (
-          <ListItemText primary="Dark Mode" />
-        )}
+        <ListItemText primary="Dark Mode" />
       </StyledMenuItem>
       <StyledMenuItem>
         <ListItemIcon>
@@ -76,7 +87,7 @@ function AccountMenu(props) {
         </ListItemIcon>
         <ListItemText primary="Settings" />
       </StyledMenuItem>
-      <StyledMenuItem>
+      <StyledMenuItem onClick={logout}>
         <ListItemIcon>
           <ExitToAppIcon fontSize="small" />
         </ListItemIcon>
