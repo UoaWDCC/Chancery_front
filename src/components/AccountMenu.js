@@ -3,7 +3,10 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import React from "react";
 import { ListItemIcon, ListItemText } from "@material-ui/core";
-import { ExitToAppIcon, SettingsIcon, ToggleOffIcon, ToggleOnIcon } from "@material-ui/icons";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import SettingsIcon from "@material-ui/icons/Settings";
+import ToggleOffIcon from "@material-ui/icons/ToggleOff";
+import ToggleOnIcon from "@material-ui/icons/ToggleOn";
 import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
 
