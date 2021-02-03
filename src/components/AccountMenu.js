@@ -2,12 +2,8 @@ import { withStyles } from "@material-ui/core/styles";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import React from "react";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import SettingsIcon from "@material-ui/icons/Settings";
-import ToggleOffIcon from "@material-ui/icons/ToggleOff";
-import ToggleOnIcon from "@material-ui/icons/ToggleOn";
+import { ListItemIcon, ListItemText } from "@material-ui/core";
+import { ExitToAppIcon, SettingsIcon, ToggleOffIcon, ToggleOnIcon } from "@material-ui/icons";
 import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
 
