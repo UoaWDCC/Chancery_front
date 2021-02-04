@@ -1,5 +1,4 @@
 const API_ROOT = `https://o6xaaxitq4.execute-api.ap-southeast-2.amazonaws.com/prod`;
-const proxyurl = "https://cors-anywhere.herokuapp.com/";
 
 export const postUserInfo = async (user) => {
   try {

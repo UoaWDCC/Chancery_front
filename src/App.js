@@ -7,7 +7,7 @@ import {
 } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import { Switch, Route, Link, BrowserRouter } from "react-router-dom";
+import { Switch, Route, Link, BrowserRouter, Redirect  } from "react-router-dom";
 import Home from "./pages/home";
 import Revise from "./pages/revise";
 import Saved from "./pages/saved";
@@ -159,8 +159,8 @@ function App() {
     }
   }
 
-  const updateAuthState = () => {
-    setUserLoggedIn(isUserLoggedIn);
+  const updateAuthState = (status) => {
+    setUserLoggedIn(status);
   };
 
   function getUser() {
@@ -273,12 +273,6 @@ function App() {
                               aria-label="styled tabs example"
                             >
                               <StyledTab
-                                label="Home"
-                                value="/"
-                                component={Link}
-                                to={allTabs[0]}
-                              />
-                              <StyledTab
                                 label="Revise"
                                 value="/revise"
                                 component={Link}
@@ -300,6 +294,7 @@ function App() {
                                 onClose={handleClose}
                                 setDarkMode={setDarkMode}
                                 darkMode={darkMode}
+                                updateAuthState={updateAuthState}
                               />
                             </StyledTabs>
                           </div>
@@ -329,14 +324,15 @@ function App() {
                             <SignUp isUserLoggedIn={isUserLoggedIn} />
                           )}
                         />
-                        <Route path={allTabs[1]} render={() => <Revise />} />
-                        <Route path={allTabs[2]} render={() => <Saved />} />
-                        <Route
+                        <Route path={allTabs[1]} render={() => <Revise isUserLoggedIn={isUserLoggedIn} />} />
+                        <Route path={allTabs[2]} render={() => <Saved  isUserLoggedIn={isUserLoggedIn}/>} />
+                        <Route exact
                           path={allTabs[0]}
                           render={() => (
-                            <Home name={user && user.attributes.email} />
+                            <Home name={user && user.attributes.email} isUserLoggedIn={isUserLoggedIn} />
                           )}
                         />
+                        <Route render={() => <Redirect to={{pathname: "/"}}  />} />
                       </Switch>
                     </div>
                   </Fragment>

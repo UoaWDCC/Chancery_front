@@ -6,6 +6,7 @@ import HotkeyBox from "../components/HotkeyBox";
 import { makeStyles } from "@material-ui/core/styles";
 import Hidden from "@material-ui/core/Hidden";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -14,9 +15,14 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function Revise() {
+function Revise(props) {
   const classes = useStyles();
   const matches = useMediaQuery((theme) => theme.breakpoints.up("lg"));
+  let history = useHistory();
+
+  if(props.isUserLoggedIn === "loggedOut"){
+    history.push('/login')
+  }
 
   return (
     <Grid container className={classes.root} justify={"center"}>

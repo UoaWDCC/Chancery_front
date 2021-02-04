@@ -14,7 +14,6 @@ import {
 } from "@material-ui/core";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import HomeIcon from "@material-ui/icons/Home";
 import ImportContactsIcon from "@material-ui/icons/ImportContacts";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
@@ -78,20 +77,6 @@ function Sidebar(props) {
           </IconButton>
         </div>
         <Divider />
-        <Link
-          to="/"
-          style={{
-            textDecoration: "none",
-            color: darkMode ? "white" : "black",
-          }}
-        >
-          <ListItem button>
-            <ListItemIcon>
-              <HomeIcon />
-            </ListItemIcon>
-            <ListItemText primary="Home" />
-          </ListItem>
-        </Link>
 
         <Link
           to="/revise"

@@ -8,6 +8,7 @@ import { Button } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -83,9 +84,15 @@ function detectScrollDown() {
   };
 }
 
-function Saved() {
+function Saved(props) {
 
   const classes = useStyles();
+
+  let history = useHistory();
+
+  if(props.isUserLoggedIn === "loggedOut"){
+    history.push('/login')
+  }
 
   detectScrollDown();
 

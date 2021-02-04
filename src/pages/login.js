@@ -94,7 +94,7 @@ function Login(props) {
     try {
       await Auth.signIn(username, password);
       setError(false);
-      props.updateAuthState("loggedOut");
+      props.updateAuthState("loggedIn");
       history.push("/revise");
     } catch (err) {
       setError(true);
