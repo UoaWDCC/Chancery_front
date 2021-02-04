@@ -9,6 +9,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "amazon-cognito-identity-js": "^4.4.0",
+    "aws-amplify": "^3.3.17",
     "aws-sdk": "^2.751.0",
     "clsx": "^1.1.1",
     "react": "^16.13.1",
