@@ -52,9 +52,7 @@ function AccountMenu(props) {
   const logout = async () => {
     try {
       await Auth.signOut();
-      console.log("logged out");
       props.updateAuthState("loggedOut");
-
       history.push("/");
     } catch (err) {
       console.log(err);

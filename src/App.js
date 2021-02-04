@@ -159,8 +159,8 @@ function App() {
     }
   }
 
-  const updateAuthState = () => {
-    setUserLoggedIn(isUserLoggedIn);
+  const updateAuthState = (status) => {
+    setUserLoggedIn(status);
   };
 
   function getUser() {
@@ -273,12 +273,6 @@ function App() {
                               aria-label="styled tabs example"
                             >
                               <StyledTab
-                                label="Home"
-                                value="/"
-                                component={Link}
-                                to={allTabs[0]}
-                              />
-                              <StyledTab
                                 label="Revise"
                                 value="/revise"
                                 component={Link}
@@ -300,6 +294,7 @@ function App() {
                                 onClose={handleClose}
                                 setDarkMode={setDarkMode}
                                 darkMode={darkMode}
+                                updateAuthState={updateAuthState}
                               />
                             </StyledTabs>
                           </div>
@@ -334,7 +329,7 @@ function App() {
                         <Route
                           path={allTabs[0]}
                           render={() => (
-                            <Home name={user && user.attributes.email} />
+                            <Home name={user && user.attributes.email} isUserLoggedIn={isUserLoggedIn} />
                           )}
                         />
                       </Switch>

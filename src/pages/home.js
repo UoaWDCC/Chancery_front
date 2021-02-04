@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import Logo from "../icons/Chancery_logo.png";
 import ParticleComponent from "../components/ParticleComponent";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -43,7 +44,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Home(props) {
+  let history = useHistory();
+
   const classes = useStyles();
+
+  if(props.isUserLoggedIn === "loggedIn") {
+    history.push("/revise");
+  }
 
   return (
     <Grid
