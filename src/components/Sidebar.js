@@ -78,20 +78,6 @@ function Sidebar(props) {
           </IconButton>
         </div>
         <Divider />
-        <Link
-          to="/"
-          style={{
-            textDecoration: "none",
-            color: darkMode ? "white" : "black",
-          }}
-        >
-          <ListItem button>
-            <ListItemIcon>
-              <HomeIcon />
-            </ListItemIcon>
-            <ListItemText primary="Home" />
-          </ListItem>
-        </Link>
 
         <Link
           to="/revise"
