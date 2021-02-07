@@ -21,6 +21,8 @@ import Brightness3Icon from "@material-ui/icons/Brightness3";
 import FaceIcon from "@material-ui/icons/Face";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
+import { Auth } from "aws-amplify";
+import { useHistory } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -54,6 +56,20 @@ function Sidebar(props) {
 
   const handleExpand = () => {
     setExpand(!expand);
+  };
+
+  let history = useHistory();
+
+  const logout = async () => {
+    handleDrawerClose();
+
+    try {
+      await Auth.signOut();
+      props.updateAuthState("loggedOut");
+      history.push("/");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -123,14 +139,14 @@ function Sidebar(props) {
             <ListItemIcon>
               <Brightness3Icon />
             </ListItemIcon>
-            <ListItemText primary="DarkMode" />
+            <ListItemText primary={darkMode ? "Light Mode" : "Dark Mode"} />
           </ListItem>
 
-          <ListItem button className={classes.nested}>
+          <ListItem button className={classes.nested} onClick={logout}>
             <ListItemIcon>
               <ExitToAppIcon />
             </ListItemIcon>
-            <ListItemText primary="Logout" />
+            <ListItemText primary="Log Out" />
           </ListItem>
         </List>
       </Collapse>
