@@ -51,6 +51,7 @@ function AccountMenu(props) {
 
   const logout = async () => {
     try {
+      props.onClose();
       await Auth.signOut();
       props.updateAuthState("loggedOut");
       history.push("/");
