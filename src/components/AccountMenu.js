@@ -77,7 +77,7 @@ function AccountMenu(props) {
             <ToggleOffIcon fontSize="small" />
           )}
         </ListItemIcon>
-        <ListItemText primary="Dark Mode" />
+        <ListItemText primary={darkMode ? "Light Mode" : "Dark Mode"} />
       </StyledMenuItem>
       <StyledMenuItem>
         <ListItemIcon>
