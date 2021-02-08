@@ -2,6 +2,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import React from "react";
+import { Link } from "react-router-dom";
 import { ListItemIcon, ListItemText } from "@material-ui/core";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import SettingsIcon from "@material-ui/icons/Settings";
@@ -43,6 +44,12 @@ const StyledMenuItem = withStyles((theme) => ({
   },
 }))(MenuItem);
 
+const StyledListItem = withStyles((theme) => ({
+  root: {
+    color: theme.palette.primary.contrastText,
+  },
+}))(ListItemText);
+
 function AccountMenu(props) {
   const darkMode = props.darkMode;
   const anchorEl = props.anchorEl;
@@ -77,19 +84,21 @@ function AccountMenu(props) {
             <ToggleOffIcon fontSize="small" />
           )}
         </ListItemIcon>
-        <ListItemText primary={darkMode ? "Light Mode" : "Dark Mode"} />
+        <StyledListItem primary={darkMode ? "Light Mode" : "Dark Mode"} />
       </StyledMenuItem>
-      <StyledMenuItem>
-        <ListItemIcon>
-          <SettingsIcon fontSize="small" />
-        </ListItemIcon>
-        <ListItemText primary="Settings" />
-      </StyledMenuItem>
+      <Link to={"/settings"} style={{ textDecoration: "none" }}>
+        <StyledMenuItem onClick={() => props.onClose()}>
+          <ListItemIcon>
+            <SettingsIcon fontSize="small" />
+          </ListItemIcon>
+          <StyledListItem primary="Settings" />
+        </StyledMenuItem>
+      </Link>
       <StyledMenuItem onClick={logout}>
         <ListItemIcon>
           <ExitToAppIcon fontSize="small" />
         </ListItemIcon>
-        <ListItemText primary="Logout" />
+        <StyledListItem primary="Logout" />
       </StyledMenuItem>
     </StyledMenu>
   );
