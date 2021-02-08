@@ -104,7 +104,7 @@ function Settings(props) {
           </Typography>
 
           <form
-            style={{ width: "100%", maxWidth: "400px" }}
+            style={{ width: "100%", maxWidth: "500px" }}
             noValidate
             onSubmit={handleSubmit(onSubmit)}
           >
