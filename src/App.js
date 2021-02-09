@@ -286,19 +286,19 @@ function App() {
                             >
                               <StyledTab
                                 label="Revise"
-                                value="/revise"
+                                value={allTabs[1]}
                                 component={Link}
                                 to={allTabs[1]}
                               />
                               <StyledTab
                                 label="Saved"
-                                value="/saved"
+                                value={allTabs[2]}
                                 component={Link}
                                 to={allTabs[2]}
                               />
                               <StyledTab
                                 label="My Account"
-                                value="/settings"
+                                value={allTabs[6]}
                                 onClick={handleClick}
                                 style={{ paddingLeft: 25 }}
                               />
