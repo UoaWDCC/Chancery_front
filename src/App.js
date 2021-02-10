@@ -11,6 +11,7 @@ import { Switch, Route, Link, BrowserRouter, Redirect } from "react-router-dom";
 import Home from "./pages/home";
 import Revise from "./pages/revise";
 import Saved from "./pages/saved";
+import Settings from "./pages/settings";
 import AccountMenu from "./components/AccountMenu";
 import SignUp from "./pages/signup";
 import Paper from "@material-ui/core/Paper";
@@ -98,7 +99,15 @@ const StyledTab = withStyles((theme) => ({
 
 function App() {
   const classes = useStyles();
-  const allTabs = ["/", "/revise", "/saved", "/signup", "/login", "/password"];
+  const allTabs = [
+    "/",
+    "/revise",
+    "/saved",
+    "/signup",
+    "/login",
+    "/password",
+    "/settings",
+  ];
   const [anchorEl, setAnchorEl] = useState(null);
   const [darkMode, setDarkMode] = useState(false);
   const [user, setUser] = useState(null);
@@ -277,18 +286,19 @@ function App() {
                             >
                               <StyledTab
                                 label="Revise"
-                                value="/revise"
+                                value={allTabs[1]}
                                 component={Link}
                                 to={allTabs[1]}
                               />
                               <StyledTab
                                 label="Saved"
-                                value="/saved"
+                                value={allTabs[2]}
                                 component={Link}
                                 to={allTabs[2]}
                               />
                               <StyledTab
                                 label="My Account"
+                                value={allTabs[6]}
                                 onClick={handleClick}
                                 style={{ paddingLeft: 25 }}
                               />
@@ -337,6 +347,12 @@ function App() {
                           path={allTabs[2]}
                           render={() => (
                             <Saved isUserLoggedIn={isUserLoggedIn} />
+                          )}
+                        />
+                        <Route
+                          path={allTabs[6]}
+                          render={() => (
+                            <Settings isUserLoggedIn={isUserLoggedIn} />
                           )}
                         />
                         <Route

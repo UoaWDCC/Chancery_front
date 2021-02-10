@@ -12,16 +12,19 @@ import {
   ListItemText,
   Collapse,
 } from "@material-ui/core";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import ImportContactsIcon from "@material-ui/icons/ImportContacts";
-import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import Brightness3Icon from "@material-ui/icons/Brightness3";
-import Brightness5Icon from "@material-ui/icons/Brightness5";
-import FaceIcon from "@material-ui/icons/Face";
-import ExpandLess from "@material-ui/icons/ExpandLess";
-import ExpandMore from "@material-ui/icons/ExpandMore";
+import {
+  Settings,
+  ChevronLeft,
+  ChevronRight,
+  ImportContacts,
+  BookmarkBorder,
+  ExitToApp,
+  Brightness3,
+  Brightness5,
+  Face,
+  ExpandLess,
+  ExpandMore,
+} from "@material-ui/icons";
 import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
 
@@ -86,11 +89,7 @@ function Sidebar(props) {
       <List component="nav" className={classes.root}>
         <div className={classes.drawerHeader}>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "rtl" ? (
-              <ChevronLeftIcon />
-            ) : (
-              <ChevronRightIcon />
-            )}
+            {theme.direction === "rtl" ? <ChevronLeft /> : <ChevronRight />}
           </IconButton>
         </div>
         <Divider />
@@ -104,7 +103,7 @@ function Sidebar(props) {
         >
           <ListItem button>
             <ListItemIcon>
-              <ImportContactsIcon />
+              <ImportContacts />
             </ListItemIcon>
             <ListItemText primary="Revise" />
           </ListItem>
@@ -119,7 +118,7 @@ function Sidebar(props) {
         >
           <ListItem button>
             <ListItemIcon>
-              <BookmarkBorderIcon />
+              <BookmarkBorder />
             </ListItemIcon>
             <ListItemText primary="Saved" />
           </ListItem>
@@ -127,7 +126,7 @@ function Sidebar(props) {
 
         <ListItem button onClick={handleExpand}>
           <ListItemIcon>
-            <FaceIcon />
+            <Face />
           </ListItemIcon>
           <ListItemText primary="My Account" />
           {expand ? <ExpandLess /> : <ExpandMore />}
@@ -138,14 +137,29 @@ function Sidebar(props) {
         <List component="div" disablePadding>
           <ListItem button className={classes.nested} onClick={setDarkMode}>
             <ListItemIcon>
-              {darkMode ? <Brightness5Icon /> : <Brightness3Icon />}
+              {darkMode ? <Brightness5 /> : <Brightness3 />}
             </ListItemIcon>
             <ListItemText primary={darkMode ? "Light Mode" : "Dark Mode"} />
           </ListItem>
 
+          <Link
+            to="/settings"
+            style={{
+              textDecoration: "none",
+              color: darkMode ? "white" : "black",
+            }}
+          >
+            <ListItem button className={classes.nested}>
+              <ListItemIcon>
+                <Settings />
+              </ListItemIcon>
+              <ListItemText primary="Settings" />
+            </ListItem>
+          </Link>
+
           <ListItem button className={classes.nested} onClick={logout}>
             <ListItemIcon>
-              <ExitToAppIcon />
+              <ExitToApp />
             </ListItemIcon>
             <ListItemText primary="Log Out" />
           </ListItem>
