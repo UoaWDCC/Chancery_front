@@ -114,13 +114,13 @@ function Password() {
       setPasswordConfirmError(false);
     }
 
-    const pe = /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)(?=.*[ !'{}@#;`$.%"\\,()/:<>[\]_|~+^&\-+?*]).{8,128}$/;
+    const pe = /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d).{8,128}$/;
     if (pe.test(data.password)) {
       setPasswordConfirmError(false);
     } else {
       setPasswordConfirmError(true);
       setPasswordErrorMessage(
-        "passwords needs to be longer than 8, and contains at least one large case, lower case, and special symbol"
+        "passwords needs to be at least 8 characters, and contains at least one large case, one lower case and one number"
       );
       return;
     }
