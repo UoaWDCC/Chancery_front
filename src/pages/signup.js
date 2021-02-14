@@ -290,9 +290,9 @@ function SignUp(props) {
     aria-describedby="alert-dialog-description"
     >
       <DialogContent style={{display: 'flex'}}>
-        <CheckCircleOutlineIcon style={{ color: '#21ce99' }} />
+        <CheckCircleOutlineIcon style={{ color: '#21ce99', marginRight: '20px' }} />
         <DialogContentText>
-          A verification email has been sent. Please verify your email before log in
+          A verification email has been sent. Please verify your email
         </DialogContentText>
       </DialogContent>
       <DialogActions>
