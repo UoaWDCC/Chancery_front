@@ -99,13 +99,6 @@ function SignUp(props) {
   };
 
   const onSubmit = async (data) => {
-    if (data.password !== data.confirmPassword) {
-      setPasswordConfirmError(true);
-      setPasswordErrorMessage("passwords do not match");
-    } else {
-      setPasswordConfirmError(false);
-    }
-
     let username = data.email.toLowerCase();
     let password = data.password;
     let email = data.email.toLowerCase();
@@ -118,16 +111,26 @@ function SignUp(props) {
     } else {
       setEmailError(true);
       setEmailErrorMessage("This email address is not in the correct format");
+      return;
     }
 
-    const pe = /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)(?=.*[ !'{}@#;`$.%"\\,()/:<>[\]_|~+^&\-+?*]).{8,128}$/;
+    const pe = /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d).{8,128}$/;
     if (pe.test(password)) {
       setPasswordConfirmError(false);
     } else {
       setPasswordConfirmError(true);
       setPasswordErrorMessage(
-        "passwords needs to be longer than 8, and contains at least one large case, lower case, and special symbol"
+        "passwords needs to be at least 8 characters, and contains at least one large case, one lower case and one number"
       );
+      return;
+    }
+    
+    if (data.password !== data.confirmPassword) {
+      setPasswordConfirmError(true);
+      setPasswordErrorMessage("passwords do not match");
+      return;
+    } else {
+      setPasswordConfirmError(false);
     }
 
     try {
