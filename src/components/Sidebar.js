@@ -21,6 +21,7 @@ import {
   ExitToApp,
   Brightness3,
   Brightness5,
+  Home,
   Face,
   ExpandLess,
   ExpandMore,
@@ -93,6 +94,21 @@ function Sidebar(props) {
           </IconButton>
         </div>
         <Divider />
+
+        <Link
+          to="/"
+          style={{
+            textDecoration: "none",
+            color: darkMode ? "white" : "black",
+          }}
+        >
+          <ListItem button>
+            <ListItemIcon>
+              <Home />
+            </ListItemIcon>
+            <ListItemText primary="Home" />
+          </ListItem>
+        </Link>
 
         <Link
           to="/revise"

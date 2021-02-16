@@ -215,15 +215,6 @@ function App() {
     }
   };
 
-  const getPathValue = (pathname) => {
-    return (
-      pathname === "/login" ||
-      pathname === "/signup" ||
-      pathname === "/" ||
-      pathname === "/password"
-    );
-  };
-
   return (
     <React.StrictMode>
       <ThemeProvider theme={theme}>
@@ -259,7 +250,7 @@ function App() {
                     >
                       <Toolbar>
                         <Logo />
-                        {!getPathValue(location.pathname) && (
+                        {isUserLoggedIn !== "loggedOut" && (
                           <div
                             className={classes.nav}
                             style={{
@@ -284,6 +275,12 @@ function App() {
                               value={location.pathname}
                               aria-label="styled tabs example"
                             >
+                              <StyledTab
+                                label="Home"
+                                value={allTabs[0]}
+                                component={Link}
+                                to={allTabs[0]}
+                              />
                               <StyledTab
                                 label="Revise"
                                 value={allTabs[1]}
