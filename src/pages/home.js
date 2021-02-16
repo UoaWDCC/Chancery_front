@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import Logo from "../icons/Chancery_logo.png";
 import ParticleComponent from "../components/ParticleComponent";
-import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -44,13 +43,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Home(props) {
-  let history = useHistory();
-
   const classes = useStyles();
-
-  if(props.isUserLoggedIn === "loggedIn") {
-    history.push("/revise");
-  }
 
   return (
     <Grid
@@ -77,7 +70,10 @@ function Home(props) {
         <Typography className={classes.subheading} variant={"h2"}>
           Prepare for your next investment banking interview
         </Typography>
-        <Link to={"/login"} style={{ textDecoration: "none" }}>
+        <Link
+          to={props.isUserLoggedIn === "loggedIn" ? "/revise" : "/login"}
+          style={{ textDecoration: "none" }}
+        >
           <Button
             variant={"outlined"}
             className={classes.button}
