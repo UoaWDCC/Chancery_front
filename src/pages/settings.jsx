@@ -88,7 +88,7 @@ function Settings(props) {
   const [wrongPasswordError, setWrongPasswordError] = useState(false);
   const { register, handleSubmit, reset } = useForm();
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -125,7 +125,6 @@ function Settings(props) {
       handleClickOpen();
     } catch (error) {
       setWrongPasswordError(true);
-      console.log(error);
     }
   };
 
