@@ -3,11 +3,10 @@ import { useForm } from "react-hook-form";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
@@ -15,7 +14,7 @@ import ParticleComponent from "../components/ParticleComponent";
 import { Redirect, useHistory } from "react-router-dom";
 import { Auth } from "aws-amplify";
 import { postUserInfo } from "../api/userApi";
-import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 
 const useStyles = makeStyles((theme) => ({
   heading: {
@@ -87,7 +86,7 @@ function SignUp(props) {
   const [emailErrorMessage, setEmailErrorMessage] = useState("");
   const [emailError, setEmailError] = useState(false);
   const { register, handleSubmit } = useForm();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   let history = useHistory();
 
   const handleClickOpen = () => {
@@ -96,9 +95,8 @@ function SignUp(props) {
 
   const handleClose = () => {
     setOpen(false);
-    history.push('/login');
+    history.push("/login");
   };
-
 
   const onSubmit = async (data) => {
     if (data.password !== data.confirmPassword) {
@@ -243,7 +241,9 @@ function SignUp(props) {
               />
             </Grid>
             <Grid item>
-              <Typography className={classes.label}>Confirm Password</Typography>
+              <Typography className={classes.label}>
+                Confirm Password
+              </Typography>
               <TextField
                 className={classes.textBox}
                 error={confirmPasswordError}
@@ -283,25 +283,27 @@ function SignUp(props) {
         </Grid>
       </Grid>
 
-    <Dialog
-    open={open}
-    onClose={handleClose}
-    aria-labelledby="alert-dialog-title"
-    aria-describedby="alert-dialog-description"
-    >
-      <DialogContent style={{display: 'flex'}}>
-        <CheckCircleOutlineIcon style={{ color: '#21ce99', marginRight: '20px' }} />
-        <DialogContentText>
-          A verification email has been sent. Please verify your email
-        </DialogContentText>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose} color="primary">
-          OK
-        </Button>
-      </DialogActions>
-    </Dialog>
-  </div>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogContent style={{ display: "flex" }}>
+          <CheckCircleOutlineIcon
+            style={{ color: "#21ce99", marginRight: "20px" }}
+          />
+          <DialogContentText>
+            A verification email has been sent. Please verify your email
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            OK
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
   );
 }
 
