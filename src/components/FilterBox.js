@@ -54,7 +54,6 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "10px",
     padding: "20px",
     height: "fit-content",
-    // width: "fit-content",
     boxShadow: theme.palette.type === "dark" ? "none" : theme.boxShadow,
   },
   labelContainer: {
