@@ -18,13 +18,13 @@ const useStyles = makeStyles((theme) => ({
   heading: {
     textTransform: "uppercase",
     fontWeight: "bold",
-    fontSize: "25px",
+    fontSize: "18px",
     paddingBottom: "5px",
     color: theme.palette.primary.contrastText,
   },
   label: {
     textTransform: "uppercase",
-    fontSize: "20px",
+    fontSize: "15px",
   },
   root: {
     "&:hover": {
@@ -35,8 +35,8 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     borderRadius: 5,
     borderStyle: "solid",
-    width: 20,
-    height: 20,
+    width: 15,
+    height: 15,
     "input:hover ~ &": {
       backgroundColor: theme.palette.type === "dark" ? "#6f6f6f" : "#e8e8e8",
     },
@@ -54,11 +54,19 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "10px",
     padding: "20px",
     height: "fit-content",
-    width: "fit-content",
     boxShadow: theme.palette.type === "dark" ? "none" : theme.boxShadow,
   },
+  labelContainer: {
+    flexDirection: "column",
+    [theme.breakpoints.down("md")]: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+    },
+    [theme.breakpoints.down("xs")]: {
+      flexDirection: "column",
+    },
+  },
   button: {
-    width: 310,
     borderRadius: 7,
     padding: "20px 40px 20px 40px",
     backgroundColor: theme.palette.type === "dark" ? "#818181" : "#FFFFFF",
@@ -66,11 +74,6 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       boxShadow: "none",
     },
-  },
-  [theme.breakpoints.down("sm")]: {
-    button: {
-      width: "100%",
-    }
   },
 }));
 
@@ -139,7 +142,7 @@ function FilterBox() {
       control={<StyledCheckbox checked={checkedStates[topic]} />}
       label={
         <Typography className={classes.label}>
-          {topic === "LBO" ? "Leveraged Buyout" : topic}
+          {topic === "Discounted Cash Flow" ? "DCF" : topic}
         </Typography>
       }
       labelPlacement="end"
@@ -168,27 +171,37 @@ function FilterBox() {
       justify="flex-start"
       alignItems="center"
     >
-      <Grid item style={{ paddingLeft: 20 }}>
-        <FormControl component="fieldset">
-          <FormLabel component="label" focused>
-            <Typography className={classes.heading}>Topics:</Typography>
-          </FormLabel>
+      <Grid className={classes.labelContainer} item container>
+        <Grid item>
+          <FormControl component="fieldset">
+            <FormLabel component="label" focused>
+              <Typography className={classes.heading}>Topics:</Typography>
+            </FormLabel>
+            <FormGroup aria-label="position" row={false}>
+              {topicCheckBoxes}
+            </FormGroup>
+          </FormControl>
+        </Grid>
+        <br />
+        <Grid item>
+          <FormControl component="fieldset">
+            <FormLabel component="label" focused>
+              <Typography className={classes.heading}>Difficulty:</Typography>
+            </FormLabel>
+            <FormGroup aria-label="position" row={false}>
+              {difficultyCheckBoxes}
+            </FormGroup>
+          </FormControl>
+        </Grid>
 
-          <FormGroup aria-label="position" row={false}>
-            {topicCheckBoxes}
-          </FormGroup>
-          <br />
-          <FormLabel component="label" focused>
-            <Typography className={classes.heading}>Difficulty:</Typography>
-          </FormLabel>
-          <FormGroup aria-label="position" row={false}>
-            {difficultyCheckBoxes}
-          </FormGroup>
-          <br />
-        </FormControl>
+        <br />
       </Grid>
-      <Grid item>
-        <Button className={classes.button} onClick={clearFilters}>
+      <Grid item style={{ width: "100%" }}>
+        <Button
+          className={classes.button}
+          fullWidth={true}
+          onClick={clearFilters}
+        >
           <Typography className={classes.label}>Clear Filters</Typography>
         </Button>
       </Grid>
