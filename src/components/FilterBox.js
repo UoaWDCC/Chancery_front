@@ -54,8 +54,18 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "10px",
     padding: "20px",
     height: "fit-content",
-    width: "fit-content",
+    // width: "fit-content",
     boxShadow: theme.palette.type === "dark" ? "none" : theme.boxShadow,
+  },
+  labelContainer: {
+    flexDirection: "column",
+    [theme.breakpoints.down("md")]: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+    },
+    [theme.breakpoints.down("xs")]: {
+      flexDirection: "column",
+    },
   },
   button: {
     borderRadius: 7,
@@ -162,27 +172,37 @@ function FilterBox() {
       justify="flex-start"
       alignItems="center"
     >
-      <Grid item>
-        <FormControl component="fieldset">
-          <FormLabel component="label" focused>
-            <Typography className={classes.heading}>Topics:</Typography>
-          </FormLabel>
+      <Grid className={classes.labelContainer} item container>
+        <Grid item>
+          <FormControl component="fieldset">
+            <FormLabel component="label" focused>
+              <Typography className={classes.heading}>Topics:</Typography>
+            </FormLabel>
+            <FormGroup aria-label="position" row={false}>
+              {topicCheckBoxes}
+            </FormGroup>
+          </FormControl>
+        </Grid>
+        <br />
+        <Grid item>
+          <FormControl component="fieldset">
+            <FormLabel component="label" focused>
+              <Typography className={classes.heading}>Difficulty:</Typography>
+            </FormLabel>
+            <FormGroup aria-label="position" row={false}>
+              {difficultyCheckBoxes}
+            </FormGroup>
+          </FormControl>
+        </Grid>
 
-          <FormGroup aria-label="position" row={false}>
-            {topicCheckBoxes}
-          </FormGroup>
-          <br />
-          <FormLabel component="label" focused>
-            <Typography className={classes.heading}>Difficulty:</Typography>
-          </FormLabel>
-          <FormGroup aria-label="position" row={false}>
-            {difficultyCheckBoxes}
-          </FormGroup>
-          <br />
-        </FormControl>
+        <br />
       </Grid>
-      <Grid item style={{width: "100%"}}>
-        <Button className={classes.button} fullWidth={true} onClick={clearFilters}>
+      <Grid item style={{ width: "100%" }}>
+        <Button
+          className={classes.button}
+          fullWidth={true}
+          onClick={clearFilters}
+        >
           <Typography className={classes.label}>Clear Filters</Typography>
         </Button>
       </Grid>
