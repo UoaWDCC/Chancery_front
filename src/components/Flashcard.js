@@ -3,10 +3,7 @@ import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
-import Grid from "@material-ui/core/Grid";
-import Hidden from "@material-ui/core/Hidden";
-
-import IconButton from "@material-ui/core/IconButton";
+import { Grid, Hidden, IconButton, CircularProgress } from "@material-ui/core";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import SavedIcon from "../icons/SavedIcon";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
@@ -18,11 +15,9 @@ import { getDisplayedFlashcards } from "../redux/selectors";
 import { useDispatch, useSelector } from "react-redux";
 import { updateCurrentIndex } from "../redux/actions";
 
-import CircularProgress from "@material-ui/core/CircularProgress";
- 
 import { useHotkeys } from "react-hotkeys-hook";
 
-import { postBookmark, deleteBookmark } from '../api/userApi'
+import { postBookmark, deleteBookmark } from "../api/userApi";
 
 const useStyles = makeStyles((theme) => ({
   page: {
@@ -209,22 +204,34 @@ function Flashcard(props) {
   const [currentFlashcard, setCurrentFlashcard] = useState(
     displayedFlashcards[currentIndex]
   );
-
+  const [loading, setLoading] = useState(false);
 
   const handleSave = async () => {
-    let param = {
-      emailAddress: props.user.attributes.email,
-      flashCardID: currentFlashcard.id
-    };
-
-    if(saved === false){
-      postBookmark(param);
-      console.log("haha")
-    } else {
-      deleteBookmark(param);
+    try {
+      if (saved === false) {
+        let param = {
+          emailAddress: props.user.attributes.email,
+          flashCardID: currentFlashcard.id,
+          flashCard: currentFlashcard,
+        };
+        setLoading(true);
+        await postBookmark(param);
+        setLoading(false);
+        setSaved(!saved);
+      } else {
+        let param = {
+          emailAddress: props.user.attributes.email,
+          flashCardID: currentFlashcard.id,
+        };
+        setLoading(true);
+        await deleteBookmark(param);
+        setLoading(false);
+        setSaved(!saved);
+      }
+    } catch (err) {
+      console.log(err);
     }
-    setSaved(!saved);
-  }
+  };
 
   const previousFlashcard = useCallback(() => {
     dispatch(updateCurrentIndex(currentIndex - 1));
@@ -252,7 +259,7 @@ function Flashcard(props) {
     },
   })(Typography);
 
-  useHotkeys("s", () => setSaved(!saved), [saved]);
+  useHotkeys("s", handleSave);
   useHotkeys("left", () => setMove("left"), [move]);
   useHotkeys("right", () => setMove("right"), [move]);
   useHotkeys("space", () => setShowAnswer(!show), [show]);
@@ -286,17 +293,23 @@ function Flashcard(props) {
           <React.Fragment>
             <Hidden mdUp>
               <Grid container justify="center" alignItems="center">
-                <Button
-                  className={classes.save}
-                  disableRipple
-                  onClick={handleSave}
-                >
-                  {saved ? (
-                    <SavedIcon style={{ fontSize: 40 }} />
-                  ) : (
-                    <BookmarkBorderIcon style={{ fontSize: 40 }} />
-                  )}
-                </Button>
+                {loading ? (
+                  <CircularProgress
+                    style={{ marginLeft: "24px", fontSize: 40 }}
+                  />
+                ) : (
+                  <Button
+                    className={classes.save}
+                    disableRipple
+                    onClick={handleSave}
+                  >
+                    {saved ? (
+                      <SavedIcon style={{ fontSize: 40 }} />
+                    ) : (
+                      <BookmarkBorderIcon style={{ fontSize: 40 }} />
+                    )}
+                  </Button>
+                )}
               </Grid>
               <Grid container>
                 <Grid item xs={3}>
@@ -354,17 +367,23 @@ function Flashcard(props) {
                   >
                     Save
                   </Typography>
-                  <Button
-                    className={classes.save}
-                    disableRipple
-                    onClick={handleSave}
-                  >
-                    {saved ? (
-                      <SavedIcon style={{ fontSize: 40 }} />
-                    ) : (
-                      <BookmarkBorderIcon style={{ fontSize: 40 }} />
-                    )}
-                  </Button>
+                  {loading ? (
+                    <CircularProgress
+                      style={{ marginLeft: "24px", fontSize: 40 }}
+                    />
+                  ) : (
+                    <Button
+                      className={classes.save}
+                      disableRipple
+                      onClick={handleSave}
+                    >
+                      {saved ? (
+                        <SavedIcon style={{ fontSize: 40 }} />
+                      ) : (
+                        <BookmarkBorderIcon style={{ fontSize: 40 }} />
+                      )}
+                    </Button>
+                  )}
                 </Grid>
               </Hidden>
             </Grid>
