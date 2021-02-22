@@ -46,7 +46,7 @@ function Revise(props) {
           style={{ flex: 1 }}
         >
           <Grid item style={{ width: "100%" }}>
-            <Flashcard />
+            <Flashcard user={props.user}/>
           </Grid>
           <Hidden xsDown>
             <Grid item>

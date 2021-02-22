@@ -138,22 +138,17 @@ function App() {
   });
 
   useEffect(() => {
-    Hub.listen("auth", ({ payload: { event, data } }) => {
-      switch (event) {
-        case "signIn":
-          getUser().then((userData) => setUser(userData));
-          break;
-        case "signOut":
-          setUser(null);
-          break;
-        case "signIn_failure":
-          console.log("Sign in failure", data);
-          break;
-        default:
-          break;
-      }
-    });
-  }, []);
+    switch (isUserLoggedIn) {
+      case "loggedIn":
+        getUser().then((userData) => setUser(userData));
+        break;
+      case "loggedOut":
+        setUser(null);
+        break;
+      default:
+        break;
+    }
+  }, [isUserLoggedIn]);
 
   useEffect(() => {
     checkAuthState();
@@ -337,7 +332,7 @@ function App() {
                         <Route
                           path={allTabs[1]}
                           render={() => (
-                            <Revise isUserLoggedIn={isUserLoggedIn} />
+                            <Revise isUserLoggedIn={isUserLoggedIn} user={user} />
                           )}
                         />
                         <Route

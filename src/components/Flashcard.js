@@ -19,8 +19,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateCurrentIndex } from "../redux/actions";
 
 import CircularProgress from "@material-ui/core/CircularProgress";
-
+ 
 import { useHotkeys } from "react-hotkeys-hook";
+
+import { postBookmark, deleteBookmark } from '../api/userApi'
 
 const useStyles = makeStyles((theme) => ({
   page: {
@@ -198,7 +200,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Flashcard() {
+function Flashcard(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -207,6 +209,22 @@ function Flashcard() {
   const [currentFlashcard, setCurrentFlashcard] = useState(
     displayedFlashcards[currentIndex]
   );
+
+
+  const handleSave = async () => {
+    let param = {
+      emailAddress: props.user.attributes.email,
+      flashCardID: currentFlashcard.id
+    };
+
+    if(saved === false){
+      postBookmark(param);
+      console.log("haha")
+    } else {
+      deleteBookmark(param);
+    }
+    setSaved(!saved);
+  }
 
   const previousFlashcard = useCallback(() => {
     dispatch(updateCurrentIndex(currentIndex - 1));
@@ -271,7 +289,7 @@ function Flashcard() {
                 <Button
                   className={classes.save}
                   disableRipple
-                  onClick={() => setSaved(!saved)}
+                  onClick={handleSave}
                 >
                   {saved ? (
                     <SavedIcon style={{ fontSize: 40 }} />
@@ -339,7 +357,7 @@ function Flashcard() {
                   <Button
                     className={classes.save}
                     disableRipple
-                    onClick={() => setSaved(!saved)}
+                    onClick={handleSave}
                   >
                     {saved ? (
                       <SavedIcon style={{ fontSize: 40 }} />
