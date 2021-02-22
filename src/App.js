@@ -84,7 +84,7 @@ const StyledTab = withStyles((theme) => ({
   root: {
     textTransform: "uppercase",
     fontWeight: "bold",
-    fontSize: "25px",
+    fontSize: "20px",
     color: theme.color,
     marginRight: theme.spacing(1),
     "&:focus": {
