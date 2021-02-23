@@ -109,7 +109,7 @@ function App() {
     "/settings",
   ];
   const [anchorEl, setAnchorEl] = useState(null);
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
   const [user, setUser] = useState(null);
   const [isUserLoggedIn, setUserLoggedIn] = useState("initializing");
   const [open, setOpen] = React.useState(false);
