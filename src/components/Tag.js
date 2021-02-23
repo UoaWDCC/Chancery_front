@@ -9,14 +9,14 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     backgroundColor: "#21CE99",
     borderRadius: 5,
-    padding: "5px 15px 5px 10px",
+    padding: "4px 13px 4px 9px",
     margin: "5px",
     height: "30px",
     maxWidth: "100%",
   },
   text: {
     color: "white",
-    fontSize: "18px",
+    fontSize: "15px",
     textTransform: "uppercase",
     lineHeight: "30px",
     textAlign: "left",
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     whiteSpace: "nowrap",
   },
   icon: {
-    fontSize: 20,
+    fontSize: "18px",
     color: "white",
   },
   [theme.breakpoints.down("sm")]: {
@@ -34,10 +34,10 @@ const useStyles = makeStyles((theme) => ({
       padding: "0 8px",
     },
     icon: {
-      fontSize: "15px",
+      fontSize: "13px",
     },
     text: {
-      fontSize: "15px",
+      fontSize: "13px",
     },
   },
 }));
