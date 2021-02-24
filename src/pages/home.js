@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import Logo from "../icons/Chancery_logo.png";
 import ParticleComponent from "../components/ParticleComponent";
+import Socials from "../components/Socials"
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -83,6 +84,7 @@ function Home(props) {
           </Button>
         </Link>
       </Grid>
+      <Socials/>
     </Grid>
   );
 }
