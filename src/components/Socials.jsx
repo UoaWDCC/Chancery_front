@@ -41,13 +41,13 @@ function Socials() {
 
   return (
     <div className={classes.container}>
-      <Link href="https://www.instagram.com/" target={"__blank"}>
+      <Link href="https://www.instagram.com/chancery.app/" target={"__blank"}>
         <Instagram className={clsx(classes.icon, classes.instagramIcon)} />
       </Link>
-      <Link href="https://www.facebook.com/" target={"__blank"}>
+      <Link href="https://www.facebook.com/Chancery-109175661220313" target={"__blank"}>
         <Facebook className={classes.icon} />
       </Link>
-      <Link href="https://nz.linkedin.com/" target={"__blank"}>
+      <Link href="https://www.linkedin.com/company/chanceryapp/about/" target={"__blank"}>
         <LinkedIn className={classes.icon} />
       </Link>
       <Link href="mailto: chancery@gmail.com" target={"__blank"}>
