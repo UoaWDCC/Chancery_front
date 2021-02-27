@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import SavedFlashcard from "../components/SavedFlashcard";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
-import { Button } from "@material-ui/core";
+import { Button, CircularProgress } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 
 import { Link } from "react-router-dom";
@@ -96,10 +96,16 @@ function Saved(props) {
 
   let cardElements = [];
 
-  savedCards.forEach((item) => {
+  savedCards.forEach((item, index) => {
     cardElements.push(
-      <Container className={classes.flashcardContainer}>
-        <SavedFlashcard key={item.flashCardID} cardInfo={item.flashCard} />
+      <Container key={item.flashCardID} className={classes.flashcardContainer}>
+        <SavedFlashcard
+          savedCards={savedCards}
+          setSavedCards={setSavedCards}
+          index={index}
+          cardInfo={item.flashCard}
+          user={props.user}
+        />
       </Container>
     );
   });
@@ -127,7 +133,13 @@ function Saved(props) {
           </Grid>
         </Grid>
 
-        {cardElements}
+        {cardElements.length === 0 ? (
+          <CircularProgress
+            style={{ position: "absolute", left: "50%", top: "100%" }}
+          />
+        ) : (
+          cardElements
+        )}
       </Container>
 
       <Container id="footer-popup" className={classes.footer}>

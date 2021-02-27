@@ -3,13 +3,13 @@ import React, { useState } from "react";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import { Button } from "@material-ui/core";
+import { Grid, CircularProgress, Button } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 
 // import BookmarkTwoToneIcon from "@material-ui/icons/BookmarkTwoTone";
 import SavedIcon from "../icons/SavedIcon";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
+import { deleteBookmark } from "../api/userApi";
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -85,11 +85,28 @@ function SavedFlashcard(props) {
 
   const [show, setShowAnswer] = useState(false);
   const [saved, setSaved] = useState(true);
-  const { cardInfo } = props;
+  const [loading, setLoading] = useState(false);
+
+  const { index, user, cardInfo, setSavedCards, savedCards } = props;
+
+  const handleSaved = async () => {
+    let param = {
+      emailAddress: user.attributes.email,
+      flashCardID: cardInfo.id,
+    };
+    setLoading(true);
+    await deleteBookmark(param);
+    let result = savedCards.filter((item) => item.flashCardID !== cardInfo.id);
+    setSavedCards(result);
+  };
 
   return (
     <div>
       <Grid container>
+        <Grid item container xs={1}>
+          <Typography className={classes.title}>{index + 1}</Typography>
+        </Grid>
+
         <Grid item container xs={11} className={classes.flashcardBackground}>
           <Grid item container xs={11}>
             <Container
@@ -134,9 +151,11 @@ function SavedFlashcard(props) {
             <IconButton
               className={classes.save}
               disableRipple
-              onClick={() => setSaved(!saved)}
+              onClick={handleSaved}
             >
-              {saved ? (
+              {loading ? (
+                <CircularProgress />
+              ) : saved ? (
                 <SavedIcon
                   style={{
                     fontSize: 60,

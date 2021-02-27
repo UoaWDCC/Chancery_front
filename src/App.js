@@ -142,8 +142,10 @@ function App() {
     const handleUser = async (user) => {
       setUser(user);
 
-      let result = await getSavedCards(user.attributes.email);
-      setSavedCards(result);
+      if (isUserLoggedIn === "loggedIn") {
+        let result = await getSavedCards(user.attributes.email);
+        setSavedCards(result);
+      }
     };
 
     switch (isUserLoggedIn) {
@@ -355,6 +357,7 @@ function App() {
                               isUserLoggedIn={isUserLoggedIn}
                               savedCards={savedCards}
                               setSavedCards={setSavedCards}
+                              user={user}
                             />
                           )}
                         />
