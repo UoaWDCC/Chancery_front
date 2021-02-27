@@ -12,8 +12,8 @@ import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
-	maxWidth: '2560px',
-	margin: '0 auto',
+    maxWidth: "2560px",
+    margin: "0 auto",
   },
   title: {
     fontSize: "40px",
@@ -49,7 +49,7 @@ const useStyles = makeStyles({
     display: "inline-block",
   },
   footer: {
-    background: 'rgba(0, 0, 0, 0.2)',
+    background: "rgba(0, 0, 0, 0.2)",
     maxWidth: "100vw",
     height: "120px",
     position: "fixed",
@@ -85,22 +85,32 @@ function detectScrollDown() {
 }
 
 function Saved(props) {
-
   const classes = useStyles();
+  const { savedCards, setSavedCards } = props;
 
   let history = useHistory();
 
-  if(props.isUserLoggedIn === "loggedOut"){
-    history.push('/login')
+  if (props.isUserLoggedIn === "loggedOut") {
+    history.push("/login");
   }
+
+  let cardElements = [];
+
+  savedCards.forEach((item) => {
+    cardElements.push(
+      <Container className={classes.flashcardContainer}>
+        <SavedFlashcard key={item.flashCardID} cardInfo={item.flashCard} />
+      </Container>
+    );
+  });
 
   detectScrollDown();
 
   return (
-    <div style={{ position: "relative", paddingTop: '10vh' }}>
+    <div style={{ position: "relative", paddingTop: "10vh" }}>
       <Container style={{ padding: "3em 3em 150px 3em" }}>
         <Grid container>
-          <Grid item container xs={1}/>
+          <Grid item container xs={1} />
           <Grid item container xs={6}>
             <Typography className={classes.title}>Saved Questions:</Typography>
           </Grid>
@@ -117,21 +127,7 @@ function Saved(props) {
           </Grid>
         </Grid>
 
-        <Container className={classes.flashcardContainer}>
-          <SavedFlashcard />
-        </Container>
-
-        <Container className={classes.flashcardContainer}>
-          <SavedFlashcard />
-        </Container>
-
-        <Container className={classes.flashcardContainer}>
-          <SavedFlashcard />
-        </Container>
-
-        <Container className={classes.flashcardContainer}>
-          <SavedFlashcard />
-        </Container>
+        {cardElements}
       </Container>
 
       <Container id="footer-popup" className={classes.footer}>

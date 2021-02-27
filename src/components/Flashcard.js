@@ -205,6 +205,7 @@ function Flashcard(props) {
     displayedFlashcards[currentIndex]
   );
   const [loading, setLoading] = useState(false);
+  const { savedCards, setSavedCards } = props;
 
   const handleSave = async () => {
     try {
@@ -216,6 +217,8 @@ function Flashcard(props) {
         };
         setLoading(true);
         await postBookmark(param);
+        savedCards.push(param);
+        setSavedCards(savedCards);
         setLoading(false);
         setSaved(!saved);
       } else {
@@ -225,6 +228,10 @@ function Flashcard(props) {
         };
         setLoading(true);
         await deleteBookmark(param);
+        let result = savedCards.filter(
+          (item) => item.flashCardID !== currentFlashcard.id
+        );
+        setSavedCards(result);
         setLoading(false);
         setSaved(!saved);
       }
@@ -250,6 +257,17 @@ function Flashcard(props) {
   const [show, setShowAnswer] = useState(false);
   const [saved, setSaved] = useState(false);
   const [move, setMove] = useState("");
+
+  useEffect(() => {
+    if (
+      savedCards &&
+      savedCards.find((item) => item.flashCardID === currentFlashcard.id)
+    ) {
+      setSaved(true);
+    } else {
+      setSaved(false);
+    }
+  }, [currentFlashcard, savedCards]);
 
   const AnswerContent = withStyles({
     root: {
