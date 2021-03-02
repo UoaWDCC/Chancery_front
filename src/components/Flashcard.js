@@ -22,7 +22,7 @@ import { postBookmark, deleteBookmark } from "../api/userApi";
 const useStyles = makeStyles((theme) => ({
   page: {
     color: theme.palette.type === "dark" ? "#fff" : "#818181",
-    fontSize: "35px",
+    fontSize: "30px",
     display: "inline-block",
     lineHeight: "40px",
     marginTop: "5px",
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 
   subheading: {
     fontWeight: "bold",
-    fontSize: "40px",
+    fontSize: "30px",
     textTransform: "uppercase",
     display: "inline-block",
   },
@@ -80,14 +80,17 @@ const useStyles = makeStyles((theme) => ({
 
   questionContent: {
     fontWeight: "bold",
-    fontSize: "30px",
+    fontSize: "24px",
     display: "inline-block",
     marginTop: "2px",
+  },
+  answerContent: {
+    fontSize: "20px",
   },
   showButton: {
     borderRadius: "5px",
     color: "white",
-    fontSize: "20px",
+    fontSize: "18px",
     textAlign: "center",
     textTransform: "uppercase",
     padding: "10px 0px 10px 0px",
@@ -116,7 +119,7 @@ const useStyles = makeStyles((theme) => ({
     borderWidth: 2,
     borderRadius: 7,
     color: theme.palette.type === "dark" ? "#B4B4B4" : "#818181",
-    fontSize: "20px",
+    fontSize: "18px",
     textAlign: "center",
     textTransform: "uppercase",
     padding: "10px 0px 10px 0px",
@@ -173,24 +176,27 @@ const useStyles = makeStyles((theme) => ({
       marginRight: "-14px",
     },
     showButton: {
-      fontSize: "15px",
+      fontSize: "13px",
     },
     questionContainer: {
       width: "100%",
       display: "block",
     },
     questionContent: {
-      fontSize: "20px",
+      fontSize: "18px",
+    },
+    answerContent: {
+      fontSize: "15px",
     },
     answerContainer: {
       width: "100%",
       display: "block",
     },
     subheading: {
-      fontSize: "30px",
+      fontSize: "20px",
     },
     page: {
-      fontSize: "30px",
+      fontSize: "20px",
     },
   },
 }));
@@ -332,7 +338,7 @@ function Flashcard(props) {
               <Grid container>
                 <Grid item xs={3}>
                   <IconButton onClick={previousFlashcard}>
-                    <ArrowBackIcon style={{ fontSize: 40 }} />
+                    <ArrowBackIcon style={{ fontSize: 28 }} />
                   </IconButton>
                 </Grid>
                 <Grid
@@ -348,7 +354,7 @@ function Flashcard(props) {
                 </Grid>
                 <Grid item xs={3}>
                   <IconButton onClick={nextFlashcard}>
-                    <ArrowForwardIcon style={{ fontSize: 40 }} />
+                    <ArrowForwardIcon style={{ fontSize: 28 }} />
                   </IconButton>
                 </Grid>
               </Grid>
@@ -381,7 +387,7 @@ function Flashcard(props) {
                 >
                   <Typography
                     className={classes.subheading}
-                    style={{ fontSize: 25 }}
+                    style={{ fontSize: 20 }}
                   >
                     Save
                   </Typography>
@@ -435,7 +441,7 @@ function Flashcard(props) {
               </Typography>
               {show && (
                 <AnswerContent id="answer-content" component={"span"}>
-                  <pre>{currentFlashcard.answer}</pre>
+                  <pre className={classes.answerContent}>{currentFlashcard.answer}</pre>
                 </AnswerContent>
               )}
               {!show && (
