@@ -13,7 +13,7 @@ const useStyles = makeStyles(() => ({
   },
   logoText: {
     textTransform: "uppercase",
-    fontSize: "48px",
+    fontSize: "35px",
     fontWeight: "bold",
   },
   button: {

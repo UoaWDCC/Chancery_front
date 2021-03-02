@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import Logo from "../icons/Chancery_logo.png";
 import ParticleComponent from "../components/ParticleComponent";
+import Socials from "../components/Socials"
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -14,6 +15,9 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: "25px",
     paddingTop: "25px",
     position: "relative",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "42px",
+    },
   },
   subheading: {
     fontSize: "35px",
@@ -21,6 +25,9 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: "60px",
     textAlign: "center",
     position: "relative",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "25px",
+    },
   },
   button: {
     backgroundColor: theme.palette.type === "dark" ? "#000000" : "#fff",
@@ -34,6 +41,9 @@ const useStyles = makeStyles((theme) => ({
       borderWidth: "3px",
       backgroundColor: "#21CE99",
       color: "#ffffff",
+    },
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "18px",
     },
   },
   logo: {
@@ -83,6 +93,7 @@ function Home(props) {
           </Button>
         </Link>
       </Grid>
+      <Socials/>
     </Grid>
   );
 }
