@@ -220,7 +220,7 @@ function Flashcard(props) {
         savedCards.push(param);
         setSavedCards(savedCards);
         setLoading(false);
-        setSaved(!saved);
+        setSaved(true);
       } else {
         let param = {
           emailAddress: props.user.attributes.email,
@@ -233,7 +233,7 @@ function Flashcard(props) {
         );
         setSavedCards(result);
         setLoading(false);
-        setSaved(!saved);
+        setSaved(false);
       }
     } catch (err) {
       console.log(err);

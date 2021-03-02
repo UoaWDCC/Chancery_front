@@ -96,19 +96,24 @@ function Saved(props) {
 
   let cardElements = [];
 
-  savedCards.forEach((item, index) => {
-    cardElements.push(
-      <Container key={item.flashCardID} className={classes.flashcardContainer}>
-        <SavedFlashcard
-          savedCards={savedCards}
-          setSavedCards={setSavedCards}
-          index={index}
-          cardInfo={item.flashCard}
-          user={props.user}
-        />
-      </Container>
-    );
-  });
+  if (savedCards) {
+    savedCards.forEach((item, index) => {
+      cardElements.push(
+        <Container
+          key={item.flashCardID}
+          className={classes.flashcardContainer}
+        >
+          <SavedFlashcard
+            savedCards={savedCards}
+            setSavedCards={setSavedCards}
+            index={index}
+            cardInfo={item.flashCard}
+            user={props.user}
+          />
+        </Container>
+      );
+    });
+  }
 
   detectScrollDown();
 

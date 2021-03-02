@@ -98,6 +98,7 @@ function SavedFlashcard(props) {
     await deleteBookmark(param);
     let result = savedCards.filter((item) => item.flashCardID !== cardInfo.id);
     setSavedCards(result);
+    setSaved(false);
   };
 
   return (
@@ -154,7 +155,9 @@ function SavedFlashcard(props) {
               onClick={handleSaved}
             >
               {loading ? (
-                <CircularProgress />
+                <CircularProgress
+                  style={{ position: "absolute", top: "7px", fontSize: 60 }}
+                />
               ) : saved ? (
                 <SavedIcon
                   style={{
