@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import SavedFlashcard from "../components/SavedFlashcard";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
-import { Button } from "@material-ui/core";
+import { Button, CircularProgress } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 
 import { Link } from "react-router-dom";
@@ -12,8 +12,8 @@ import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
-	maxWidth: '2560px',
-	margin: '0 auto',
+    maxWidth: "2560px",
+    margin: "0 auto",
   },
   title: {
     fontSize: "40px",
@@ -49,7 +49,7 @@ const useStyles = makeStyles({
     display: "inline-block",
   },
   footer: {
-    background: 'rgba(0, 0, 0, 0.2)',
+    background: "rgba(0, 0, 0, 0.2)",
     maxWidth: "100vw",
     height: "120px",
     position: "fixed",
@@ -85,22 +85,43 @@ function detectScrollDown() {
 }
 
 function Saved(props) {
-
   const classes = useStyles();
+  const { savedCards, setSavedCards } = props;
 
   let history = useHistory();
 
-  if(props.isUserLoggedIn === "loggedOut"){
-    history.push('/login')
+  if (props.isUserLoggedIn === "loggedOut") {
+    history.push("/login");
+  }
+
+  let cardElements = [];
+
+  if (savedCards) {
+    savedCards.forEach((item, index) => {
+      cardElements.push(
+        <Container
+          key={item.flashCardID}
+          className={classes.flashcardContainer}
+        >
+          <SavedFlashcard
+            savedCards={savedCards}
+            setSavedCards={setSavedCards}
+            index={index}
+            cardInfo={item.flashCard}
+            user={props.user}
+          />
+        </Container>
+      );
+    });
   }
 
   detectScrollDown();
 
   return (
-    <div style={{ position: "relative", paddingTop: '10vh' }}>
+    <div style={{ position: "relative", paddingTop: "10vh" }}>
       <Container style={{ padding: "3em 3em 150px 3em" }}>
         <Grid container>
-          <Grid item container xs={1}/>
+          <Grid item container xs={1} />
           <Grid item container xs={6}>
             <Typography className={classes.title}>Saved Questions:</Typography>
           </Grid>
@@ -117,21 +138,13 @@ function Saved(props) {
           </Grid>
         </Grid>
 
-        <Container className={classes.flashcardContainer}>
-          <SavedFlashcard />
-        </Container>
-
-        <Container className={classes.flashcardContainer}>
-          <SavedFlashcard />
-        </Container>
-
-        <Container className={classes.flashcardContainer}>
-          <SavedFlashcard />
-        </Container>
-
-        <Container className={classes.flashcardContainer}>
-          <SavedFlashcard />
-        </Container>
+        {cardElements.length === 0 ? (
+          <CircularProgress
+            style={{ position: "absolute", left: "50%", top: "100%" }}
+          />
+        ) : (
+          cardElements
+        )}
       </Container>
 
       <Container id="footer-popup" className={classes.footer}>

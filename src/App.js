@@ -23,13 +23,13 @@ import Login from "./pages/login";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Password from "./pages/password";
-import { Hub } from "aws-amplify";
 import Amplify, { Auth } from "aws-amplify";
 import awsconfig from "./aws-exports";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Sidebar from "./components/Sidebar";
 import clsx from "clsx";
+import { getSavedCards } from "./api/userApi";
 Amplify.configure(awsconfig);
 
 const useStyles = makeStyles((theme) => ({
@@ -113,6 +113,7 @@ function App() {
   const [user, setUser] = useState(null);
   const [isUserLoggedIn, setUserLoggedIn] = useState("initializing");
   const [open, setOpen] = React.useState(false);
+  const [savedCards, setSavedCards] = useState([]);
 
   const theme = createMuiTheme({
     palette: {
@@ -138,22 +139,26 @@ function App() {
   });
 
   useEffect(() => {
-    Hub.listen("auth", ({ payload: { event, data } }) => {
-      switch (event) {
-        case "signIn":
-          getUser().then((userData) => setUser(userData));
-          break;
-        case "signOut":
-          setUser(null);
-          break;
-        case "signIn_failure":
-          console.log("Sign in failure", data);
-          break;
-        default:
-          break;
+    const handleUser = async (user) => {
+      setUser(user);
+
+      if (isUserLoggedIn === "loggedIn") {
+        let result = await getSavedCards(user.attributes.email);
+        setSavedCards(result);
       }
-    });
-  }, []);
+    };
+
+    switch (isUserLoggedIn) {
+      case "loggedIn":
+        getUser().then((userData) => handleUser(userData));
+        break;
+      case "loggedOut":
+        handleUser(null);
+        break;
+      default:
+        break;
+    }
+  }, [isUserLoggedIn]);
 
   useEffect(() => {
     checkAuthState();
@@ -337,13 +342,23 @@ function App() {
                         <Route
                           path={allTabs[1]}
                           render={() => (
-                            <Revise isUserLoggedIn={isUserLoggedIn} />
+                            <Revise
+                              isUserLoggedIn={isUserLoggedIn}
+                              user={user}
+                              savedCards={savedCards}
+                              setSavedCards={setSavedCards}
+                            />
                           )}
                         />
                         <Route
                           path={allTabs[2]}
                           render={() => (
-                            <Saved isUserLoggedIn={isUserLoggedIn} />
+                            <Saved
+                              isUserLoggedIn={isUserLoggedIn}
+                              savedCards={savedCards}
+                              setSavedCards={setSavedCards}
+                              user={user}
+                            />
                           )}
                         />
                         <Route

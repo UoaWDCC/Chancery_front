@@ -20,8 +20,8 @@ function Revise(props) {
   const matches = useMediaQuery((theme) => theme.breakpoints.up("lg"));
   let history = useHistory();
 
-  if(props.isUserLoggedIn === "loggedOut"){
-    history.push('/login')
+  if (props.isUserLoggedIn === "loggedOut") {
+    history.push("/login");
   }
 
   return (
@@ -46,7 +46,11 @@ function Revise(props) {
           style={{ flex: 1 }}
         >
           <Grid item style={{ width: "100%" }}>
-            <Flashcard />
+            <Flashcard
+              user={props.user}
+              savedCards={props.savedCards}
+              setSavedCards={props.setSavedCards}
+            />
           </Grid>
           <Hidden xsDown>
             <Grid item>
