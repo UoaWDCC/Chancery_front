@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import SavedFlashcard from "../components/SavedFlashcard";
 
 import { makeStyles } from "@material-ui/core/styles";
