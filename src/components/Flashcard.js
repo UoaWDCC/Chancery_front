@@ -211,13 +211,13 @@ function Flashcard(props) {
     displayedFlashcards[currentIndex]
   );
   const [loading, setLoading] = useState(false);
-  const { savedCards, setSavedCards } = props;
+  const { savedCards, setSavedCards, user } = props;
 
   const handleSave = async () => {
     try {
       if (saved === false) {
         let param = {
-          emailAddress: props.user.attributes.email,
+          emailAddress: user.attributes.email,
           flashCardID: currentFlashcard.id,
           flashCard: currentFlashcard,
         };
@@ -283,7 +283,7 @@ function Flashcard(props) {
     },
   })(Typography);
 
-  useHotkeys("s", handleSave);
+  useHotkeys("s", handleSave, [user, currentFlashcard, savedCards, saved]);
   useHotkeys("left", () => setMove("left"), [move]);
   useHotkeys("right", () => setMove("right"), [move]);
   useHotkeys("space", () => setShowAnswer(!show), [show]);
