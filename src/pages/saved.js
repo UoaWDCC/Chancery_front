@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import SavedFlashcard from "../components/SavedFlashcard";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -118,7 +118,7 @@ function Saved(props) {
   detectScrollDown();
 
   return (
-    <div style={{ position: "relative", paddingTop: "10vh" }}>
+    <Grid container style={{ position: "relative", paddingTop: "10vh", minHeight: "100vh" }}>
       <Container style={{ padding: "3em 3em 150px 3em" }}>
         <Grid container>
           <Grid item container xs={1} />
@@ -158,7 +158,7 @@ function Saved(props) {
           </Button>
         </Link>
       </Container>
-    </div>
+    </Grid>
   );
 }
 
