@@ -4,10 +4,8 @@ import SavedFlashcard from "../components/SavedFlashcard";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
-import { Button, CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
-
-import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
@@ -73,21 +71,13 @@ function detectScrollDown() {
 
             this.oldScroll = this.scrollY; */
 
-      // LATER remove 200 and Calculate actual y pos of practice button
-      if (this.scrollY > 200) {
-        document.getElementById("footer-popup").style.bottom = "calc(0%)";
-      } else {
-        document.getElementById("footer-popup").style.bottom =
-          "calc(0% - 120px)";
-      }
     }
   };
 }
 
 function Saved(props) {
   const classes = useStyles();
-  const { savedCards, setSavedCards } = props;
-
+  const { savedCards, setSavedCards, loadingCards } = props;
   let history = useHistory();
 
   if (props.isUserLoggedIn === "loggedOut") {
@@ -115,6 +105,7 @@ function Saved(props) {
     });
   }
 
+
   detectScrollDown();
 
   return (
@@ -127,25 +118,17 @@ function Saved(props) {
           </Grid>
         </Grid>
 
-        {cardElements.length === 0 ? (
+        {loadingCards ? (
           <CircularProgress
-            style={{ position: "absolute", left: "50%", top: "100%" }}
+            style={{ position: "absolute", left: "50%", top: "50%" }}
           />
         ) : (
-          cardElements
+          savedCards.length > 0 ?
+          cardElements : 
+          <Typography variant={"h4"} style={{textAlign: 'center', marginTop: "5rem"}}>
+                No card has been saved
+          </Typography>
         )}
-      </Container>
-
-      <Container id="footer-popup" className={classes.footer}>
-        <Link to={"/revise"} style={{ textDecoration: "none" }}>
-          <Button
-            className={classes.button}
-            color={"primary"}
-            variant={"contained"}
-          >
-            Practice Now
-          </Button>
-        </Link>
       </Container>
     </Grid>
   );

@@ -114,6 +114,7 @@ function App() {
   const [isUserLoggedIn, setUserLoggedIn] = useState("initializing");
   const [open, setOpen] = React.useState(false);
   const [savedCards, setSavedCards] = useState([]);
+  const [loadingCards, setLoadingCards] = useState(true);
 
   const theme = createMuiTheme({
     palette: {
@@ -158,6 +159,9 @@ function App() {
       default:
         break;
     }
+
+    
+    setLoadingCards(false);
   }, [isUserLoggedIn]);
 
   useEffect(() => {
@@ -347,6 +351,7 @@ function App() {
                               user={user}
                               savedCards={savedCards}
                               setSavedCards={setSavedCards}
+                              loadingCards={loadingCards}
                             />
                           )}
                         />
