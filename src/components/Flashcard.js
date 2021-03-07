@@ -267,6 +267,7 @@ function Flashcard(props) {
   useEffect(() => {
     if (
       savedCards &&
+      currentFlashcard &&
       savedCards.find((item) => item.flashCardID === currentFlashcard.id)
     ) {
       setSaved(true);
