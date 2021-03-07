@@ -60,7 +60,7 @@ function Socials() {
         >
           <LinkedIn className={classes.icon} />
         </Link>
-        <Link href="mailto: chanceryapp@gmail.com" target={"__blank"}>
+        <Link href="mailto: support@chancery.app" target={"__blank"}>
           <Email className={clsx(classes.icon, classes.emailIcon)} />
         </Link>
       </div>
