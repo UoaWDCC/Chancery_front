@@ -125,17 +125,6 @@ function Saved(props) {
           <Grid item container xs={6}>
             <Typography className={classes.title}>Saved Questions:</Typography>
           </Grid>
-          <Grid item container xs={5} justify="flex-end">
-            <Link to={"/revise"} style={{ textDecoration: "none" }}>
-              <Button
-                className={classes.button}
-                color={"primary"}
-                variant={"contained"}
-              >
-                Practice Now
-              </Button>
-            </Link>
-          </Grid>
         </Grid>
 
         {cardElements.length === 0 ? (
