@@ -102,7 +102,7 @@ function Sidebar(props) {
             color: darkMode ? "white" : "black",
           }}
         >
-          <ListItem button>
+          <ListItem button onClick={handleDrawerClose}>
             <ListItemIcon>
               <Home />
             </ListItemIcon>
@@ -117,7 +117,7 @@ function Sidebar(props) {
             color: darkMode ? "white" : "black",
           }}
         >
-          <ListItem button>
+          <ListItem button onClick={handleDrawerClose}>
             <ListItemIcon>
               <ImportContacts />
             </ListItemIcon>
@@ -132,7 +132,7 @@ function Sidebar(props) {
             color: darkMode ? "white" : "black",
           }}
         >
-          <ListItem button>
+          <ListItem button onClick={handleDrawerClose}>
             <ListItemIcon>
               <BookmarkBorder />
             </ListItemIcon>
@@ -165,7 +165,7 @@ function Sidebar(props) {
               color: darkMode ? "white" : "black",
             }}
           >
-            <ListItem button className={classes.nested}>
+            <ListItem button className={classes.nested} onClick={handleDrawerClose}>
               <ListItemIcon>
                 <Settings />
               </ListItemIcon>
