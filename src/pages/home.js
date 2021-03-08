@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import Logo from "../icons/Chancery_logo.png";
 import ParticleComponent from "../components/ParticleComponent";
-import Socials from "../components/Socials"
+import Socials from "../components/Socials";
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bold",
     fontSize: "25px",
     padding: "15px 35px 15px 35px",
+    marginBottom: "100px",
     "&:hover": {
       borderWidth: "3px",
       backgroundColor: "#21CE99",
@@ -61,8 +62,6 @@ function Home(props) {
       container
       spacing={0}
       direction="column"
-      alignItems="center"
-      justify="center"
       style={{ minHeight: "100vh" }}
     >
       <ParticleComponent />
@@ -72,6 +71,8 @@ function Home(props) {
         container
         direction="column"
         alignItems="center"
+        justify="center"
+        style={{ minHeight: "100vh", paddingTop: "calc(10vh + 3em)", position: "relative"}}
       >
         <img src={Logo} className={classes.logo} alt="Logo" />
         <Typography className={classes.title} variant={"h1"} color={"primary"}>
@@ -92,8 +93,8 @@ function Home(props) {
             Start Revising
           </Button>
         </Link>
+        <Socials />
       </Grid>
-      <Socials/>
     </Grid>
   );
 }
