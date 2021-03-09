@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
     bottom: "10px",
     left: "50%",
     transform: "translateX(-50%)",
+    width: "100%",
 
     display: "flex",
     flexDirection: "column",
